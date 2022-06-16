@@ -1,6 +1,6 @@
 const axios = require('axios')
 
-const riotToken = 'RGAPI-27fb5130-23d2-4a5d-b859-662e665711db'
+const riotToken = 'RGAPI-33e075a5-4dbe-483f-8de9-fd46c46e14fe'
 
 async function summoner(req, res) {
 
@@ -36,7 +36,26 @@ async function matchList(req, res){
     return res.status(200).json({ success: true })
 }
 
+async function match(req, res){
+
+    const matchId = 'KR_5969904649'
+
+    const match = await axios({
+        method: 'GET',
+        url: encodeURI(`https://asia.api.riotgames.com/lol/match/v5/matches/${matchId}`),
+        headers: {
+            "X-Riot-Token": riotToken
+        },
+    })
+
+    console.log(match.data)
+    console.log(match.data.info.participants[0])
+
+    return res.status(200).json({ success: true })
+}
+
 module.exports = {
     summoner,
-    matchList
+    matchList,
+    match
 }
