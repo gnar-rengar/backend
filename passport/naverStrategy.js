@@ -15,13 +15,10 @@ module.exports = () => {
                 callbackURL: process.env.NAVER_URL,
             },
             async (accessToken, refreshToken, profile, done) => {
-                // console.log('naver profile : ', profile)
                 try {
                     const exUser = await Users.findOne({
-                        // 네이버 플랫폼에서 로그인 했고 & snsId필드에 네이버 아이디가 일치할경우
                         where: { socialId: profile.id, social: 'naver' },
                     })
-                    // 이미 가입된 네이버 프로필이면 성공
                     if (exUser) {
                         done(null, exUser)
                     } else {
@@ -29,7 +26,6 @@ module.exports = () => {
                         if (profile.nickname.length > 8) {
                             nickname = profile.nickname.substr(0, 8)
                         }
-                        // 가입되지 않는 유저면 회원가입 시키고 로그인을 시킨다
                         const newUser = await Users.create({
                             social: 'naver',
                             socialId: profile.id,
