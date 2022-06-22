@@ -3,7 +3,7 @@ const {
     Strategy: NaverStrategy,
     Profile: NaverProfile,
 } = require('passport-naver-v2')
-const { Users } = require('../models/index')
+const { User } = require('../schemas/user')
 require('dotenv').config()
 
 module.exports = () => {
@@ -16,9 +16,7 @@ module.exports = () => {
             },
             async (accessToken, refreshToken, profile, done) => {
                 try {
-                    const exUser = await Users.findOne({
-                        where: { socialId: profile.id, social: 'naver' },
-                    })
+                    const exUser = await Users.findOne( { socialId: profile.id, social: 'naver' } )
                     if (exUser) {
                         done(null, exUser)
                     } else {
@@ -30,7 +28,6 @@ module.exports = () => {
                             social: 'naver',
                             socialId: profile.id,
                             nickname,
-                            profileUrl: profile.profileImage,
                         })
                         done(null, newUser)
                     }

@@ -1,4 +1,5 @@
 const axios = require('axios')
+const User = require('../schemas/user')
 
 const riotToken = 'RGAPI-33e075a5-4dbe-483f-8de9-fd46c46e14fe'
 
@@ -54,8 +55,23 @@ async function match(req, res){
     return res.status(200).json({ success: true })
 }
 
+async function createUser(req, res){
+    const userId= 'aa'
+    const nickName = 'bb'
+    const password = 'cc'
+
+    await User.create({
+        userId,
+        nickName,
+        password
+    })
+
+    return res.status(200).json({ success: true })
+}
+
 module.exports = {
     summoner,
     matchList,
-    match
+    match,
+    createUser
 }
