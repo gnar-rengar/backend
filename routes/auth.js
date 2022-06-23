@@ -1,6 +1,6 @@
 const router = require("express").Router()
 const passport = require('passport')
-const authController = require("../controller/auth")
+const authController = require("../controllers/auth")
 
 router.get('/kakao', passport.authenticate('kakao'))
 router.get('/kakao/callback', authController.kakaoCallback)
