@@ -2,10 +2,10 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const Router = require('./routes')
-// const passport = require('passport')
+const passport = require('passport')
 const session = require('express-session')
 var cookieParser = require('cookie-parser')
-// const passportConfig = require('./passport')
+const passportConfig = require('./passport')
 
 require('dotenv').config()
 
@@ -36,10 +36,10 @@ app.use(
 )
 const connect = require("./schemas")
 connect()
-// passportConfig()
+passportConfig()
 
-// app.use(passport.initialize())
-// app.use(passport.session())
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use('/', Router)
 

@@ -7,9 +7,9 @@ module.exports = () => {
     passport.use(
         new GoogleStrategy(
             {
-                clientID: GOOGLE_CLIENT_ID,
-                clientSecret: GOOGLE_CLIENT_SECRET,
-                callbackURL: "http://localhost:8080/auth/google/callback",
+                clientID: process.env.GOOGLE_ID,
+                clientSecret: process.env.GOOGLE_SECRET,
+                callbackURL: process.env.GOOGLE_URL,
                 passReqToCallback: true,
             },
             async (accessToken, refreshToken, profile, done) => {

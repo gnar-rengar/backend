@@ -123,8 +123,10 @@ async function checkNick(req, res) {
                 "X-Riot-Token": riotToken
             },
         })
+
         res.status(200).send({
             success: true,
+            profileUrl: `http://ddragon.leagueoflegends.com/cdn/12.11.1/img/profileicon/${summoner.data.profileIconId}.png`,
             message: "계정이 확인되었습니다."
         })
     } catch (error) {

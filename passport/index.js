@@ -1,8 +1,8 @@
 const passport = require('passport')
-// const { Users } = require('../models/index')
+const User = require('../schemas/user')
 
 const kakao = require('./kakaoStrategy')
-// const google = require('./googleStrategy')
+const google = require('./googleStrategy')
 const naver = require('./naverStrategy')
 
 module.exports = () => {
@@ -11,12 +11,12 @@ module.exports = () => {
     })
 
     passport.deserializeUser((id, done) => {
-        Users.findOne({ where: { userId: id } })
+        User.findOne({ userId: id })
             .then((user) => done(null, user))
             .catch((err) => done(err))
     })
 
     kakao()
-    google()
+    // google()
     naver()
 }
