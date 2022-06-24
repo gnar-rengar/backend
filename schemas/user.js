@@ -6,10 +6,11 @@ const userSchema = new mongoose.Schema({
     profileUrl: { type: String },
     nickname: { type: String, required: true },
     lolNickname: { type: String, unique: true },
-    playStyle: { type: [Number] },
+    playStyle: { type: [String] },
     position: { type: [String] },
-    voice: { type: [String] },
-    communication: { type: [Number] }
+    voice: { type: Boolean },
+    voiceChannel: { type: [String] },
+    communication: { type: [String] }
 })
 
 

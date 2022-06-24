@@ -1,7 +1,8 @@
 const axios = require('axios')
 const User = require('../schemas/user')
+require('dotenv').config()
 
-const riotToken = 'RGAPI-33e075a5-4dbe-483f-8de9-fd46c46e14fe'
+const riotToken = process.env.riotTokenKey
 
 async function summoner(req, res) {
 
