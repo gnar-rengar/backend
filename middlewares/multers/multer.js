@@ -60,33 +60,19 @@ const upload = multer({
     fileFilter: fileFilter,
 })
 
-const deleteImg = (url) => {
-    if (url) {
-        s3.deleteObject(
-            {
-                Bucket: process.env.AWS_S3_BUCKET,
-                Key: url,
-            },
-            function (err, data) {}
-        )
-        s3.deleteObject(
-            {
-                Bucket: process.env.AWS_S3_BUCKET_W384,
-                Key: url,
-            },
-            function (err, data) {}
-        )
-        s3.deleteObject(
-            {
-                Bucket: process.env.AWS_S3_BUCKET_W758,
-                Key: url,
-            },
-            function (err, data) {}
-        )
-    }
+const deleteImage = (url) => {
+    const filename = url.split('/')[3]
+
+    s3.deleteObject(
+        {
+            Bucket: process.env.AWS_S3_BUCKET,
+            Key: filename,
+        },
+        function (err, data) {}
+    )
 }
 
 module.exports = {
     upload,
-    deleteImg,
+    deleteImage,
 }

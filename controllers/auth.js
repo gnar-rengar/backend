@@ -1,6 +1,5 @@
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
-const axios = require('axios')
 const User = require('../schemas/user')
 require('dotenv').config()
 
@@ -101,42 +100,6 @@ async function checkMyInfo(req, res) {
     })
 }
 
-async function checkNick(req, res) {
-    const { lolNickname } = req.body
-
-    const exUser = await User.findOne( { lolNickname } )
-
-    if(exUser) {
-        return res.send({
-            success: false,
-            message: "이미 등록된 계정입니다."
-        })
-    }
-
-    const riotToken = process.env.riotTokenKey
-
-    try{
-        const summoner = await axios({
-            method: 'GET',
-            url: encodeURI(`https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${lolNickname}`),
-            headers: {
-                "X-Riot-Token": riotToken
-            },
-        })
-
-        res.status(200).send({
-            success: true,
-            profileUrl: `http://ddragon.leagueoflegends.com/cdn/12.11.1/img/profileicon/${summoner.data.profileIconId}.png`,
-            message: "계정이 확인되었습니다."
-        })
-    } catch (error) {
-        res.status(404).send({
-            success: false,
-            message: "존재하지 않는 계정입니다."
-        })
-    }
-}
-
 async function logout(req, res) {
     const userId = res.locals.userId
     const agent = req.headers['user-agent']
@@ -175,7 +138,6 @@ module.exports = {
     googleCallback,
     naverCallback,
     checkMyInfo,
-    checkNick,
     logout,
     deleteUser,
 }
