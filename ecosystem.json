@@ -1,0 +1,10 @@
+{
+    "apps": [
+        {
+            "name": "duoplz",
+            "script": "node",
+            "args": "./server.js",
+            "watch": true
+        }
+    ]
+}

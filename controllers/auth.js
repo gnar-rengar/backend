@@ -36,19 +36,14 @@ const kakaoCallback = (req, res, next) => {
 }
 
 const googleCallback = (req, res) => {
-    
-}
-
-const naverCallback = (req, res, next) => {
     passport.authenticate(
-        'naver',
+        'google',
         { failureRedirect: '/' },
         async (err, user, info) => {
             if (err) return next(err)
             const agent = req.headers['user-agent']
-            const { userId } = user
-            let firstLogin = false
-            const currentUser = await userService.getUser(userId)
+            const userId = user._id
+            const currentUser = await User.findOne({ _id : userId })
             const token = jwt.sign({ userId: userId }, process.env.TOKENKEY, {
                 expiresIn: process.env.VALID_ACCESS_TOKEN_TIME,
             })
@@ -59,9 +54,6 @@ const naverCallback = (req, res, next) => {
             )
 
             const key = userId + agent
-            await userService.setRedis(key, refreshToken)
-
-            if (!currentUser.likeLocation) firstLogin = true
 
             return res.json({
                 succcss: true,
@@ -70,8 +62,38 @@ const naverCallback = (req, res, next) => {
                 userId,
                 nickname: currentUser.nickname,
                 profileUrl: currentUser.profileUrl,
-                firstLogin,
-                agreeSMS: currentUser.agreeSMS,
+            })
+        }
+    )(req, res, next)
+}
+
+const naverCallback = (req, res, next) => {
+    passport.authenticate(
+        'naver',
+        { failureRedirect: '/' },
+        async (err, user, info) => {
+            if (err) return next(err)
+            const agent = req.headers['user-agent']
+            const userId = user._id
+            const currentUser = await User.findOne({ _id : userId })
+            const token = jwt.sign({ userId: userId }, process.env.TOKENKEY, {
+                expiresIn: process.env.VALID_ACCESS_TOKEN_TIME,
+            })
+            const refreshToken = jwt.sign(
+                { userId: userId },
+                process.env.TOKENKEY,
+                { expiresIn: process.env.VALID_REFRESH_TOKEN_TIME }
+            )
+
+            const key = userId + agent
+
+            return res.json({
+                succcss: true,
+                token,
+                refreshToken,
+                userId,
+                nickname: currentUser.nickname,
+                profileUrl: currentUser.profileUrl,
             })
         }
     )(req, res, next)
