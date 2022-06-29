@@ -3,7 +3,7 @@ const {
     Strategy: NaverStrategy,
     Profile: NaverProfile,
 } = require('passport-naver-v2')
-const { User } = require('../schemas/user')
+const User = require('../schemas/user')
 require('dotenv').config()
 
 module.exports = () => {

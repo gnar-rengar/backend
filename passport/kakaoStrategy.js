@@ -1,6 +1,6 @@
 const passport = require('passport')
 const KakaoStrategy = require('passport-kakao').Strategy
-const { User } = require('../schemas/user')
+const User = require('../schemas/user')
 require('dotenv').config()
 
 module.exports = () => {

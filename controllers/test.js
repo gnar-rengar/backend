@@ -57,14 +57,11 @@ async function match(req, res){
 }
 
 async function createUser(req, res){
-    const userId= 'aa'
-    const nickName = 'bb'
-    const password = 'cc'
+    const nickname = 'bb'
 
+    console.log(User)
     await User.create({
-        userId,
-        nickName,
-        password
+        nickname,
     })
 
     return res.status(200).json({ success: true })

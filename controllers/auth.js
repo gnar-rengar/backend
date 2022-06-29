@@ -10,9 +10,8 @@ const kakaoCallback = (req, res, next) => {
         async (err, user, info) => {
             if (err) return next(err)
             const agent = req.headers['user-agent']
-            const { userId } = user
-            let firstLogin = false
-            const currentUser = await userService.getUser(userId)
+            const userId = user._id
+            const currentUser = await User.findOne({ _id : userId })
             const token = jwt.sign({ userId: userId }, process.env.TOKENKEY, {
                 expiresIn: process.env.VALID_ACCESS_TOKEN_TIME,
             })
@@ -23,9 +22,6 @@ const kakaoCallback = (req, res, next) => {
             )
 
             const key = userId + agent
-            await userService.setRedis(key, refreshToken)
-
-            if (!currentUser.likeLocation) firstLogin = true
 
             return res.json({
                 succcss: true,
@@ -34,8 +30,6 @@ const kakaoCallback = (req, res, next) => {
                 userId,
                 nickname: currentUser.nickname,
                 profileUrl: currentUser.profileUrl,
-                firstLogin,
-                agreeSMS: currentUser.agreeSMS,
             })
         }
     )(req, res, next)
