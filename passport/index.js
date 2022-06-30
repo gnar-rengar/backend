@@ -4,6 +4,7 @@ const User = require('../schemas/user')
 const kakao = require('./kakaoStrategy')
 const google = require('./googleStrategy')
 const naver = require('./naverStrategy')
+const discord = require('./discordStrategy')
 
 module.exports = () => {
     passport.serializeUser((user, done) => {
@@ -17,6 +18,7 @@ module.exports = () => {
     })
 
     kakao()
-    // google()
+    google()
     naver()
+    discord()
 }

@@ -1,19 +1,19 @@
 const passport = require('passport')
-const GoogleStrategy = require("passport-google-oauth20").Strategy
+const DiscordStrategy = require("passport-discord").Strategy
 const User = require('../schemas/user')
 require('dotenv').config()
 
 module.exports = () => {
     passport.use(
-        new GoogleStrategy(
+        new DiscordStrategy(
             {
-                clientID: process.env.GOOGLE_ID,
-                clientSecret: process.env.GOOGLE_SECRET,
-                callbackURL: process.env.GOOGLE_URL,
+                clientID: process.env.DISCORD_ID,
+                clientSecret: process.env.DISCORD_SECRET,
+                callbackURL: process.env.DISCORD_URL,
             },
             async (accessToken, refreshToken, profile, done) => {
                 try {
-                    const exUser = await User.findOne( { socialId: profile.id, social: 'google' } )
+                    const exUser = await User.findOne( { socialId: profile.id, social: 'discord' } )
                     if (exUser) {
                         done(null, exUser)
                     } else {
@@ -22,7 +22,7 @@ module.exports = () => {
                             nickname = profile.nickname.substr(0, 8)
                         }
                         const newUser = await User.create({
-                            social: 'google',
+                            social: 'discord',
                             socialId: profile.id,
                             nickname,
                         })

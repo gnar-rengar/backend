@@ -99,6 +99,38 @@ const naverCallback = (req, res, next) => {
     )(req, res, next)
 }
 
+const discordCallback = (req, res, next) => {
+    passport.authenticate(
+        'discord',
+        { failureRedirect: '/' },
+        async (err, user, info) => {
+            if (err) return next(err)
+            const agent = req.headers['user-agent']
+            const userId = user._id
+            const currentUser = await User.findOne({ _id : userId })
+            const token = jwt.sign({ userId: userId }, process.env.TOKENKEY, {
+                expiresIn: process.env.VALID_ACCESS_TOKEN_TIME,
+            })
+            const refreshToken = jwt.sign(
+                { userId: userId },
+                process.env.TOKENKEY,
+                { expiresIn: process.env.VALID_REFRESH_TOKEN_TIME }
+            )
+
+            const key = userId + agent
+
+            return res.json({
+                succcss: true,
+                token,
+                refreshToken,
+                userId,
+                nickname: currentUser.nickname,
+                profileUrl: currentUser.profileUrl,
+            })
+        }
+    )(req, res, next)
+}
+
 async function checkMyInfo(req, res) {
     const userId = res.locals.userId
     const nickname = res.locals.nickname
@@ -153,6 +185,7 @@ module.exports = {
     kakaoCallback,
     googleCallback,
     naverCallback,
+    discordCallback,
     checkMyInfo,
     logout,
     deleteUser,
