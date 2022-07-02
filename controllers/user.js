@@ -128,23 +128,45 @@ async function writeReview(req, res) {
     const goodReview = req.body.goodReview
     const badReview = req.body.badReview
 
-    const reviewedCheck = await Review.findOne({ reviewedId })
-    if(reviewedCheck) {
-        await Review.updateOne({ reviewedId }, { $push: { reviewerId} } )
-        for(let i = 0; i < goodReview.length; i++) {
-
+    try {
+        const reviewedCheck = await Review.findOne({ reviewedId })
+        if (reviewedCheck) {
+            await Review.updateOne({ reviewedId }, { $push: { reviewerId } })
+            for (let i = 0; i < goodReview.length; i++) {
+                const descriptionCheck = await Review.findOne({ reviewedId, 'goodReview.description': goodReview[i].description })
+                if (descriptionCheck) {
+                    await Review.updateOne({ reviewedId, 'goodReview.description': goodReview[i].description }, { $inc: { 'goodReview.$.count': 1 } })
+                } else {
+                    await Review.updateOne({ reviewedId }, { $push: { goodReview: { description: goodReview[i].description, count: 1 } } })
+                }
+            }
+            for (let i = 0; i < badReview.length; i++) {
+                const descriptionCheck = await Review.findOne({ reviewedId, 'badReview.description': badReview[i].description })
+                if (descriptionCheck) {
+                    await Review.updateOne({ reviewedId, 'badReview.description': badReview[i].description }, { $inc: { 'badReview.$.count': 1 } })
+                } else {
+                    await Review.updateOne({ reviewedId }, { $push: { badReview: { description: badReview[i].description, count: 1 } } })
+                }
+            }
+        } else {
+            await Review.create({ reviewedId, reviewerId })
+            for (let i = 0; i < goodReview.length; i++) {
+                await Review.updateOne({ reviewedId }, { $push: { goodReview: { description: goodReview[i].description, count: 1 } } })
+            }
+            for (let i = 0; i < badReview.length; i++) {
+                await Review.updateOne({ reviewedId }, { $push: { badReview: { description: badReview[i].description, count: 1 } } })
+            }
         }
-    } else {
-        await Review.create({ reviewedId, reviewerId })
-        for(let i = 0; i < goodReview.length; i++) {
-            await Review.updateOne({ reviewedId }, { $push: { goodReview : { description: goodReview[i].description, count: 1 } } })
-        }
-        for(let i = 0; i < badReview.length; i++) {
-            await Review.updateOne({ reviewedId }, { $push: { badReview : { description: badReview[i].description, count: 1 } } })
-        }
+        res.status(200).send({
+            success: true,
+            message: '리뷰작성에 성공하였습니다.',
+        })
+    } catch (error) {
+        res.send({
+            success: false,
+            message: "리뷰작성에 실패하였습니다."
+        })
     }
-
-    res.send({success:true})
 }
 
 
