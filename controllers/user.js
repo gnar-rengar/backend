@@ -1,5 +1,6 @@
 const axios = require('axios')
 const User = require('../schemas/user')
+const Review = require('../schemas/review')
 const multer = require('../middlewares/multers/multer')
 require('dotenv').config()
 
@@ -46,6 +47,7 @@ async function updateOnboarding(req, res) {
     const userId = "62bc79d90970421823066d44"
 
     const data = {
+        profileUrl: req.body.profileUrl,
         nickname: req.body.nickname,
         lolNickname : req.body.lolNickname,
         playStyle: req.body.playStyle,
@@ -106,9 +108,50 @@ async function getOnboarding(req, res) {
     }
 }
 
+async function getReview(req, res) {
+    const reviewedId = req.params.userId
+}
+
+async function writeReview(req, res) {
+    const reviewedId = req.params.userId
+    // const reviewerId = les.locals.userId
+    const reviewerId = "62bc79d90970421823066d44"
+
+    // const reviewerCheck = await Review.findOne({ reviewedId, reviewerId })
+    // if(reviewerCheck) {
+    //     return res.send({
+    //         success: false,
+    //         message: "이미 리뷰를 작성한 유저입니다."
+    //     })
+    // }
+
+    const goodReview = req.body.goodReview
+    const badReview = req.body.badReview
+
+    const reviewedCheck = await Review.findOne({ reviewedId })
+    if(reviewedCheck) {
+        await Review.updateOne({ reviewedId }, { $push: { reviewerId} } )
+        for(let i = 0; i < goodReview.length; i++) {
+
+        }
+    } else {
+        await Review.create({ reviewedId, reviewerId })
+        for(let i = 0; i < goodReview.length; i++) {
+            await Review.updateOne({ reviewedId }, { $push: { goodReview : { description: goodReview[i].description, count: 1 } } })
+        }
+        for(let i = 0; i < badReview.length; i++) {
+            await Review.updateOne({ reviewedId }, { $push: { badReview : { description: badReview[i].description, count: 1 } } })
+        }
+    }
+
+    res.send({success:true})
+}
+
 
 module.exports = {
     checkNick,
     updateOnboarding,
-    getOnboarding
+    getOnboarding,
+    getReview,
+    writeReview
 }

@@ -17,9 +17,9 @@ module.exports = () => {
                     if (exUser) {
                         done(null, exUser)
                     } else {
-                        let nickname = profile.nickname //profile.nickname 맞는지 확인해야함
-                        if (profile.nickname.length > 8) {
-                            nickname = profile.nickname.substr(0, 8)
+                        let nickname = profile.username //profile.nickname 맞는지 확인해야함
+                        if (profile.username.length > 8) {
+                            nickname = profile.username.substr(0, 8)
                         }
                         const newUser = await User.create({
                             social: 'discord',
