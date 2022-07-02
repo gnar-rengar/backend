@@ -44,7 +44,7 @@ async function checkNick(req, res) {
 
 async function updateOnboarding(req, res) {
     // const userId = les.locals.userId
-    const userId = "62bc79d90970421823066d44"
+    const userId = "62bfd94f10fe87a93848aa59"
 
     const data = {
         profileUrl: req.body.profileUrl,
@@ -83,7 +83,7 @@ async function updateOnboarding(req, res) {
 
 async function getOnboarding(req, res) {
     // const userId = les.locals.userId
-    const userId = "62bc79d90970421823066d44"
+    const userId = "62bfd94f10fe87a93848aa59"
 
     try {
         const currentUser = await User.findOne({ _id: userId })
@@ -115,7 +115,7 @@ async function getReview(req, res) {
 async function writeReview(req, res) {
     const reviewedId = req.params.userId
     // const reviewerId = les.locals.userId
-    const reviewerId = "62bc79d90970421823066d44"
+    const reviewerId = "62bfd98e10fe87a93848aa5d"
 
     // const reviewerCheck = await Review.findOne({ reviewedId, reviewerId })
     // if(reviewerCheck) {

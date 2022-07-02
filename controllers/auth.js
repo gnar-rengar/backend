@@ -3,6 +3,9 @@ const jwt = require('jsonwebtoken')
 const User = require('../schemas/user')
 require('dotenv').config()
 
+const tokenExpireTime = process.env.VALID_ACCESS_TOKEN_TIME
+const rtokenExpireTime = process.env.VALID_REFRESH_TOKEN_TIME
+
 const kakaoCallback = (req, res, next) => {
     passport.authenticate(
         'kakao',
@@ -11,14 +14,16 @@ const kakaoCallback = (req, res, next) => {
             if (err) return next(err)
             const agent = req.headers['user-agent']
             const userId = user._id
-            const currentUser = await User.findOne({ _id : userId })
-            const token = jwt.sign({ userId: userId }, process.env.TOKENKEY, {
-                expiresIn: process.env.VALID_ACCESS_TOKEN_TIME,
-            })
+            const currentUser = await User.findOne({ _id: userId })
+            const token = jwt.sign(
+                { userId: userId },
+                process.env.TOKENKEY,
+                { expiresIn: tokenExpireTime }
+            )
             const refreshToken = jwt.sign(
                 { userId: userId },
                 process.env.TOKENKEY,
-                { expiresIn: process.env.VALID_REFRESH_TOKEN_TIME }
+                { expiresIn: rtokenExpireTime }
             )
 
             const key = userId + agent
@@ -26,7 +31,9 @@ const kakaoCallback = (req, res, next) => {
             return res.json({
                 succcss: true,
                 token,
+                tokenExpireTime,
                 refreshToken,
+                rtokenExpireTime,
                 userId,
                 nickname: currentUser.nickname,
                 profileUrl: currentUser.profileUrl,
@@ -43,14 +50,16 @@ const googleCallback = (req, res) => {
             if (err) return next(err)
             const agent = req.headers['user-agent']
             const userId = user._id
-            const currentUser = await User.findOne({ _id : userId })
-            const token = jwt.sign({ userId: userId }, process.env.TOKENKEY, {
-                expiresIn: process.env.VALID_ACCESS_TOKEN_TIME,
-            })
+            const currentUser = await User.findOne({ _id: userId })
+            const token = jwt.sign(
+                { userId: userId },
+                process.env.TOKENKEY,
+                { expiresIn: tokenExpireTime }
+            )
             const refreshToken = jwt.sign(
                 { userId: userId },
                 process.env.TOKENKEY,
-                { expiresIn: process.env.VALID_REFRESH_TOKEN_TIME }
+                { expiresIn: rtokenExpireTime }
             )
 
             const key = userId + agent
@@ -58,7 +67,9 @@ const googleCallback = (req, res) => {
             return res.json({
                 succcss: true,
                 token,
+                tokenExpireTime,
                 refreshToken,
+                rtokenExpireTime,
                 userId,
                 nickname: currentUser.nickname,
                 profileUrl: currentUser.profileUrl,
@@ -75,14 +86,16 @@ const naverCallback = (req, res, next) => {
             if (err) return next(err)
             const agent = req.headers['user-agent']
             const userId = user._id
-            const currentUser = await User.findOne({ _id : userId })
-            const token = jwt.sign({ userId: userId }, process.env.TOKENKEY, {
-                expiresIn: process.env.VALID_ACCESS_TOKEN_TIME,
-            })
+            const currentUser = await User.findOne({ _id: userId })
+            const token = jwt.sign(
+                { userId: userId },
+                process.env.TOKENKEY,
+                { expiresIn: tokenExpireTime }
+            )
             const refreshToken = jwt.sign(
                 { userId: userId },
                 process.env.TOKENKEY,
-                { expiresIn: process.env.VALID_REFRESH_TOKEN_TIME }
+                { expiresIn: rtokenExpireTime }
             )
 
             const key = userId + agent
@@ -90,7 +103,9 @@ const naverCallback = (req, res, next) => {
             return res.json({
                 succcss: true,
                 token,
+                tokenExpireTime,
                 refreshToken,
+                rtokenExpireTime,
                 userId,
                 nickname: currentUser.nickname,
                 profileUrl: currentUser.profileUrl,
@@ -107,14 +122,16 @@ const discordCallback = (req, res, next) => {
             if (err) return next(err)
             const agent = req.headers['user-agent']
             const userId = user._id
-            const currentUser = await User.findOne({ _id : userId })
-            const token = jwt.sign({ userId: userId }, process.env.TOKENKEY, {
-                expiresIn: process.env.VALID_ACCESS_TOKEN_TIME,
-            })
+            const currentUser = await User.findOne({ _id: userId })
+            const token = jwt.sign(
+                { userId: userId },
+                process.env.TOKENKEY,
+                { expiresIn: tokenExpireTime }
+            )
             const refreshToken = jwt.sign(
                 { userId: userId },
                 process.env.TOKENKEY,
-                { expiresIn: process.env.VALID_REFRESH_TOKEN_TIME }
+                { expiresIn: rtokenExpireTime }
             )
 
             const key = userId + agent
@@ -122,7 +139,9 @@ const discordCallback = (req, res, next) => {
             return res.json({
                 succcss: true,
                 token,
+                tokenExpireTime,
                 refreshToken,
+                rtokenExpireTime,
                 userId,
                 nickname: currentUser.nickname,
                 profileUrl: currentUser.profileUrl,
