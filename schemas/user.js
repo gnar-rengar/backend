@@ -10,7 +10,8 @@ const userSchema = new mongoose.Schema({
     position: { type: [String] },
     voice: { type: Boolean },
     voiceChannel: { type: [String] },
-    communication: { type: [String] }
+    communication: { type: [String] },
+    banId: { type: [String] }
 })
 
 

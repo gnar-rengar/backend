@@ -157,6 +157,11 @@ async function writeReview(req, res) {
                 await Review.updateOne({ reviewedId }, { $push: { badReview: { description: badReview[i].description, count: 1 } } })
             }
         }
+
+        if (req.body.ban) {
+            await User.updateOne({ _id: reviewerId }, { $push: { banId: reviewedId }})
+        }
+
         res.status(200).send({
             success: true,
             message: '리뷰작성에 성공하였습니다.',
