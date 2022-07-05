@@ -5,6 +5,7 @@ const multer = require('../middlewares/multers/multer')
 require('dotenv').config()
 const fs = require('fs')
 const queueTypes = fs.readFileSync('datas/queueTypes.json', 'utf8')
+const spells = fs.readFileSync('datas/spells.json', 'utf8')
 
 const riotToken = process.env.riotTokenKey
 
@@ -226,109 +227,8 @@ async function recentRecord (req, res) {
         data.gameEndTimestamp = match.data.info.gameEndTimestamp 
         data.win = myData[0].win
         data.championName = myData[0].championName
-
-        switch(myData[0].summoner1Id) {
-            case 1:
-                data.spell1 = "SummonerBoost"
-                break
-            case 3:
-                data.spell1 = "SummonerExhaust"
-                break
-            case 4:
-                data.spell1 = "SummonerFlash"
-                break
-            case 6:
-                data.spell1 = "SummonerHaste"
-                break
-            case 7:
-                data.spell1 = "SummonerHeal"
-                break
-            case 11:
-                data.spell1 = "SummonerSmite"
-                break
-            case 12:
-                data.spell1 = "SummonerTeleport"
-                break
-            case 13:
-                data.spell1 = "SummonerMana"
-                break
-            case 14:
-                data.spell1 = "SummonerDot"
-                break
-            case 21:
-                data.spell1 = "SummonerBarrier"
-                break
-            case 30:
-                data.spell1 = "SummonerPoroRecall"
-                break
-            case 31:
-                data.spell1 = "SummonerPoroThrow"
-                break
-            case 32:
-                data.spell1 = "SummonerSnowball"
-                break
-            case 39:
-                data.spell1 = "SummonerSnowURFSnowball_Mark"
-                break
-            case 54:
-                data.spell1 = "Summoner_UltBookPlaceholder"
-                break
-            case 55:
-                data.spell1 = "Summoner_UltBookSmitePlaceholder"
-                break
-        }
-
-        switch(myData[0].summoner2Id) {
-            case 1:
-                data.spell2 = "SummonerBoost"
-                break
-            case 3:
-                data.spell2 = "SummonerExhaust"
-                break
-            case 4:
-                data.spell2 = "SummonerFlash"
-                break
-            case 6:
-                data.spell2 = "SummonerHaste"
-                break
-            case 7:
-                data.spell2 = "SummonerHeal"
-                break
-            case 11:
-                data.spell2 = "SummonerSmite"
-                break
-            case 12:
-                data.spell2 = "SummonerTeleport"
-                break
-            case 13:
-                data.spell2 = "SummonerMana"
-                break
-            case 14:
-                data.spell2 = "SummonerDot"
-                break
-            case 21:
-                data.spell2 = "SummonerBarrier"
-                break
-            case 30:
-                data.spell2 = "SummonerPoroRecall"
-                break
-            case 31:
-                data.spell2 = "SummonerPoroThrow"
-                break
-            case 32:
-                data.spell2 = "SummonerSnowball"
-                break
-            case 39:
-                data.spell2 = "SummonerSnowURFSnowball_Mark"
-                break
-            case 54:
-                data.spell2 = "Summoner_UltBookPlaceholder"
-                break
-            case 55:
-                data.spell2 = "Summoner_UltBookSmitePlaceholder"
-                break
-        }
-
+        data.spell1 = JSON.parse(spells).find(x => x.key === myData[0].summoner1Id).id
+        data.spell2 = JSON.parse(spells).find(x => x.key === myData[0].summoner2Id).id
         data.item0 =  myData[0].item0
         data.item1 =  myData[0].item1
         data.item2 =  myData[0].item2
