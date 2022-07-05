@@ -4,6 +4,8 @@ const Review = require('../schemas/review')
 const multer = require('../middlewares/multers/multer')
 require('dotenv').config()
 
+const riotToken = process.env.riotTokenKey
+
 async function checkNick(req, res) {
     let lolNickname = ''
     if(req.query.lolNickname) {
@@ -18,8 +20,6 @@ async function checkNick(req, res) {
             message: "이미 등록된 계정입니다."
         })
     }
-
-    const riotToken = process.env.riotTokenKey
 
     try{
         const summoner = await axios({
@@ -174,11 +174,187 @@ async function writeReview(req, res) {
     }
 }
 
+async function userInfo (req, res) {
+
+}
+
+async function recentRecord (req, res) {
+    const userId = req.params.userId
+
+    const currentUser = await User.findOne({ _id: userId })
+    // const lolNickname = currentUser.lolNickname
+    const lolNickname = '배죤나고픔'
+
+    const summoner = await axios({
+        method: 'GET',
+        url: encodeURI(`https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${lolNickname}`),
+        headers: {
+            "X-Riot-Token": riotToken
+        },
+    })
+
+    const matchList = await axios({
+        method: 'GET',
+        url: encodeURI(`https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${summoner.data.puuid}/ids?start=0&count=10`),
+        headers: {
+            "X-Riot-Token": riotToken
+        },
+    })
+    
+    let recentRecord = []
+
+    for(let i = 0; i < matchList.data.length; i++) {
+
+        let data = {}
+
+        const match = await axios({
+            method: 'GET',
+            url: encodeURI(`https://asia.api.riotgames.com/lol/match/v5/matches/${matchList.data[i]}`),
+            headers: {
+                "X-Riot-Token": riotToken
+            },
+        })
+
+        const myData = match.data.info.participants.filter(x => x.summonerName == lolNickname)
+
+        data.gameMode = match.data.info.gameMode
+        data.gameType = match.data.info.gameType
+        data.gameStartTimestamp = match.data.info.gameStartTimestamp
+        data.gameEndTimestamp = match.data.info.gameEndTimestamp 
+        data.win = myData[0].win
+        data.championName = myData[0].championName
+
+        switch(myData[0].summoner1Id) {
+            case 1:
+                data.spell1 = "SummonerBoost"
+                break
+            case 3:
+                data.spell1 = "SummonerExhaust"
+                break
+            case 4:
+                data.spell1 = "SummonerFlash"
+                break
+            case 6:
+                data.spell1 = "SummonerHaste"
+                break
+            case 7:
+                data.spell1 = "SummonerHeal"
+                break
+            case 11:
+                data.spell1 = "SummonerSmite"
+                break
+            case 12:
+                data.spell1 = "SummonerTeleport"
+                break
+            case 13:
+                data.spell1 = "SummonerMana"
+                break
+            case 14:
+                data.spell1 = "SummonerDot"
+                break
+            case 21:
+                data.spell1 = "SummonerBarrier"
+                break
+            case 30:
+                data.spell1 = "SummonerPoroRecall"
+                break
+            case 31:
+                data.spell1 = "SummonerPoroThrow"
+                break
+            case 32:
+                data.spell1 = "SummonerSnowball"
+                break
+            case 39:
+                data.spell1 = "SummonerSnowURFSnowball_Mark"
+                break
+            case 54:
+                data.spell1 = "Summoner_UltBookPlaceholder"
+                break
+            case 55:
+                data.spell1 = "Summoner_UltBookSmitePlaceholder"
+                break
+        }
+
+        switch(myData[0].summoner2Id) {
+            case 1:
+                data.spell2 = "SummonerBoost"
+                break
+            case 3:
+                data.spell2 = "SummonerExhaust"
+                break
+            case 4:
+                data.spell2 = "SummonerFlash"
+                break
+            case 6:
+                data.spell2 = "SummonerHaste"
+                break
+            case 7:
+                data.spell2 = "SummonerHeal"
+                break
+            case 11:
+                data.spell2 = "SummonerSmite"
+                break
+            case 12:
+                data.spell2 = "SummonerTeleport"
+                break
+            case 13:
+                data.spell2 = "SummonerMana"
+                break
+            case 14:
+                data.spell2 = "SummonerDot"
+                break
+            case 21:
+                data.spell2 = "SummonerBarrier"
+                break
+            case 30:
+                data.spell2 = "SummonerPoroRecall"
+                break
+            case 31:
+                data.spell2 = "SummonerPoroThrow"
+                break
+            case 32:
+                data.spell2 = "SummonerSnowball"
+                break
+            case 39:
+                data.spell2 = "SummonerSnowURFSnowball_Mark"
+                break
+            case 54:
+                data.spell2 = "Summoner_UltBookPlaceholder"
+                break
+            case 55:
+                data.spell2 = "Summoner_UltBookSmitePlaceholder"
+                break
+        }
+
+        data.item0 =  myData[0].item0
+        data.item1 =  myData[0].item1
+        data.item2 =  myData[0].item2
+        data.item3 =  myData[0].item3
+        data.item4 =  myData[0].item4
+        data.item5 =  myData[0].item5
+        data.item6 =  myData[0].item6
+        data.champLevel = myData[0].champLevel
+        data.totalMinionsKilled = myData[0].totalMinionsKilled + myData[0].neutralMinionsKilled
+        data.kills = myData[0].kills
+        data.deaths = myData[0].deaths
+        data.assists = myData[0].assists
+        data.kda = myData[0].challenges.kda
+
+        recentRecord.push(data)
+    }
+
+    res.send({
+        success: true,
+        recentRecord
+    })
+}
 
 module.exports = {
     checkNick,
     updateOnboarding,
     getOnboarding,
     getReview,
-    writeReview
+    writeReview,
+    userInfo,
+    recentRecord,
 }

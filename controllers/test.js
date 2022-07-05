@@ -40,7 +40,7 @@ async function matchList(req, res){
 
 async function match(req, res){
 
-    const matchId = 'KR_5969904649'
+    const matchId = 'KR_6002765651'
 
     const match = await axios({
         method: 'GET',
@@ -52,6 +52,7 @@ async function match(req, res){
 
     console.log(match.data)
     console.log(match.data.info.participants[0])
+    console.log(match.data.info.participants[0].summonerName)
 
     return res.status(200).json({ success: true })
 }

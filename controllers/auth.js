@@ -1,6 +1,7 @@
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
 const User = require('../schemas/user')
+const RefreshToken = require('../schemas/refreshToken')
 require('dotenv').config()
 
 const tokenExpireTime = process.env.VALID_ACCESS_TOKEN_TIME
@@ -26,7 +27,7 @@ const kakaoCallback = (req, res, next) => {
                 { expiresIn: rtokenExpireTime }
             )
 
-            const key = userId + agent
+            await RefreshToken.create({ userId, agent, refreshToken })
 
             return res.json({
                 succcss: true,
@@ -36,6 +37,7 @@ const kakaoCallback = (req, res, next) => {
                 rtokenExpireTime,
                 userId,
                 nickname: currentUser.nickname,
+                lolNickname: currentUser.lolNickname,
                 profileUrl: currentUser.profileUrl,
             })
         }
@@ -62,7 +64,7 @@ const googleCallback = (req, res) => {
                 { expiresIn: rtokenExpireTime }
             )
 
-            const key = userId + agent
+            await RefreshToken.create({ userId, agent, refreshToken })
 
             return res.json({
                 succcss: true,
@@ -72,6 +74,7 @@ const googleCallback = (req, res) => {
                 rtokenExpireTime,
                 userId,
                 nickname: currentUser.nickname,
+                lolNickname: currentUser.lolNickname,
                 profileUrl: currentUser.profileUrl,
             })
         }
@@ -98,7 +101,7 @@ const naverCallback = (req, res, next) => {
                 { expiresIn: rtokenExpireTime }
             )
 
-            const key = userId + agent
+            await RefreshToken.create({ userId, agent, refreshToken })
 
             return res.json({
                 succcss: true,
@@ -108,6 +111,7 @@ const naverCallback = (req, res, next) => {
                 rtokenExpireTime,
                 userId,
                 nickname: currentUser.nickname,
+                lolNickname: currentUser.lolNickname,
                 profileUrl: currentUser.profileUrl,
             })
         }
@@ -134,7 +138,7 @@ const discordCallback = (req, res, next) => {
                 { expiresIn: rtokenExpireTime }
             )
 
-            const key = userId + agent
+            await RefreshToken.create({ userId, agent, refreshToken })
 
             return res.json({
                 succcss: true,
@@ -144,6 +148,7 @@ const discordCallback = (req, res, next) => {
                 rtokenExpireTime,
                 userId,
                 nickname: currentUser.nickname,
+                lolNickname: currentUser.lolNickname,
                 profileUrl: currentUser.profileUrl,
             })
         }
@@ -153,26 +158,23 @@ const discordCallback = (req, res, next) => {
 async function checkMyInfo(req, res) {
     const userId = res.locals.userId
     const nickname = res.locals.nickname
+    const lolNickname = res.locals.lolNickname
     const profileUrl = res.locals.profileUrl
-    const firstLogin = res.locals.firstLogin
-    const agreeSMS = res.locals.agreeSMS
 
     res.send({
         success: true,
         userId,
         nickname,
+        lolNickname,
         profileUrl,
-        firstLogin,
-        agreeSMS,
     })
 }
 
 async function logout(req, res) {
     const userId = res.locals.userId
     const agent = req.headers['user-agent']
-    const key = userId + agent
 
-    await userService.delRedis(key)
+    await RefreshToken.deleteOne({ userId, agent })
 
     res.send({
         success: true,
@@ -183,11 +185,10 @@ async function logout(req, res) {
 async function deleteUser(req, res) {
     const userId = res.locals.userId
     const agent = req.headers['user-agent']
-    const key = userId + agent
 
     try {
-        await userService.delRedis(key)
-        await userService.deleteUser(userId)
+        await RefreshToken.deleteOne({ userId, agent })
+        await User.deleteOne({ _id: userId })
         res.status(200).send({
             success: true,
             message: '회원탈퇴에 성공하였습니다.',
