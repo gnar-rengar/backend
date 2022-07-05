@@ -3,6 +3,8 @@ const User = require('../schemas/user')
 const Review = require('../schemas/review')
 const multer = require('../middlewares/multers/multer')
 require('dotenv').config()
+const fs = require('fs')
+const queueTypes = fs.readFileSync('datas/queueTypes.json', 'utf8')
 
 const riotToken = process.env.riotTokenKey
 
@@ -219,6 +221,7 @@ async function recentRecord (req, res) {
 
         data.gameMode = match.data.info.gameMode
         data.gameType = match.data.info.gameType
+        data.queueType = JSON.parse(queueTypes).find(x => x.queueId === match.data.info.queueId).description
         data.gameStartTimestamp = match.data.info.gameStartTimestamp
         data.gameEndTimestamp = match.data.info.gameEndTimestamp 
         data.win = myData[0].win
