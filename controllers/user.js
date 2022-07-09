@@ -4,7 +4,9 @@ const Review = require('../schemas/review')
 require('dotenv').config()
 const fs = require('fs')
 const queueTypes = fs.readFileSync('datas/queueTypes.json', 'utf8')
+const perks = fs.readFileSync('datas/perks.json', 'utf8')
 const spells = fs.readFileSync('datas/spells.json', 'utf8')
+
 
 const riotToken = process.env.riotTokenKey
 
@@ -121,8 +123,11 @@ async function recentRecord(req, res) {
             data.gameEndTimestamp = match.data.info.gameEndTimestamp
             data.win = myData[0].win
             data.championName = myData[0].championName
-            data.spell1 = JSON.parse(spells).find(x => x.key === myData[0].summoner1Id).id
-            data.spell2 = JSON.parse(spells).find(x => x.key === myData[0].summoner2Id).id
+            const primaryStyle = JSON.parse(perks).find(x => x.id === myData[0].perks.styles[0].style)
+            data.perk1 = primaryStyle.slots[0].runes.find(x => x.id === myData[0].perks.styles[0].selections[0].perk).icon
+            data.perk2 = JSON.parse(perks).find(x => x.id === myData[0].perks.styles[1].style).icon
+            data.spell1 = JSON.parse(spells).find(x => x.key == myData[0].summoner1Id).id
+            data.spell2 = JSON.parse(spells).find(x => x.key == myData[0].summoner2Id).id
             data.item0 = myData[0].item0
             data.item1 = myData[0].item1
             data.item2 = myData[0].item2
@@ -145,6 +150,7 @@ async function recentRecord(req, res) {
             recentRecord
         })
     } catch (error) {
+        console.log(error)
         res.send({
             success: false,
             message: "최근전적 불러오기에 실패하였습니다."

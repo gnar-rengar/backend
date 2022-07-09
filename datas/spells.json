@@ -1,9 +1,9 @@
 [
     {
         "id": "SummonerBarrier",
-        "name": "Barrier",
-        "description": "Shields your champion from 105-411 damage (depending on champion level) for 2 seconds.",
-        "tooltip": "Temporarily shields {{ f1 }} damage from your champion for 2 seconds.",
+        "name": "방어막",
+        "description": "2초 동안 방어막으로 감싸 피해를 105~411(챔피언 레벨에 따라 변동)만큼 흡수합니다.",
+        "tooltip": "2초간 방어막이 챔피언을 감싸 {{ f1 }}의 피해를 흡수합니다.",
         "maxrank": 1,
         "cooldown": [
             180
@@ -61,7 +61,7 @@
             "0"
         ],
         "vars": [],
-        "key": 21,
+        "key": "21",
         "summonerLevel": 4,
         "modes": [
             "NEXUSBLITZ",
@@ -79,7 +79,7 @@
             "PROJECT",
             "STARGUARDIAN"
         ],
-        "costType": "No Cost",
+        "costType": "소모값 없음",
         "maxammo": "-1",
         "range": [
             1200
@@ -94,13 +94,13 @@
             "w": 48,
             "h": 48
         },
-        "resource": "No Cost"
+        "resource": "소모값 없음"
     },
     {
         "id": "SummonerBoost",
-        "name": "Cleanse",
-        "description": "Removes all disables (excluding suppression and airborne) and summoner spell debuffs affecting your champion and lowers the duration of incoming disables by 65% for 3 seconds.",
-        "tooltip": "Removes all disables (excluding suppression and airborne) and summoner spell debuffs affecting your champion and reduces the duration of disables by 65% for the next {{ f1 }} seconds.",
+        "name": "정화",
+        "description": "챔피언에 걸린 모든 이동 불가와 (제압 및 공중으로 띄우는 효과 제외) 소환사 주문에 의한 해로운 효과를 제거하고 새로 적용되는 이동 불가 효과들의 지속시간을 3초간 65% 감소시킵니다.",
+        "tooltip": "챔피언에 적용되는 모든 방해 효과와 (제압 및 공중으로 띄우는 효과 제외) 해로운 소환사 주문 효과를 제거하고 다음 {{ f1 }}초 동안 방해 효과의 지속시간을 65% 감소시킵니다.",
         "maxrank": 1,
         "cooldown": [
             210
@@ -158,7 +158,7 @@
             "0"
         ],
         "vars": [],
-        "key": 1,
+        "key": "1",
         "summonerLevel": 9,
         "modes": [
             "URF",
@@ -174,7 +174,7 @@
             "FIRSTBLOOD",
             "PROJECT"
         ],
-        "costType": "No Cost",
+        "costType": "소모값 없음",
         "maxammo": "-1",
         "range": [
             200
@@ -189,13 +189,13 @@
             "w": 48,
             "h": 48
         },
-        "resource": "No Cost"
+        "resource": "소모값 없음"
     },
     {
         "id": "SummonerDot",
-        "name": "Ignite",
-        "description": "Ignites target enemy champion, dealing 70-410 true damage (depending on champion level) over 5 seconds, grants you vision of the target, and reduces healing effects on them for the duration.",
-        "tooltip": "Ignite deals <span class=\"colorFEFCFF\">{{ f1 }}</span> true damage to target enemy champion over 5 seconds, grants you vision of the target and applies {{ grievousamount*100 }}% Grievous Wounds for the duration.<br /><br /><rules>(Grievous Wounds reduces healing and regeneration by a percentage equal to the highest value applied. This vision does not reveal stealthed enemies.)</rules>",
+        "name": "점화",
+        "description": "적 챔피언을 불태워 5초 동안 70~410의 고정 피해(챔피언 레벨에 따라 변동)를 입히고 모습을 드러내며 치료 효과를 감소시킵니다.",
+        "tooltip": "대상 적 챔피언을 불태워, 5초에 걸쳐 <span class=\"colorFEFCFF\">{{ f1 }}</span>의 고정 피해를 입히고 그동안 적의 위치를 드러내며 {{ grievousamount*100 }}%의 고통스러운 상처를 적용합니다.<br /><br /><rules>(고통스러운 상처는 치유 및 회복 효과를 가장 높은 수치만큼 감소시킵니다. 또한, 은신 중인 적은 위치가 드러나지 않습니다.)</rules>",
         "maxrank": 1,
         "cooldown": [
             180
@@ -253,7 +253,7 @@
             "0"
         ],
         "vars": [],
-        "key": 14,
+        "key": "14",
         "summonerLevel": 9,
         "modes": [
             "NEXUSBLITZ",
@@ -269,7 +269,7 @@
             "ASSASSINATE",
             "FIRSTBLOOD"
         ],
-        "costType": "No Cost",
+        "costType": "소모값 없음",
         "maxammo": "-1",
         "range": [
             600
@@ -284,13 +284,13 @@
             "w": 48,
             "h": 48
         },
-        "resource": "No Cost"
+        "resource": "소모값 없음"
     },
     {
         "id": "SummonerExhaust",
-        "name": "Exhaust",
-        "description": "Exhausts target enemy champion, reducing their Move Speed by 30%, and their damage dealt by 40% for 3 seconds.",
-        "tooltip": "Exhausts target enemy champion, reducing their Move Speed by {{ f3 }}%, and their damage dealt by {{ f2 }}% for 3 seconds.",
+        "name": "탈진",
+        "description": "적 챔피언을 지치게 만들어 3초 동안 이동 속도를 30% 느리게 하고 이 동안 가하는 피해량을 40% 낮춥니다.",
+        "tooltip": "적 챔피언을 지치게 만들어 3초 동안 이동 속도를 {{ f3 }}% 느리게 하고 이 동안 가하는 피해량을 {{ f2 }}% 낮춥니다.",
         "maxrank": 1,
         "cooldown": [
             210
@@ -348,7 +348,7 @@
             "0"
         ],
         "vars": [],
-        "key": 3,
+        "key": "3",
         "summonerLevel": 4,
         "modes": [
             "NEXUSBLITZ",
@@ -362,7 +362,7 @@
             "ONEFORALL",
             "ARSR"
         ],
-        "costType": "No Cost",
+        "costType": "소모값 없음",
         "maxammo": "-1",
         "range": [
             650
@@ -377,13 +377,13 @@
             "w": 48,
             "h": 48
         },
-        "resource": "No Cost"
+        "resource": "소모값 없음"
     },
     {
         "id": "SummonerFlash",
-        "name": "Flash",
-        "description": "Teleports your champion a short distance toward your cursor's location.",
-        "tooltip": "Teleports your champion a short distance toward your cursor's location.",
+        "name": "점멸",
+        "description": "커서 방향으로 챔피언이 짧은 거리를 순간이동합니다.",
+        "tooltip": "커서 방향으로 챔피언이 짧은 거리를 순간이동합니다.",
         "maxrank": 1,
         "cooldown": [
             300
@@ -441,7 +441,7 @@
             "0"
         ],
         "vars": [],
-        "key": 4,
+        "key": "4",
         "summonerLevel": 7,
         "modes": [
             "NEXUSBLITZ",
@@ -460,7 +460,7 @@
             "PROJECT",
             "STARGUARDIAN"
         ],
-        "costType": "No Cost",
+        "costType": "소모값 없음",
         "maxammo": "-1",
         "range": [
             425
@@ -475,13 +475,13 @@
             "w": 48,
             "h": 48
         },
-        "resource": "No Cost"
+        "resource": "소모값 없음"
     },
     {
         "id": "SummonerHaste",
-        "name": "Ghost",
-        "description": "For 10 seconds, your champion can move through units and gains 24 - 48% Move Speed (depending on champion level). Ghost extends its duration on takedown.",
-        "tooltip": "For {{ duration }} seconds, your champion can move through units and gains {{ movespeedmod }} Move Speed.<br /><br />Ghost extends its duration by {{ takedownextension }} seconds on takedown.",
+        "name": "유체화",
+        "description": "챔피언이 10초 동안 유닛과 충돌하지 않게 되며 챔피언 레벨에 따라 이동 속도가 24~48% 증가합니다. 처치 관여 시 유체화 지속시간이 늘어납니다.",
+        "tooltip": "챔피언이 {{ duration }}초 동안 유닛과 충돌하지 않게 되며 챔피언 레벨에 따라 이동 속도가 {{ movespeedmod }} 증가합니다.<br /><br />처치 관여 시 유체화 지속시간이 {{ takedownextension }}초 늘어납니다.",
         "maxrank": 1,
         "cooldown": [
             210
@@ -539,7 +539,7 @@
             "0"
         ],
         "vars": [],
-        "key": 6,
+        "key": "6",
         "summonerLevel": 1,
         "modes": [
             "NEXUSBLITZ",
@@ -559,7 +559,7 @@
             "PROJECT",
             "STARGUARDIAN"
         ],
-        "costType": "No Cost",
+        "costType": "소모값 없음",
         "maxammo": "-1",
         "range": [
             200
@@ -574,13 +574,13 @@
             "w": 48,
             "h": 48
         },
-        "resource": "No Cost"
+        "resource": "소모값 없음"
     },
     {
         "id": "SummonerHeal",
-        "name": "Heal",
-        "description": "Restores 80-318 Health (depending on champion level) and grants 30% Move Speed for 1 second to you and target allied champion. This healing is halved for units recently affected by Summoner Heal.",
-        "tooltip": "Restores {{ f1 }} Health and grants 30% Move Speed for 1 second to your champion and target allied champion. This healing is halved for units recently affected by Summoner Heal.<br /><br /><span class=\"colorFFFF00\">If this spell cannot find a target, it will cast on the most wounded allied champion in range.</span>",
+        "name": "회복",
+        "description": "자신과 대상 아군 챔피언의 체력을 80~318만큼 (챔피언 레벨에 따라 변동) 회복시키고 1초 동안 이동 속도가 30% 증가합니다. 최근 소환사 주문 회복의 영향을 받은 유닛의 경우 치유량이 절반만 적용됩니다.",
+        "tooltip": "자신과 대상 아군 챔피언의 체력을 {{ f1 }} 회복하고 1초 동안 이동 속도를 30% 올려줍니다. 최근 소환사 주문 회복의 영향을 받은 유닛의 경우 치유량이 절반만 적용됩니다.<br /><br /><span class=\"colorFFFF00\">이 주문은 대상을 정하지 않은 경우, 범위 내에서 가장 큰 부상을 입은 아군 챔피언에게 시전됩니다.</span>",
         "maxrank": 1,
         "cooldown": [
             240
@@ -638,7 +638,7 @@
             "0"
         ],
         "vars": [],
-        "key": 7,
+        "key": "7",
         "summonerLevel": 1,
         "modes": [
             "NEXUSBLITZ",
@@ -657,7 +657,7 @@
             "PROJECT",
             "STARGUARDIAN"
         ],
-        "costType": "No Cost",
+        "costType": "소모값 없음",
         "maxammo": "-1",
         "range": [
             850
@@ -672,13 +672,13 @@
             "w": 48,
             "h": 48
         },
-        "resource": "No Cost"
+        "resource": "소모값 없음"
     },
     {
         "id": "SummonerMana",
-        "name": "Clarity",
-        "description": "Restores 50% of your champion's maximum Mana. Also restores allies for 25% of their maximum Mana.",
-        "tooltip": "Restores {{ f1 }}% maximum Mana to your Champion and {{ f2 }}% to nearby allies.",
+        "name": "총명",
+        "description": "최대 마나량의 50%를 회복합니다. 주변 아군도 최대 마나량의 25%가 회복됩니다.",
+        "tooltip": "최대 마나의 {{ f1 }}%를 회복하고 주변 아군의 마나를 최대 마나의 {{ f2 }}%만큼 회복시켜줍니다.",
         "maxrank": 1,
         "cooldown": [
             240
@@ -736,13 +736,13 @@
             "0"
         ],
         "vars": [],
-        "key": 13,
+        "key": "13",
         "summonerLevel": 6,
         "modes": [
             "ARAM",
             "FIRSTBLOOD"
         ],
-        "costType": "No Cost",
+        "costType": "소모값 없음",
         "maxammo": "-1",
         "range": [
             600
@@ -757,13 +757,13 @@
             "w": 48,
             "h": 48
         },
-        "resource": "No Cost"
+        "resource": "소모값 없음"
     },
     {
         "id": "SummonerPoroRecall",
-        "name": "To the King!",
-        "description": "Quickly travel to the Poro King's side.",
-        "tooltip": "<span class=\"colorFFE076\">Passive:</span> Hitting an enemy champion with a Poro gives your team a Poro Mark. Upon reaching 10 Poro Marks, your team summons the Poro King to fight alongside them. While the Poro King is active, no Poro Marks can be scored by either team.<br /><br /><span class=\"colorFFE076\">Active:</span> Quickly dash to King Poro's side. Can only be cast while the Poro King is summoned for your team. <br /><br /><i><span class=\"colorFDD017\">''Poros tug the heartstrings. The rest of you just comes along for the ride.''</span></i></mainText>",
+        "name": "왕을 향해!",
+        "description": "포로 왕의 곁으로 빠르게 이동합니다.",
+        "tooltip": "<span class=\"colorFFE076\">기본 지속 효과:</span> 포로로 적 챔피언을 맞히면 아군에게 포로 표식이 생깁니다. 포로 표식이 10개가 되면 아군은 포로 왕을 소환하여 함께 싸울 수 있습니다. 포로 왕이 활성화된 동안에는 어느 팀도 포로 표식을 획득할 수 없습니다.<br /><br /><span class=\"colorFFE076\">사용 시:</span> 포로 왕 쪽으로 빠르게 질주합니다. 아군이 포로 왕을 소환한 동안에만 사용할 수 있습니다. <br /><br /><i><span class=\"colorFDD017\">''포로들이 줄을 당깁니다. 여러분은 몸을 맡기기만 하면 됩니다.''</span></i></mainText>",
         "maxrank": 1,
         "cooldown": [
             10
@@ -821,12 +821,12 @@
             "0"
         ],
         "vars": [],
-        "key": 30,
+        "key": "30",
         "summonerLevel": 1,
         "modes": [
             "KINGPORO"
         ],
-        "costType": "No Cost",
+        "costType": "소모값 없음",
         "maxammo": "-1",
         "range": [
             200
@@ -841,13 +841,13 @@
             "w": 48,
             "h": 48
         },
-        "resource": "No Cost"
+        "resource": "소모값 없음"
     },
     {
         "id": "SummonerPoroThrow",
-        "name": "Poro Toss",
-        "description": "Toss a Poro at your enemies. If it hits, you can quickly travel to your target as a follow up.",
-        "tooltip": "Toss a Poro a long distance, dealing {{ f2 }} true damage to the first enemy unit hit, granting <span class=\"coloree91d7\">True Sight</span> of the target.<br /><br />This ability can be recast for 3 seconds if it hits an enemy to dash to the target hit, dealing {{ f2 }} more true damage and reducing the cooldown of the next Poro Toss by {{ e4 }} seconds.<br /><br />Poros are not blocked by spell shields or wind walls because they are animals, not spells!<br /><br /><i><span class=\"colorFDD017\">''Poros are a model for Runeterran aerodynamics.''</span></i></mainText>",
+        "name": "포로 던지기",
+        "description": "포로를 적에게 던집니다. 적이 맞으면 해당 적에게 빠르게 이동할 수 있습니다.",
+        "tooltip": "포로를 멀리 던져서 첫 번째로 맞는 적에게 {{ f2 }}의 고정 피해를 입히고 대상에 대한 <span class=\"coloree91d7\">절대 시야</span>를 얻습니다.<br /><br />적을 맞히면 3초 안에 이 스킬을 다시 사용하여 맞힌 대상에게 질주할 수 있습니다. 대상에게 질주해 가면 {{ f2 }}의 추가 고정 피해를 입히고 포로 던지기의 재사용 대기시간이 {{ e4 }}초 감소합니다.<br /><br />포로는 마법이 아니라 동물이므로, 주문 보호막이나 바람 장벽으로 막을 수 없습니다!<br /><br /><i><span class=\"colorFDD017\">''룬테라 공기 역학의 결정판, 포로!''</span></i></mainText>",
         "maxrank": 1,
         "cooldown": [
             20
@@ -905,12 +905,12 @@
             "0"
         ],
         "vars": [],
-        "key": 31,
+        "key": "31",
         "summonerLevel": 1,
         "modes": [
             "KINGPORO"
         ],
-        "costType": "No Cost",
+        "costType": "소모값 없음",
         "maxammo": "-1",
         "range": [
             2500
@@ -925,13 +925,13 @@
             "w": 48,
             "h": 48
         },
-        "resource": "No Cost"
+        "resource": "소모값 없음"
     },
     {
         "id": "SummonerSmite",
-        "name": "Smite",
-        "description": "Deals 450 true damage to target epic, large, or medium monster or minion. Against monsters, additionally restores 90 (+10% maximum Health) Health. Holds two charges (90s Recharge Time)",
-        "tooltip": "Deals <span class=\"colorFEFCFF\">{{ f1 }}</span> true damage to target monster or minion. Against monsters, additionally restores <span class=\"colorFFFFFF\">{{ f6 }}</span> <span class=\"colorFF6666\">(+{{ f7 }})</span> Health.<br /><br />Smite regains a charge every {{ ammorechargetime }} seconds, up to a maximum of 2 charges.<br /><br /><rules>Cannot be cast on small monsters.</rules>",
+        "name": "강타",
+        "description": "대상 에픽 및 대형/중형 몬스터 또는 미니언에게 450의 고정 피해를 입힙니다. 몬스터에게 사용하면 체력도 90(+최대 체력의 10%)만큼 회복됩니다. 2회까지 충전됩니다. (충전 시간 90초)",
+        "tooltip": "대상 몬스터 또는 미니언에게 <span class=\"colorFEFCFF\">{{ f1 }}</span>의 고정 피해를 입힙니다. 몬스터에게 사용하면 체력도 <span class=\"colorFFFFFF\">{{ f6 }}</span><span class=\"colorFF6666\">(+{{ f7 }})</span>만큼 회복됩니다.<br /><br />강타는 {{ ammorechargetime }}초에 한 번씩 충전되며, 최대 2회까지 충전됩니다.<br /><br /><rules>작은 몬스터에게는 사용할 수 없습니다.</rules>",
         "maxrank": 1,
         "cooldown": [
             15
@@ -989,7 +989,7 @@
             "0"
         ],
         "vars": [],
-        "key": 11,
+        "key": "11",
         "summonerLevel": 9,
         "modes": [
             "URF",
@@ -1001,7 +1001,7 @@
             "TUTORIAL",
             "DOOMBOTSTEEMO"
         ],
-        "costType": "No Cost",
+        "costType": "소모값 없음",
         "maxammo": "2",
         "range": [
             500
@@ -1016,13 +1016,13 @@
             "w": 48,
             "h": 48
         },
-        "resource": "No Cost"
+        "resource": "소모값 없음"
     },
     {
         "id": "SummonerSnowURFSnowball_Mark",
-        "name": "Mark",
-        "description": "Throw a snowball in a straight line at your enemies. If it hits an enemy, they become marked, granting True Sight, and your champion can quickly travel to the marked target as a follow up.",
-        "tooltip": "Throw a snowball a long distance, dealing {{ f1 }} true damage to the first enemy unit hit and granting <span class=\"coloree91d7\">True Sight</span> of the target. If it hits an enemy, this ability can be recast for {{ e3 }} seconds to Dash to the tagged unit, dealing an additional {{ f1 }} true damage. Dashing to the target will reduce the cooldown of Mark by {{ e4 }}%.<br /><br /><span class=\"colorFFFF00\">Mark projectiles are not stopped by spell shields or projectile mitigation.</span>",
+        "name": "표식",
+        "description": "적을 향해 직선으로 눈덩이를 던집니다. 눈덩이가 적을 맞히면 표식이 남아 절대 시야가 생기고, 표식이 붙은 대상을 향해 챔피언이 빠르게 이동할 수 있습니다.",
+        "tooltip": "멀리 눈덩이를 던져 첫 번째 맞은 적에게 {{ f1 }}의 고정 피해를 입히고 대상에 대한 <span class=\"coloree91d7\">절대 시야</span>를 얻습니다. 적을 맞히면 이 스킬을 {{ e3 }}초 내에 재사용하여 표식이 남은 유닛에게 돌진하여 추가로 {{ f1 }}의 고정 피해를 입힙니다. 대상에게 돌진하면 표식의 재사용 대기시간이 {{ e4 }}% 감소합니다.<br /><br /><span class=\"colorFFFF00\">표식의 투사체는 주문 보호막이나 투사체 약화 효과로 막을 수 없습니다.</span>",
         "maxrank": 1,
         "cooldown": [
             80
@@ -1080,12 +1080,12 @@
             "0"
         ],
         "vars": [],
-        "key": 39,
+        "key": "39",
         "summonerLevel": 6,
         "modes": [
             "SNOWURF"
         ],
-        "costType": "No Cost",
+        "costType": "소모값 없음",
         "maxammo": "-1",
         "range": [
             8000
@@ -1100,13 +1100,13 @@
             "w": 48,
             "h": 48
         },
-        "resource": "No Cost"
+        "resource": "소모값 없음"
     },
     {
         "id": "SummonerSnowball",
-        "name": "Mark",
-        "description": "Throw a snowball in a straight line at your enemies. If it hits an enemy, they become marked, granting True Sight, and your champion can quickly travel to the marked target as a follow up.",
-        "tooltip": "Throw a snowball a long distance, dealing {{ f1 }} true damage to the first enemy unit hit and granting <span class=\"coloree91d7\">True Sight</span> of the target. If it hits an enemy, this ability can be recast for {{ e3 }} seconds to Dash to the tagged unit, dealing an additional {{ f1 }} true damage. Dashing to the target will reduce the cooldown of Mark by {{ e4 }}%.<br /><br /><span class=\"colorFFFF00\">Mark projectiles are not stopped by spell shields or projectile mitigation.</span>",
+        "name": "표식",
+        "description": "적을 향해 직선으로 눈덩이를 던집니다. 눈덩이가 적을 맞히면 표식이 남아 절대 시야가 생기고, 표식이 붙은 대상을 향해 챔피언이 빠르게 이동할 수 있습니다.",
+        "tooltip": "멀리 눈덩이를 던져 첫 번째 맞은 적에게 {{ f1 }}의 고정 피해를 입히고 대상에 대한 <span class=\"coloree91d7\">절대 시야</span>를 얻습니다. 적을 맞히면 이 스킬을 {{ e3 }}초 내에 재사용하여 표식이 남은 유닛에게 돌진하여 추가로 {{ f1 }}의 고정 피해를 입힙니다. 대상에게 돌진하면 표식의 재사용 대기시간이 {{ e4 }}% 감소합니다.<br /><br /><span class=\"colorFFFF00\">표식의 투사체는 주문 보호막이나 투사체 약화 효과로 막을 수 없습니다.</span>",
         "maxrank": 1,
         "cooldown": [
             80
@@ -1164,13 +1164,13 @@
             "0"
         ],
         "vars": [],
-        "key": 32,
+        "key": "32",
         "summonerLevel": 6,
         "modes": [
             "ARAM",
             "FIRSTBLOOD"
         ],
-        "costType": "No Cost",
+        "costType": "소모값 없음",
         "maxammo": "-1",
         "range": [
             1600
@@ -1185,13 +1185,13 @@
             "w": 48,
             "h": 48
         },
-        "resource": "No Cost"
+        "resource": "소모값 없음"
     },
     {
         "id": "SummonerTeleport",
-        "name": "Teleport",
-        "description": "After channeling for 4 seconds, teleports your champion to target allied structure. Upgrades to Unleashed Teleport at 14 minutes, which teleports your champion to target allied structure, minion, or ward.",
-        "tooltip": "After channeling for {{ channelduration }} seconds, your champion teleports to target allied structure.<br /><br />Upgrades to Unleashed Teleport when Turret Plates fall at 14 minutes. Unleashed Teleport has a {{ upgradedcooldown }}s cooldown, can be used on allied structures, minions, or wards, and grants a {{ msamount*100 }}% Move Speed boost for {{ msduration }} seconds.",
+        "name": "순간이동",
+        "description": "4초 동안 정신을 집중한 다음, 대상으로 지정한 아군 구조물로 순간이동합니다. 14분에 강력 순간이동으로 업그레이드됩니다. 강력 순간이동은 아군 구조물, 미니언, 혹은 와드를 대상으로 지정할 수 있습니다.",
+        "tooltip": "{{ channelduration }}초 동안 정신 집중을 한 후 대상으로 지정한 아군 구조물로 순간이동합니다.<br /><br />14분에 포탑 방패가 파괴되면 강력 순간이동으로 업그레이드됩니다. 강력 순간이동의 재사용 대기시간은 {{ upgradedcooldown }}초이며 아군 구조물, 미니언, 와드에 사용할 수 있습니다. 사용 후 {{ msduration }}초 동안 이동 속도가 {{ msamount*100 }}% 증가합니다.",
         "maxrank": 1,
         "cooldown": [
             360
@@ -1249,7 +1249,7 @@
             "0"
         ],
         "vars": [],
-        "key": 12,
+        "key": "12",
         "summonerLevel": 7,
         "modes": [
             "ONEFORALL",
@@ -1261,7 +1261,7 @@
             "ASSASSINATE",
             "DOOMBOTSTEEMO"
         ],
-        "costType": "No Cost",
+        "costType": "소모값 없음",
         "maxammo": "-1",
         "range": [
             25000
@@ -1276,13 +1276,13 @@
             "w": 48,
             "h": 48
         },
-        "resource": "No Cost"
+        "resource": "소모값 없음"
     },
     {
         "id": "Summoner_UltBookPlaceholder",
-        "name": "Placeholder",
-        "description": "This slot will be replaced by another champion's ultimate selected at the start of the game. There will be 30 seconds to select an ultimate. Be prepared!",
-        "tooltip": "Will be replaced by your Ultimate Summoner Spell selection.",
+        "name": "게임 시작 후 결정",
+        "description": "이 슬롯은 게임 시작 시 선택한 다른 챔피언의 궁극기로 대체됩니다. 궁극기 선택 시간이 30초 주어집니다. 준비하세요!",
+        "tooltip": "선택한 궁극기 소환사 주문으로 대체됩니다.",
         "maxrank": 1,
         "cooldown": [
             0
@@ -1340,7 +1340,7 @@
             "0"
         ],
         "vars": [],
-        "key": 54,
+        "key": "54",
         "summonerLevel": 1,
         "modes": [
             "ULTBOOK"
@@ -1364,9 +1364,9 @@
     },
     {
         "id": "Summoner_UltBookSmitePlaceholder",
-        "name": "Placeholder and Attack-Smite",
-        "description": "This slot will be replaced by another champion's ultimate and you will gain Attack-Smite. There will be 30 seconds to select an ultimate. Be prepared!",
-        "tooltip": "Will be replaced by your Ultimate Summoner Spell.<br /><br />Gain Attack-Smite. Attack-Smite will execute allied Buff Monsters, Epic Monsters, and Scuttle Crabs when you attack them.<br /><br /><attention>Attack-Smite does not have a cooldown.</attention>",
+        "name": "TBD 및 공격-강타",
+        "description": "이 슬롯은 다른 챔피언의 궁극기로 대체되며 공격-강타 또한 획득합니다. 궁극기 선택 시간이 30초 주어집니다. 준비하세요!",
+        "tooltip": "궁극기 소환사 주문으로 대체됩니다.<br /><br />공격-강타를 획득합니다. 공격-강타는 이로운 효과를 주는 아군 몬스터, 에픽 몬스터, 바위 게를 공격 시 처형합니다.<br /><br /><attention>공격-강타는 재사용 대기시간이 없습니다.</attention>",
         "maxrank": 1,
         "cooldown": [
             0
@@ -1424,7 +1424,7 @@
             "0"
         ],
         "vars": [],
-        "key": 55,
+        "key": "55",
         "summonerLevel": 1,
         "modes": [
             "ULTBOOK"
