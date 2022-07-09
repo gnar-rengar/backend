@@ -108,6 +108,8 @@ async function userInfo(req, res) {
         const mostChampion2 = JSON.parse(chapmions).find(x => x.key == mostChampion.data[1].championId).id
         const mostChampion3 = JSON.parse(chapmions).find(x => x.key == mostChampion.data[2].championId).id
 
+        const review = await Review.findOne({ reviewedId: userId })
+
         res.status(200).send({
             success: true,
             lolNickname,
@@ -125,6 +127,7 @@ async function userInfo(req, res) {
             mostChampion1,
             mostChampion2,
             mostChampion3,
+            goodReview: review.goodReview,
         })
     } catch (error) {
         console.log(error)
