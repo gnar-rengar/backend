@@ -9,6 +9,4 @@ router.patch('/writeReview/:userId', userController.writeReview)
 router.get('/userInfo/:userId', userController.userInfo)
 router.get('/recentRecord/:userId', userController.recentRecord)
 
-router.get('/leaguePoint', userController.leaguePoint)
-
 module.exports = router

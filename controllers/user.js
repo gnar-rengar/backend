@@ -3,8 +3,9 @@ const User = require('../schemas/user')
 const Review = require('../schemas/review')
 require('dotenv').config()
 const fs = require('fs')
-const queueTypes = fs.readFileSync('datas/queueTypes.json', 'utf8')
+const chapmions = fs.readFileSync('datas/champions.json', 'utf8')
 const perks = fs.readFileSync('datas/perks.json', 'utf8')
+const queueTypes = fs.readFileSync('datas/queueTypes.json', 'utf8')
 const spells = fs.readFileSync('datas/spells.json', 'utf8')
 
 
@@ -73,17 +74,74 @@ async function writeReview(req, res) {
 }
 
 async function userInfo(req, res) {
+    const userId = req.params.userId
 
+    try {
+        const currentUser = await User.findOne({ _id: userId })
+        const lolNickname = currentUser.lolNickname
+
+        const summoner = await axios({
+            method: 'GET',
+            url: encodeURI(`https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${lolNickname}`),
+            headers: {
+                "X-Riot-Token": riotToken
+            },
+        })
+
+        const leaguePoint = await axios({
+            method: 'GET',
+            url: encodeURI(`https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/${summoner.data.id}`),
+            headers: {
+                "X-Riot-Token": riotToken
+            },
+        })
+
+        const mostChampion = await axios({
+            method: 'GET',
+            url: encodeURI(`https://kr.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summoner.data.id}`),
+            headers: {
+                "X-Riot-Token": riotToken
+            },
+        })
+
+        const mostChampion1 = JSON.parse(chapmions).find(x => x.key == mostChampion.data[0].championId).id
+        const mostChampion2 = JSON.parse(chapmions).find(x => x.key == mostChampion.data[1].championId).id
+        const mostChampion3 = JSON.parse(chapmions).find(x => x.key == mostChampion.data[2].championId).id
+
+        res.status(200).send({
+            success: true,
+            lolNickname,
+            profileUrl: currentUser.profileUrl,
+            tier: leaguePoint.data[0].tier,
+            rank: leaguePoint.data[0].rank,
+            leaguePoints: leaguePoint.data[0].leaguePoints,
+            wins: leaguePoint.data[0].wins,
+            losses: leaguePoint.data[0].losses,
+            playStyle: currentUser.playStyle,
+            position: currentUser.position,
+            voice: currentUser.voice,
+            voiceChannel: currentUser.voiceChannel,
+            communication: currentUser.communication,
+            mostChampion1,
+            mostChampion2,
+            mostChampion3,
+        })
+    } catch (error) {
+        console.log(error)
+        res.send({
+            success: false,
+            message: "유저정보 불러오기에 실패하였습니다."
+        })
+    }
 }
 
 async function recentRecord(req, res) {
     const userId = req.params.userId
 
-    const currentUser = await User.findOne({ _id: userId })
-    // const lolNickname = currentUser.lolNickname
-    const lolNickname = '배죤나고픔'
-
     try {
+        const currentUser = await User.findOne({ _id: userId })
+        const lolNickname = currentUser.lolNickname
+
         const summoner = await axios({
             method: 'GET',
             url: encodeURI(`https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${lolNickname}`),
@@ -158,35 +216,8 @@ async function recentRecord(req, res) {
     }
 }
 
-async function leaguePoint (req, res) {
-    const lolNickname = '배죤나고픔'
-
-    const summoner = await axios({
-        method: 'GET',
-        url: encodeURI(`https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${lolNickname}`),
-        headers: {
-            "X-Riot-Token": riotToken
-        },
-    })
-
-    const leaguePoint = await axios({
-        method: 'GET',
-        url: encodeURI(`https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/${summoner.data.id}`),
-        headers: {
-            "X-Riot-Token": riotToken
-        },
-    })
-
-
-    console.log(leaguePoint.data)
-    res.status(200).send({
-        success: true,
-    })
-}
-
 module.exports = {
     writeReview,
     userInfo,
     recentRecord,
-    leaguePoint
 }
