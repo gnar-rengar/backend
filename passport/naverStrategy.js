@@ -16,7 +16,10 @@ module.exports = () => {
             },
             async (accessToken, refreshToken, profile, done) => {
                 try {
-                    const exUser = await User.findOne( { socialId: profile.id, social: 'naver' } )
+                    const exUser = await User.findOne({
+                        socialId: profile.id,
+                        social: 'naver',
+                    })
                     if (exUser) {
                         done(null, exUser)
                     } else {

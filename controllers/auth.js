@@ -16,15 +16,15 @@ const kakaoCallback = (req, res, next) => {
             const agent = req.headers['user-agent']
             const userId = user._id
             const currentUser = await User.findOne({ _id: userId })
-            const token = jwt.sign(
-                { userId: userId },
-                process.env.TOKENKEY,
-                { expiresIn: tokenExpireTime }
-            )
+            const token = jwt.sign({ userId: userId }, process.env.TOKENKEY, {
+                expiresIn: tokenExpireTime,
+            })
             const refreshToken = jwt.sign(
                 { userId: userId },
                 process.env.TOKENKEY,
-                { expiresIn: rtokenExpireTime }
+                {
+                    expiresIn: rtokenExpireTime,
+                }
             )
 
             await RefreshToken.create({ userId, agent, refreshToken })
@@ -52,15 +52,15 @@ const googleCallback = (req, res) => {
             const agent = req.headers['user-agent']
             const userId = user._id
             const currentUser = await User.findOne({ _id: userId })
-            const token = jwt.sign(
-                { userId: userId },
-                process.env.TOKENKEY,
-                { expiresIn: tokenExpireTime }
-            )
+            const token = jwt.sign({ userId: userId }, process.env.TOKENKEY, {
+                expiresIn: tokenExpireTime,
+            })
             const refreshToken = jwt.sign(
                 { userId: userId },
                 process.env.TOKENKEY,
-                { expiresIn: rtokenExpireTime }
+                {
+                    expiresIn: rtokenExpireTime,
+                }
             )
 
             await RefreshToken.create({ userId, agent, refreshToken })
@@ -88,15 +88,15 @@ const naverCallback = (req, res, next) => {
             const agent = req.headers['user-agent']
             const userId = user._id
             const currentUser = await User.findOne({ _id: userId })
-            const token = jwt.sign(
-                { userId: userId },
-                process.env.TOKENKEY,
-                { expiresIn: tokenExpireTime }
-            )
+            const token = jwt.sign({ userId: userId }, process.env.TOKENKEY, {
+                expiresIn: tokenExpireTime,
+            })
             const refreshToken = jwt.sign(
                 { userId: userId },
                 process.env.TOKENKEY,
-                { expiresIn: rtokenExpireTime }
+                {
+                    expiresIn: rtokenExpireTime,
+                }
             )
 
             await RefreshToken.create({ userId, agent, refreshToken })
@@ -124,15 +124,15 @@ const discordCallback = (req, res, next) => {
             const agent = req.headers['user-agent']
             const userId = user._id
             const currentUser = await User.findOne({ _id: userId })
-            const token = jwt.sign(
-                { userId: userId },
-                process.env.TOKENKEY,
-                { expiresIn: tokenExpireTime }
-            )
+            const token = jwt.sign({ userId: userId }, process.env.TOKENKEY, {
+                expiresIn: tokenExpireTime,
+            })
             const refreshToken = jwt.sign(
                 { userId: userId },
                 process.env.TOKENKEY,
-                { expiresIn: rtokenExpireTime }
+                {
+                    expiresIn: rtokenExpireTime,
+                }
             )
 
             await RefreshToken.create({ userId, agent, refreshToken })

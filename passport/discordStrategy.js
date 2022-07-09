@@ -1,5 +1,5 @@
 const passport = require('passport')
-const DiscordStrategy = require("passport-discord").Strategy
+const DiscordStrategy = require('passport-discord').Strategy
 const User = require('../schemas/user')
 require('dotenv').config()
 
@@ -13,7 +13,10 @@ module.exports = () => {
             },
             async (accessToken, refreshToken, profile, done) => {
                 try {
-                    const exUser = await User.findOne( { socialId: profile.id, social: 'discord' } )
+                    const exUser = await User.findOne({
+                        socialId: profile.id,
+                        social: 'discord',
+                    })
                     if (exUser) {
                         done(null, exUser)
                     } else {

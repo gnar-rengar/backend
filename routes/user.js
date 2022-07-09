@@ -1,6 +1,6 @@
-const router = require("express").Router()
+const router = require('express').Router()
 const multer = require('../middlewares/multers/multer')
-const userController = require("../controllers/user")
+const userController = require('../controllers/user')
 
 //review 관련
 router.patch('/writeReview/:userId', userController.writeReview)

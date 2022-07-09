@@ -1,9 +1,13 @@
-const router = require("express").Router()
+const router = require('express').Router()
 const multer = require('../middlewares/multers/multer')
-const onboardingController = require("../controllers/onboarding")
+const onboardingController = require('../controllers/onboarding')
 
 router.get('/checkNick', onboardingController.checkNick)
-router.patch('/', multer.upload.single('profileImage'), onboardingController.updateOnboarding)
+router.patch(
+    '/',
+    multer.upload.single('profileImage'),
+    onboardingController.updateOnboarding
+)
 router.get('/', onboardingController.getOnboarding)
 
 module.exports = router

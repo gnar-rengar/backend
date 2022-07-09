@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require('mongoose')
 
 const reviewSchema = new mongoose.Schema({
     reviewedId: { type: String },
@@ -6,17 +6,16 @@ const reviewSchema = new mongoose.Schema({
     goodReview: [
         {
             description: { type: String },
-            count: { type: Number }
-        }
+            count: { type: Number },
+        },
     ],
     badReview: [
         {
             description: { type: String },
-            count: { type: Number }
-        }
-    ]
+            count: { type: Number },
+        },
+    ],
 })
 
-
-const Review = mongoose.model("Review", reviewSchema)
+const Review = mongoose.model('Review', reviewSchema)
 module.exports = Review

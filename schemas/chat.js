@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require('mongoose')
 
 const chatSchema = mongoose.Schema({
     socialId: {
@@ -23,4 +23,4 @@ const chatSchema = mongoose.Schema({
     },
 })
 
-module.exports = mongoose.model("chat", chatSchema)
+module.exports = mongoose.model('chat', chatSchema)

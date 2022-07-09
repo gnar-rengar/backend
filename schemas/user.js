@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
     social: { type: String },
@@ -11,9 +11,8 @@ const userSchema = new mongoose.Schema({
     voice: { type: Boolean },
     voiceChannel: { type: [String] },
     communication: { type: [String] },
-    banId: { type: [String] }
+    banId: { type: [String] },
 })
 
-
-const User = mongoose.model("User", userSchema)
+const User = mongoose.model('User', userSchema)
 module.exports = User

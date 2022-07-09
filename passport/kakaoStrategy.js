@@ -13,13 +13,19 @@ module.exports = () => {
 
             async (accessToken, refreshToken, profile, done) => {
                 try {
-                    const exUser = await User.findOne( { socialId: profile.id, social: 'kakao' } )
+                    const exUser = await User.findOne({
+                        socialId: profile.id,
+                        social: 'kakao',
+                    })
                     if (exUser) {
                         done(null, exUser)
                     } else {
                         let nickname = profile._json.properties.nickname
                         if (profile._json.properties.nickname.length > 8) {
-                            nickname = profile._json.properties.nickname.substr(0, 8)
+                            nickname = profile._json.properties.nickname.substr(
+                                0,
+                                8
+                            )
                         }
                         const newUser = await User.create({
                             social: 'kakao',

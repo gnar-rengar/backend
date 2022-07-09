@@ -1,5 +1,5 @@
 const passport = require('passport')
-const GoogleStrategy = require("passport-google-oauth20").Strategy
+const GoogleStrategy = require('passport-google-oauth20').Strategy
 const User = require('../schemas/user')
 require('dotenv').config()
 
@@ -13,7 +13,10 @@ module.exports = () => {
             },
             async (accessToken, refreshToken, profile, done) => {
                 try {
-                    const exUser = await User.findOne( { socialId: profile.id, social: 'google' } )
+                    const exUser = await User.findOne({
+                        socialId: profile.id,
+                        social: 'google',
+                    })
                     if (exUser) {
                         done(null, exUser)
                     } else {
