@@ -36,7 +36,6 @@ const kakaoCallback = (req, res, next) => {
                 refreshToken,
                 rtokenExpireTime,
                 userId,
-                nickname: currentUser.nickname,
                 lolNickname: currentUser.lolNickname,
                 profileUrl: currentUser.profileUrl,
             })
@@ -73,7 +72,6 @@ const googleCallback = (req, res) => {
                 refreshToken,
                 rtokenExpireTime,
                 userId,
-                nickname: currentUser.nickname,
                 lolNickname: currentUser.lolNickname,
                 profileUrl: currentUser.profileUrl,
             })
@@ -110,7 +108,6 @@ const naverCallback = (req, res, next) => {
                 refreshToken,
                 rtokenExpireTime,
                 userId,
-                nickname: currentUser.nickname,
                 lolNickname: currentUser.lolNickname,
                 profileUrl: currentUser.profileUrl,
             })
@@ -147,7 +144,6 @@ const discordCallback = (req, res, next) => {
                 refreshToken,
                 rtokenExpireTime,
                 userId,
-                nickname: currentUser.nickname,
                 lolNickname: currentUser.lolNickname,
                 profileUrl: currentUser.profileUrl,
             })
@@ -157,7 +153,6 @@ const discordCallback = (req, res, next) => {
 
 async function checkMyInfo(req, res) {
     const userId = res.locals.userId
-    const nickname = res.locals.nickname
     const lolNickname = res.locals.lolNickname
     const profileUrl = res.locals.profileUrl
 
