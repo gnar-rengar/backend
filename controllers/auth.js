@@ -189,6 +189,7 @@ async function deleteUser(req, res) {
             message: '회원탈퇴에 성공하였습니다.',
         })
     } catch (error) {
+        console.log(error)
         return next({
             message: '회원탈퇴에 실패하였습니다.',
             stack: error,

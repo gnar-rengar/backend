@@ -36,6 +36,7 @@ async function checkNick(req, res) {
             message: '계정이 확인되었습니다.',
         })
     } catch (error) {
+        console.log(error)
         res.status(404).send({
             success: false,
             message: '존재하지 않는 계정입니다.',
@@ -78,6 +79,7 @@ async function updateOnboarding(req, res) {
             message: '추가정보 등록에 성공하였습니다.',
         })
     } catch (error) {
+        console.log(error)
         res.send({
             success: false,
             message: '추가정보 등록에 실패하였습니다.',
@@ -104,6 +106,7 @@ async function getOnboarding(req, res) {
             playStyle: currentUser.playStyle,
         })
     } catch (error) {
+        console.log(error)
         res.send({
             success: false,
             message: '온보딩 불러오기에 실패하였습니다.',

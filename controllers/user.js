@@ -13,7 +13,7 @@ const riotToken = process.env.riotTokenKey
 async function writeReview(req, res) {
     const reviewedId = req.params.userId
     // const reviewerId = les.locals.userId
-    const reviewerId = '62bfd98e10fe87a93848aa5d'
+    const reviewerId = '62bfd94f10fe87a93848aa59'
 
     // const reviewerCheck = await Review.findOne({ reviewedId, reviewerId })
     // if(reviewerCheck) {
@@ -126,6 +126,7 @@ async function writeReview(req, res) {
             message: '리뷰작성에 성공하였습니다.',
         })
     } catch (error) {
+        console.log(error)
         res.send({
             success: false,
             message: '리뷰작성에 실패하였습니다.',
@@ -311,8 +312,63 @@ async function recentRecord(req, res) {
     }
 }
 
+async function mypage (req, res) {
+    // const userId = res.locals.userId
+    const userId = '62bfd94f10fe87a93848aa59'
+
+    try {
+        const currentUser = await User.findOne({ _id: userId })
+        const lolNickname = currentUser.lolNickname
+
+        const summoner = await axios({
+            method: 'GET',
+            url: encodeURI(
+                `https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${lolNickname}`
+            ),
+            headers: {
+                'X-Riot-Token': riotToken,
+            },
+        })
+
+        const leaguePoint = await axios({
+            method: 'GET',
+            url: encodeURI(
+                `https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/${summoner.data.id}`
+            ),
+            headers: {
+                'X-Riot-Token': riotToken,
+            },
+        })
+
+        const review = await Review.findOne({ reviewedId: userId })
+
+        res.status(200).send({
+            success: true,
+            lolNickname,
+            profileUrl: currentUser.profileUrl,
+            tier: leaguePoint.data[0].tier,
+            rank: leaguePoint.data[0].rank,
+            leaguePoints: leaguePoint.data[0].leaguePoints,
+            wins: leaguePoint.data[0].wins,
+            losses: leaguePoint.data[0].losses,
+            playStyle: currentUser.playStyle,
+            position: currentUser.position,
+            voice: currentUser.voice,
+            goodReview: review.goodReview,
+            badReview: review.badReview,
+        })
+    } catch (error) {
+        console.log(error)
+        res.send({
+            success: false,
+            message: '내정보 불러오기에 실패하였습니다.',
+        })
+    }
+}
+
 module.exports = {
     writeReview,
     userInfo,
     recentRecord,
+    mypage
 }
