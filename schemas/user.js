@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const userSchema = new mongoose.Schema({
     social: { type: String },
     socialId: { type: String, unique: true },
+    leaguePoints: { type: String },
     profileUrl: { type: String },
     nickname: { type: String, required: true },
     lolNickname: { type: String, unique: true },
@@ -10,7 +11,7 @@ const userSchema = new mongoose.Schema({
     position: { type: [String] },
     voice: { type: Boolean },
     voiceChannel: { type: [String] },
-    communication: { type: [String] },
+    communication: { type: String },
     banId: { type: [String] },
 })
 

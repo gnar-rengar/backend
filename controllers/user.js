@@ -151,16 +151,6 @@ async function userInfo(req, res) {
             },
         })
 
-        const leaguePoint = await axios({
-            method: 'GET',
-            url: encodeURI(
-                `https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/${summoner.data.id}`
-            ),
-            headers: {
-                'X-Riot-Token': riotToken,
-            },
-        })
-
         const mostChampion = await axios({
             method: 'GET',
             url: encodeURI(
@@ -187,11 +177,7 @@ async function userInfo(req, res) {
             success: true,
             lolNickname,
             profileUrl: currentUser.profileUrl,
-            tier: leaguePoint.data[0].tier,
-            rank: leaguePoint.data[0].rank,
-            leaguePoints: leaguePoint.data[0].leaguePoints,
-            wins: leaguePoint.data[0].wins,
-            losses: leaguePoint.data[0].losses,
+            leaguePoints: currentUser.leaguePoints,
             playStyle: currentUser.playStyle,
             position: currentUser.position,
             voice: currentUser.voice,
@@ -312,7 +298,7 @@ async function recentRecord(req, res) {
     }
 }
 
-async function mypage (req, res) {
+async function mypage(req, res) {
     // const userId = res.locals.userId
     const userId = '62bfd94f10fe87a93848aa59'
 
@@ -330,27 +316,13 @@ async function mypage (req, res) {
             },
         })
 
-        const leaguePoint = await axios({
-            method: 'GET',
-            url: encodeURI(
-                `https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/${summoner.data.id}`
-            ),
-            headers: {
-                'X-Riot-Token': riotToken,
-            },
-        })
-
         const review = await Review.findOne({ reviewedId: userId })
 
         res.status(200).send({
             success: true,
             lolNickname,
             profileUrl: currentUser.profileUrl,
-            tier: leaguePoint.data[0].tier,
-            rank: leaguePoint.data[0].rank,
-            leaguePoints: leaguePoint.data[0].leaguePoints,
-            wins: leaguePoint.data[0].wins,
-            losses: leaguePoint.data[0].losses,
+            leaguePoints: currentUser.leaguePoints,
             playStyle: currentUser.playStyle,
             position: currentUser.position,
             voice: currentUser.voice,
@@ -370,5 +342,5 @@ module.exports = {
     writeReview,
     userInfo,
     recentRecord,
-    mypage
+    mypage,
 }

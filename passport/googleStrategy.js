@@ -1,7 +1,10 @@
+const axios = require('axios')
 const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth20').Strategy
 const User = require('../schemas/user')
 require('dotenv').config()
+
+const riotToken = process.env.riotTokenKey
 
 module.exports = () => {
     passport.use(
@@ -18,6 +21,43 @@ module.exports = () => {
                         social: 'google',
                     })
                     if (exUser) {
+                        const lolNickname = exUser.lolNickname
+
+                        const summoner = await axios({
+                            method: 'GET',
+                            url: encodeURI(
+                                `https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${lolNickname}`
+                            ),
+                            headers: {
+                                'X-Riot-Token': riotToken,
+                            },
+                        })
+
+                        const leaguePoint = await axios({
+                            method: 'GET',
+                            url: encodeURI(
+                                `https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/${summoner.data.id}`
+                            ),
+                            headers: {
+                                'X-Riot-Token': riotToken,
+                            },
+                        })
+
+                        const soloPoint = leaguePoint.data.find(
+                            (x) => x.queueType == 'RANKED_SOLO_5x5'
+                        )
+                        const leaguePoints =
+                            soloPoint.tier +
+                            ' ' +
+                            soloPoint.rank +
+                            ' ' +
+                            soloPoint.leaguePoints
+
+                        await User.updateOne(
+                            { socialId: profile.id, social: 'discord' },
+                            { $set: { leaguePoints } }
+                        )
+
                         done(null, exUser)
                     } else {
                         let nickname = profile.nickname //profile.nickname 맞는지 확인해야함

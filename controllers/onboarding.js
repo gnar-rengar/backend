@@ -50,7 +50,6 @@ async function updateOnboarding(req, res) {
 
     const data = {
         profileUrl: req.body.profileUrl,
-        nickname: req.body.nickname,
         lolNickname: req.body.lolNickname,
         position: req.body.position,
         voice: req.body.voice,
@@ -97,7 +96,6 @@ async function getOnboarding(req, res) {
         res.status(200).send({
             success: true,
             profileUrl: currentUser.profileUrl,
-            nickname: currentUser.nickname,
             lolNickname: currentUser.lolNickname,
             position: currentUser.position,
             voice: currentUser.voice,
