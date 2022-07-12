@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
     lolNickname: { type: String, unique: true },
     playStyle: { type: [String] },
     position: { type: [String] },
-    voice: { type: Boolean },
+    useVoice: { type: Boolean },
     voiceChannel: { type: [String] },
     communication: { type: String },
     banId: { type: [String] },

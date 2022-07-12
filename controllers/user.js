@@ -180,7 +180,7 @@ async function userInfo(req, res) {
             leaguePoints: currentUser.leaguePoints,
             playStyle: currentUser.playStyle,
             position: currentUser.position,
-            voice: currentUser.voice,
+            useVoice: currentUser.useVoice,
             voiceChannel: currentUser.voiceChannel,
             communication: currentUser.communication,
             mostChampion1,
@@ -325,7 +325,7 @@ async function mypage(req, res) {
             leaguePoints: currentUser.leaguePoints,
             playStyle: currentUser.playStyle,
             position: currentUser.position,
-            voice: currentUser.voice,
+            useVoice: currentUser.useVoice,
             goodReview: review.goodReview,
             badReview: review.badReview,
         })
