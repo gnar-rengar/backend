@@ -46,7 +46,7 @@ async function checkNick(req, res) {
 
 async function updateOnboarding(req, res) {
     // const userId = les.locals.userId
-    const userId = '62bfd94f10fe87a93848aa59'
+    const userId = '62bfd98e10fe87a93848aa5d'
 
     const data = {
         profileUrl: req.body.profileUrl,

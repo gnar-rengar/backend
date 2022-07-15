@@ -57,7 +57,7 @@ module.exports = () => {
                             soloPoint.leaguePoints
 
                         await User.updateOne(
-                            { socialId: profile.id, social: 'discord' },
+                            { socialId: profile.id, social: 'naver' },
                             { $set: { leaguePoints } }
                         )
 
