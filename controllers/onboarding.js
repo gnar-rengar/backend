@@ -11,14 +11,14 @@ async function checkNick(req, res) {
         lolNickname = req.query.lolNickname
     }
 
-    const exUser = await User.findOne({ lolNickname })
+    // const exUser = await User.findOne({ lolNickname })
 
-    if (exUser) {
-        return res.status(409).send({
-            success: false,
-            message: '이미 등록된 계정입니다.',
-        })
-    }
+    // if (exUser) {
+    //     return res.status(409).send({
+    //         success: false,
+    //         message: '이미 등록된 계정입니다.',
+    //     })
+    // }
 
     try {
         const summoner = await axios({
