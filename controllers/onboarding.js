@@ -14,7 +14,7 @@ async function checkNick(req, res) {
     const exUser = await User.findOne({ lolNickname })
 
     if (exUser) {
-        return res.status(400).send({
+        return res.status(409).send({
             success: false,
             message: '이미 등록된 계정입니다.',
         })
