@@ -2,7 +2,7 @@ const User = require('../schemas/user')
 
 async function customList (req, res) {
     // const userId = res.locals.userId
-    const userId = '62bfd94f10fe87a93848aa59'
+    const userId = '62d2611ce44a2bec67355e05'
 
     try{
         const currentUser = await User.findOne({ _id: userId })
@@ -26,7 +26,7 @@ async function customList (req, res) {
 
 async function newList (req, res) {
     // const userId = res.locals.userId
-    const userId = '62bfd94f10fe87a93848aa59'
+    const userId = '62d2611ce44a2bec67355e05'
 
     try{
         const currentUser = await User.findOne({ _id: userId })

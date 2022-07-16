@@ -13,7 +13,7 @@ const riotToken = process.env.riotTokenKey
 async function writeReview(req, res) {
     const reviewedId = req.params.userId
     // const reviewerId = les.locals.userId
-    const reviewerId = '62bfd94f10fe87a93848aa59'
+    const reviewerId = '62d2611ce44a2bec67355e05'
 
     // const reviewerCheck = await Review.findOne({ reviewedId, reviewerId })
     // if(reviewerCheck) {
@@ -300,7 +300,7 @@ async function recentRecord(req, res) {
 
 async function mypage(req, res) {
     // const userId = res.locals.userId
-    const userId = '62bfd94f10fe87a93848aa59'
+    const userId = '62d2609ee44a2bec67355dff'
 
     try {
         const currentUser = await User.findOne({ _id: userId })
