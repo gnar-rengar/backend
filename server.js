@@ -6,6 +6,7 @@ const https = require('https')
 
 require('dotenv').config()
 
+let server = ''
 if (process.env.PORT) {
     // Certificate 인증서 경로
     const privateKey = fs.readFileSync(process.env.SSL_PRIVATEKEY, 'utf8')
@@ -17,13 +18,12 @@ if (process.env.PORT) {
         cert: certificate,
         ca: ca,
     }
-    const httpsServer = https.createServer(credentials, app)
-    httpsServer.listen(port, () => {
-        console.log(`HTTPS Server running on port ${port}`)
-    })
+    server = https.createServer(credentials, app)
 } else {
-    const server = app.listen(port, () => {
-        console.log(port, '번으로 서버가 연결되었습니다.')
-        console.log(`http://localhost:${port}`)
-    })
+    server = http.createServer(app)
 }
+
+server.listen(port, () => {
+    console.log(port, '번으로 서버가 연결되었습니다.')
+    console.log(`http://localhost:${port}`)
+})
