@@ -204,21 +204,6 @@ async function userInfo(req, res) {
                 mostChampion3,
             })
         }
-        res.status(200).send({
-            success: true,
-            lolNickname,
-            profileUrl: currentUser.profileUrl,
-            leaguePoints: currentUser.leaguePoints,
-            playStyle: currentUser.playStyle,
-            position: currentUser.position,
-            useVoice: currentUser.useVoice,
-            voiceChannel: currentUser.voiceChannel,
-            communication: currentUser.communication,
-            mostChampion1,
-            mostChampion2,
-            mostChampion3,
-            goodReview: review.goodReview,
-        })
     } catch (error) {
         console.log(error)
         res.send({
