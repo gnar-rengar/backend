@@ -7,9 +7,14 @@ async function customList (req, res) {
     try{
         const currentUser = await User.findOne({ _id: userId })
 
-        User.find().where
+        const allUser = await User.find({ playStyle: { $all: currentUser.playStyle[3] } })
 
-        console.log(currentUser.playStyle)
+        // console.log(currentUser.playStyle)
+        console.log(allUser)
+        res.send({
+            success: true,
+            message: '맞춤소환사 리스트',
+        })
     } catch (error) {
         console.log(error)
         res.send({
