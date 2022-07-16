@@ -300,7 +300,7 @@ async function recentRecord(req, res) {
 
 async function mypage(req, res) {
     // const userId = res.locals.userId
-    const userId = '62d2609ee44a2bec67355dff'
+    const userId = '62d2611ce44a2bec67355e05'
 
     try {
         const currentUser = await User.findOne({ _id: userId })
