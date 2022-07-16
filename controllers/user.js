@@ -172,7 +172,38 @@ async function userInfo(req, res) {
         ).id
 
         const review = await Review.findOne({ reviewedId: userId })
-
+        if(review) {
+            res.status(200).send({
+                success: true,
+                lolNickname,
+                profileUrl: currentUser.profileUrl,
+                leaguePoints: currentUser.leaguePoints,
+                playStyle: currentUser.playStyle,
+                position: currentUser.position,
+                useVoice: currentUser.useVoice,
+                voiceChannel: currentUser.voiceChannel,
+                communication: currentUser.communication,
+                mostChampion1,
+                mostChampion2,
+                mostChampion3,
+                goodReview: review.goodReview,
+            })
+        } else {
+            res.status(200).send({
+                success: true,
+                lolNickname,
+                profileUrl: currentUser.profileUrl,
+                leaguePoints: currentUser.leaguePoints,
+                playStyle: currentUser.playStyle,
+                position: currentUser.position,
+                useVoice: currentUser.useVoice,
+                voiceChannel: currentUser.voiceChannel,
+                communication: currentUser.communication,
+                mostChampion1,
+                mostChampion2,
+                mostChampion3,
+            })
+        }
         res.status(200).send({
             success: true,
             lolNickname,
@@ -317,18 +348,29 @@ async function mypage(req, res) {
         })
 
         const review = await Review.findOne({ reviewedId: userId })
-
-        res.status(200).send({
-            success: true,
-            lolNickname,
-            profileUrl: currentUser.profileUrl,
-            leaguePoints: currentUser.leaguePoints,
-            playStyle: currentUser.playStyle,
-            position: currentUser.position,
-            useVoice: currentUser.useVoice,
-            goodReview: review.goodReview,
-            badReview: review.badReview,
-        })
+        if (review) {
+            res.status(200).send({
+                success: true,
+                lolNickname,
+                profileUrl: currentUser.profileUrl,
+                leaguePoints: currentUser.leaguePoints,
+                playStyle: currentUser.playStyle,
+                position: currentUser.position,
+                useVoice: currentUser.useVoice,
+                goodReview: review.goodReview,
+                badReview: review.badReview,
+            })
+        } else {
+            res.status(200).send({
+                success: true,
+                lolNickname,
+                profileUrl: currentUser.profileUrl,
+                leaguePoints: currentUser.leaguePoints,
+                playStyle: currentUser.playStyle,
+                position: currentUser.position,
+                useVoice: currentUser.useVoice,
+            })
+        }
     } catch (error) {
         console.log(error)
         res.send({
