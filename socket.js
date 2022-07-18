@@ -45,7 +45,7 @@ io.on('connection', (socket) => {
     })
 
     socket.on('sendMessage', async (roomId, userId, text) => {
-        const date = moment().format('YYYY년 MM월 DD일')
+        const date = moment().format('YYYY년 M월 D일')
         const chat = {
             roomId,
             userId,
