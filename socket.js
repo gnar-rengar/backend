@@ -54,7 +54,7 @@ io.on('connection', (socket) => {
             isRead: false
         }
 
-        await Chat.create({ chat })
+        await Chat.create( chat )
     })
 })
 
