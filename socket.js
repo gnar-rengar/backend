@@ -51,7 +51,7 @@ io.on('connection', (socket) => {
             {
                 $group: {
                     _id: "$date",
-                    obj: { $push: { roomId: "$roomId", text: "$text", userId: "$userId", createdAt: "$createdAt" } }
+                    obj: { $push: { text: "$text", userId: "$userId", createdAt: "$createdAt" } }
                 }
             },
             {
@@ -65,6 +65,8 @@ io.on('connection', (socket) => {
                 }
             }
         ])
+
+        await Chat.updateMany({ roomId, isRead: false }, { $set: { isRead: true } })
 
         socket.emit('onEnterChatRoom', chat)
     })
