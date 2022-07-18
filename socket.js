@@ -35,6 +35,10 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('disconnect socketId : ', socket.id)
     })
+
+    socket.on('test', (msg) => {
+        console.log(msg)
+    })
 })
 
 module.exports = { server }
