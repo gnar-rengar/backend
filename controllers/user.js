@@ -136,6 +136,7 @@ async function writeReview(req, res) {
 
 async function userInfo(req, res) {
     const userId = req.params.userId
+    const goodReview = []
 
     try {
         const currentUser = await User.findOne({ _id: userId })
@@ -202,6 +203,7 @@ async function userInfo(req, res) {
                 mostChampion1,
                 mostChampion2,
                 mostChampion3,
+                goodReview
             })
         }
     } catch (error) {
@@ -317,6 +319,8 @@ async function recentRecord(req, res) {
 async function mypage(req, res) {
     // const userId = res.locals.userId
     const userId = '62d2611ce44a2bec67355e05'
+    let goodReview = []
+    let badReview = []
 
     try {
         const currentUser = await User.findOne({ _id: userId })
@@ -354,6 +358,8 @@ async function mypage(req, res) {
                 playStyle: currentUser.playStyle,
                 position: currentUser.position,
                 useVoice: currentUser.useVoice,
+                goodReview,
+                badReview
             })
         }
     } catch (error) {
