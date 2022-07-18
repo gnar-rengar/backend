@@ -27,6 +27,7 @@ const io = require('socket.io')(server, {
         ],
         credentials: true,
     },
+    autoConnect: false,
 })
 
 io.on('connection', (socket) => {
