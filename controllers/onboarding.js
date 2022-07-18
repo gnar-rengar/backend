@@ -47,6 +47,7 @@ async function checkNick(req, res) {
 async function updateOnboarding(req, res) {
     // const userId = les.locals.userId
     const userId = '62d509be151f1fb3b2e0f792'
+    const lolNickname = req.body.lolNickname
 
     const data = {
         profileUrl: req.body.profileUrl,
@@ -71,6 +72,38 @@ async function updateOnboarding(req, res) {
             }
             data.profileUrl = req.file.location
         }
+
+        const summoner = await axios({
+            method: 'GET',
+            url: encodeURI(
+                `https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${lolNickname}`
+            ),
+            headers: {
+                'X-Riot-Token': riotToken,
+            },
+        })
+
+        const leaguePoint = await axios({
+            method: 'GET',
+            url: encodeURI(
+                `https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/${summoner.data.id}`
+            ),
+            headers: {
+                'X-Riot-Token': riotToken,
+            },
+        })
+
+        const soloPoint = leaguePoint.data.find(
+            (x) => x.queueType == 'RANKED_SOLO_5x5'
+        )
+        const leaguePoints =
+            soloPoint.tier +
+            ' ' +
+            soloPoint.rank +
+            ' ' +
+            soloPoint.leaguePoints
+
+        data.leaguePoints = leaguePoints
 
         await User.updateOne({ _id: userId }, { $set: data })
         res.status(200).send({
