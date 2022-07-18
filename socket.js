@@ -42,6 +42,19 @@ io.on('connection', (socket) => {
         const array = [user1, user2].sort()
         await ChatRoom.create({ userId: array })
     })
+
+    socket.on('sendMessage', async (roomId, userId, text) => {
+        const date = moment().format('YYYY년 MM월 DD일')
+        const chat = {
+            roomId,
+            userId,
+            text,
+            date,
+            isRead: false
+        }
+
+        await Chat.create({ chat })
+    })
 })
 
 module.exports = { server }
