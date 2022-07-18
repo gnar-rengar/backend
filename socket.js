@@ -2,8 +2,8 @@ const app = require('./app')
 const fs = require('fs')
 const http = require('http')
 const https = require('https')
-const ChatRooms = require('./schemas/chatroom')
-const Chats = require('./schemas/chat')
+const ChatRoom = require('./schemas/chatroom')
+const Chat = require('./schemas/chat')
 
 let server = ''
 if (process.env.PORT) {
@@ -41,7 +41,8 @@ io.on('connection', (socket) => {
     })
 
     socket.on('makeChatRoom', async (user1, user2) => {
-        await ChatRooms.create({ userId: [user1, user2]})
+        const array = [ user1, user2 ].sort()
+        await ChatRoom.create({ userId: array })
     })
 })
 

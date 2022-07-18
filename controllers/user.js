@@ -1,6 +1,7 @@
 const axios = require('axios')
 const User = require('../schemas/user')
 const Review = require('../schemas/review')
+const ChatRoom = require('../schemas/chatroom')
 require('dotenv').config()
 const fs = require('fs')
 const chapmions = fs.readFileSync('datas/champions.json', 'utf8')
@@ -135,9 +136,11 @@ async function writeReview(req, res) {
 }
 
 async function userInfo(req, res) {
+    // const myId = res.locals.userId
     const userId = req.params.userId
     const goodReview = []
 
+    const exChatroom = await ChatRoom.findOne({})
     try {
         const currentUser = await User.findOne({ _id: userId })
         const lolNickname = currentUser.lolNickname
