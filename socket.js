@@ -4,7 +4,7 @@ const http = require('http')
 const https = require('https')
 const ChatRoom = require('./schemas/chatroom')
 const Chat = require('./schemas/chat')
-const moment = require('momnet')
+const moment = require('moment')
 
 let server = ''
 if (process.env.PORT) {
