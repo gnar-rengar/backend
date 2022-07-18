@@ -145,7 +145,7 @@ async function userInfo(req, res) {
     const exChatroom = await ChatRoom.findOne({ userId: array })
 
     let roomId = ''
-    if(exChatroom) {
+    if (exChatroom) {
         roomId = exChatroom._id
     }
 
@@ -184,7 +184,7 @@ async function userInfo(req, res) {
         ).id
 
         const review = await Review.findOne({ reviewedId: userId })
-        if(review) {
+        if (review) {
             res.status(200).send({
                 success: true,
                 lolNickname,
@@ -216,7 +216,7 @@ async function userInfo(req, res) {
                 mostChampion2,
                 mostChampion3,
                 goodReview,
-                roomId
+                roomId,
             })
         }
     } catch (error) {
@@ -372,7 +372,7 @@ async function mypage(req, res) {
                 position: currentUser.position,
                 useVoice: currentUser.useVoice,
                 goodReview,
-                badReview
+                badReview,
             })
         }
     } catch (error) {

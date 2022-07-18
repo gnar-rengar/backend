@@ -1,17 +1,20 @@
 const mongoose = require('mongoose')
 
-const chatSchema = mongoose.Schema({
-    userId: { type: String },
-    text: {
-        type: String,
-        required: true,
+const chatSchema = mongoose.Schema(
+    {
+        userId: { type: String },
+        roomId: { type: String },
+        text: {
+            type: String,
+        },
+        date: {
+            type: String,
+        },
+        isRead: {
+            type: Boolean,
+        },
     },
-    date: {
-        type: String,
-    },
-    isRead: {
-        type: Boolean
-    },
-}, { timestamps: true } )
+    { timestamps: true }
+)
 
 module.exports = mongoose.model('chat', chatSchema)

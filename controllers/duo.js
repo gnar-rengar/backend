@@ -1,13 +1,15 @@
 const User = require('../schemas/user')
 
-async function customList (req, res) {
+async function customList(req, res) {
     // const userId = res.locals.userId
     const userId = '62d2611ce44a2bec67355e05'
 
-    try{
+    try {
         const currentUser = await User.findOne({ _id: userId })
 
-        const allUser = await User.find({ playStyle: { $all: currentUser.playStyle[3] } })
+        const allUser = await User.find({
+            playStyle: { $all: currentUser.playStyle[3] },
+        })
 
         // console.log(currentUser.playStyle)
         console.log(allUser)
@@ -24,11 +26,11 @@ async function customList (req, res) {
     }
 }
 
-async function newList (req, res) {
+async function newList(req, res) {
     // const userId = res.locals.userId
     const userId = '62d2611ce44a2bec67355e05'
 
-    try{
+    try {
         const currentUser = await User.findOne({ _id: userId })
     } catch (error) {
         console.log(error)
@@ -41,5 +43,5 @@ async function newList (req, res) {
 
 module.exports = {
     customList,
-    newList
+    newList,
 }

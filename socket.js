@@ -24,9 +24,7 @@ if (process.env.PORT) {
 
 const io = require('socket.io')(server, {
     cors: {
-        origin: [
-            'http://localhost:3000',
-        ],
+        origin: ['http://localhost:3000'],
         credentials: true,
     },
     autoConnect: false,
@@ -41,7 +39,7 @@ io.on('connection', (socket) => {
     })
 
     socket.on('makeChatRoom', async (user1, user2) => {
-        const array = [ user1, user2 ].sort()
+        const array = [user1, user2].sort()
         await ChatRoom.create({ userId: array })
     })
 })

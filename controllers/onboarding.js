@@ -97,11 +97,7 @@ async function updateOnboarding(req, res) {
             (x) => x.queueType == 'RANKED_SOLO_5x5'
         )
         const leaguePoints =
-            soloPoint.tier +
-            ' ' +
-            soloPoint.rank +
-            ' ' +
-            soloPoint.leaguePoints
+            soloPoint.tier + ' ' + soloPoint.rank + ' ' + soloPoint.leaguePoints
 
         data.leaguePoints = leaguePoints
 
