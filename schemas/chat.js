@@ -1,25 +1,17 @@
 const mongoose = require('mongoose')
 
 const chatSchema = mongoose.Schema({
-    socialId: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    nickname: {
-        type: String,
-        required: true,
-    },
-    profileUrl: {
-        type: String,
-        required: true,
-    },
-    message: {
+    userId: { type: [String] },
+    text: {
         type: String,
         required: true,
     },
     date: {
         type: String,
+    },
+    timestamps: true,
+    isRead: {
+        type: Boolean
     },
 })
 

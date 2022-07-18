@@ -36,7 +36,8 @@
     "passport-discord": "^0.1.4",
     "passport-google-oauth20": "^2.0.0",
     "passport-kakao": "^1.0.1",
-    "passport-naver-v2": "^2.0.8"
+    "passport-naver-v2": "^2.0.8",
+    "socket.io": "^4.5.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.19",
