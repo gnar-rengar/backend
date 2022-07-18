@@ -182,12 +182,18 @@ async function deleteUser(req, res) {
     const agent = req.headers['user-agent']
 
     try {
-        await RefreshToken.deleteOne({ userId, agent })
-        await User.deleteOne({ _id: userId })
-        res.status(200).send({
-            success: true,
-            message: '회원탈퇴에 성공하였습니다.',
-        })
+        if (userId) {
+            await RefreshToken.deleteOne({ userId, agent })
+            await User.deleteOne({ _id: userId })
+            res.status(200).send({
+                success: true,
+                message: '회원탈퇴에 성공하였습니다.',
+            })
+        } else {
+            res.send({
+                message: '즐',
+            })
+        }
     } catch (error) {
         console.log(error)
         return next({

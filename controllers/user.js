@@ -13,7 +13,7 @@ const riotToken = process.env.riotTokenKey
 async function writeReview(req, res) {
     const reviewedId = req.params.userId
     // const reviewerId = les.locals.userId
-    const reviewerId = '62d2611ce44a2bec67355e05'
+    const reviewerId = '62d266524bca7feb901a2eac'
 
     // const reviewerCheck = await Review.findOne({ reviewedId, reviewerId })
     // if(reviewerCheck) {
@@ -114,12 +114,12 @@ async function writeReview(req, res) {
             }
         }
 
-        if (req.body.ban) {
-            await User.updateOne(
-                { _id: reviewerId },
-                { $push: { banId: reviewedId } }
-            )
-        }
+        // if (req.body.ban) {
+        //     await User.updateOne(
+        //         { _id: reviewerId },
+        //         { $push: { banId: reviewedId } }
+        //     )
+        // }
 
         res.status(200).send({
             success: true,
@@ -318,7 +318,7 @@ async function recentRecord(req, res) {
 
 async function mypage(req, res) {
     // const userId = res.locals.userId
-    const userId = '62d2611ce44a2bec67355e05'
+    const userId = '62d509be151f1fb3b2e0f792'
     let goodReview = []
     let badReview = []
 
