@@ -31,6 +31,9 @@ const io = require('socket.io')(server, {
     allowEIO3: true,
 })
 
+
+const msg = "hi"
+
 io.on('connection', (socket) => {
     console.log('socketId : ', socket.id)
 
@@ -38,9 +41,7 @@ io.on('connection', (socket) => {
         console.log('disconnect socketId : ', socket.id)
     })
 
-    socket.on('test', (msg) => {
-        console.log(msg)
-    })
+    socket.emit('test', msg)
 })
 
 module.exports = { server }
