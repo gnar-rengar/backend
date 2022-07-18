@@ -42,4 +42,6 @@ io.on('connection', (socket) => {
     })
 })
 
+console.log('@@@')
+
 module.exports = { server }
