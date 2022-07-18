@@ -137,10 +137,18 @@ async function writeReview(req, res) {
 
 async function userInfo(req, res) {
     // const myId = res.locals.userId
+    const myId = '62d266524bca7feb901a2eac'
     const userId = req.params.userId
+    const array = [myId, userId].sort()
     const goodReview = []
 
-    const exChatroom = await ChatRoom.findOne({})
+    const exChatroom = await ChatRoom.findOne({ userId: array })
+
+    let roomId = ''
+    if(exChatroom) {
+        roomId = exChatroom._id
+    }
+
     try {
         const currentUser = await User.findOne({ _id: userId })
         const lolNickname = currentUser.lolNickname
@@ -191,6 +199,7 @@ async function userInfo(req, res) {
                 mostChampion2,
                 mostChampion3,
                 goodReview: review.goodReview,
+                roomId,
             })
         } else {
             res.status(200).send({
@@ -206,7 +215,8 @@ async function userInfo(req, res) {
                 mostChampion1,
                 mostChampion2,
                 mostChampion3,
-                goodReview
+                goodReview,
+                roomId
             })
         }
     } catch (error) {
