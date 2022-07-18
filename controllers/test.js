@@ -1,5 +1,6 @@
 const axios = require('axios')
 const User = require('../schemas/user')
+const Chat = require('../schemas/chat')
 require('dotenv').config()
 
 const riotToken = process.env.riotTokenKey
@@ -72,9 +73,37 @@ async function createUser(req, res) {
     return res.status(200).json({ success: true })
 }
 
+async function test(req, res) {
+    const roomId = '62d565601115b1eb5763d761'
+    const chat = await Chat.aggregate([
+        { $match: { roomId } },
+        {
+            $group: {
+                _id: "$date",
+                obj: { $push: { roomId: "$roomId", text: "$text", userId: "$userId", createdAt: "$createdAt" } }
+            }
+        },
+        {
+            $replaceRoot: {
+                newRoot: {
+                    $let: {
+                        vars: { obj: [ { k: {$substr:["$_id", 0, -1 ]}, v: "$obj" } ] },
+                        in: { $arrayToObject: "$$obj" }
+                    }
+                }
+            }
+        }
+    ])
+
+    console.log(chat[0])
+
+    res.send({ success: true })
+}
+
 module.exports = {
     summoner,
     matchList,
     match,
     createUser,
+    test,
 }

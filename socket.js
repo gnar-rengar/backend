@@ -44,6 +44,31 @@ io.on('connection', (socket) => {
         await ChatRoom.create({ userId: array })
     })
 
+    socket.on('enterChatRoom', async (roomId) => {
+        socket.join(roomId)
+        const chat = await Chat.aggregate([
+            { $match: { roomId } },
+            {
+                $group: {
+                    _id: "$date",
+                    obj: { $push: { roomId: "$roomId", text: "$text", userId: "$userId", createdAt: "$createdAt" } }
+                }
+            },
+            {
+                $replaceRoot: {
+                    newRoot: {
+                        $let: {
+                            vars: { obj: [ { k: {$substr:["$_id", 0, -1 ]}, v: "$obj" } ] },
+                            in: { $arrayToObject: "$$obj" }
+                        }
+                    }
+                }
+            }
+        ])
+
+        socket.emit('onEnterChatRoom', chat)
+    })
+
     socket.on('sendMessage', async (roomId, userId, text) => {
         const date = moment().format('YYYY년 M월 D일')
         const chat = {
@@ -51,10 +76,10 @@ io.on('connection', (socket) => {
             userId,
             text,
             date,
-            isRead: false
+            isRead: false,
         }
 
-        await Chat.create( chat )
+        await Chat.create(chat)
     })
 })
 

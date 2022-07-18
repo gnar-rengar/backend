@@ -12,4 +12,6 @@ router.post('/image', multer.upload.single('image'), (req, res) => {
     res.send('good!')
 })
 
+router.get('', testController.test)
+
 module.exports = router

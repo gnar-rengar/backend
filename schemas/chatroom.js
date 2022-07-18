@@ -4,4 +4,5 @@ const chatroomSchema = mongoose.Schema({
     userId: { type: [String] },
 })
 
-module.exports = mongoose.model('chatroom', chatroomSchema)
+const Chatroom = mongoose.model('Chatroom', chatroomSchema)
+module.exports = Chatroom
