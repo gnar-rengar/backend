@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const chatSchema = mongoose.Schema({
-    userId: { type: [String] },
+    userId: { type: String },
     text: {
         type: String,
         required: true,
@@ -9,10 +9,9 @@ const chatSchema = mongoose.Schema({
     date: {
         type: String,
     },
-    timestamps: true,
     isRead: {
         type: Boolean
     },
-})
+}, { timestamps: true } )
 
 module.exports = mongoose.model('chat', chatSchema)

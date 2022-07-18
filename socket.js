@@ -2,6 +2,8 @@ const app = require('./app')
 const fs = require('fs')
 const http = require('http')
 const https = require('https')
+const ChatRooms = require('./schemas/chatroom')
+const Chats = require('./schemas/chat')
 
 let server = ''
 if (process.env.PORT) {
@@ -31,9 +33,6 @@ const io = require('socket.io')(server, {
     allowEIO3: true,
 })
 
-
-const msg = "hi"
-
 io.on('connection', (socket) => {
     console.log('socketId : ', socket.id)
 
@@ -41,7 +40,9 @@ io.on('connection', (socket) => {
         console.log('disconnect socketId : ', socket.id)
     })
 
-    socket.emit('test', msg)
+    socket.on('makeChatRoom', async (user1, user2) => {
+        await ChatRooms.create({ userId: [user1, user2]})
+    })
 })
 
 module.exports = { server }
