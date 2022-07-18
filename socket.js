@@ -28,6 +28,7 @@ const io = require('socket.io')(server, {
         credentials: true,
     },
     autoConnect: false,
+    allowEIO3: true,
 })
 
 io.on('connection', (socket) => {
@@ -41,7 +42,5 @@ io.on('connection', (socket) => {
         console.log(msg)
     })
 })
-
-console.log('@@@')
 
 module.exports = { server }
