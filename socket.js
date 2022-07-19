@@ -91,7 +91,7 @@ io.on('connection', (socket) => {
     })
 
     socket.on('typing', async (roomId) => {
-        console.log(@@@)
+        console.log('@@@')
         socket.broadcast.to(roomId).emit('onTyping')
     })
 })
