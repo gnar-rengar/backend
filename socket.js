@@ -49,6 +49,11 @@ io.on('connection', (socket) => {
         const chat = await Chat.aggregate([
             { $match: { roomId } },
             {
+                $sort: {
+                    date : 1
+                }
+            },
+            {
                 $group: {
                     _id: "$date",
                     obj: { $push: { text: "$text", userId: "$userId", createdAt: "$createdAt" } }

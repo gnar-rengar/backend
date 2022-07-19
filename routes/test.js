@@ -13,5 +13,6 @@ router.post('/image', multer.upload.single('image'), (req, res) => {
 })
 
 router.get('', testController.test)
+router.get('/2', testController.test2)
 
 module.exports = router

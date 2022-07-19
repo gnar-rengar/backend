@@ -77,6 +77,7 @@ async function test(req, res) {
     const roomId = '62d565601115b1eb5763d761'
     const chat = await Chat.aggregate([
         { $match: { roomId } },
+        { $sort: { date : 1 } },
         {
             $group: {
                 _id: "$date",
@@ -95,7 +96,25 @@ async function test(req, res) {
         }
     ])
 
-    console.log(chat[0])
+    console.log(chat)
+
+    res.send({ success: true })
+}
+
+async function test2(req, res) {
+    const userId = '62d509be151f1fb3b2e0f792'
+    const currentUser = await User.findOne({ _id: userId })
+    const playStyle = currentUser.playStyle
+    console.log(playStyle)
+
+    // const list = await User.aggregate([
+    //     { $match: { playStyle: { $in: playStyle } }},
+    // ])
+
+    const list = await User.find({
+        playStyle: { $in: playStyle } 
+    })
+    console.log(list)
 
     res.send({ success: true })
 }
@@ -106,4 +125,5 @@ module.exports = {
     match,
     createUser,
     test,
+    test2,
 }
