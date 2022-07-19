@@ -119,6 +119,12 @@ async function test2(req, res) {
     res.send({ success: true })
 }
 
+async function test3(req, res) {
+    const chat = await Chat.create({ text: 'ㅋㅋ '})
+
+    console.log(chat)
+}
+
 module.exports = {
     summoner,
     matchList,
@@ -126,4 +132,5 @@ module.exports = {
     createUser,
     test,
     test2,
+    test3
 }

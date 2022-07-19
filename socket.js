@@ -89,6 +89,10 @@ io.on('connection', (socket) => {
         const newChat = await Chat.create(chat)
         io.to(roomId).emit('receiveMessage', newChat)
     })
+
+    socket.on('typing', async (roomId) => {
+        socket.broadcast.to(roomId).emit('onTyping')
+    })
 })
 
 module.exports = { server }
