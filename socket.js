@@ -87,6 +87,8 @@ io.on('connection', (socket) => {
         }
 
         await Chat.create(chat)
+        const newChat = await Chat.findOne({ roomId, userId, text, date })
+        io.to(roomId).emit('receiveMessage', newChat)
     })
 })
 
