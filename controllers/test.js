@@ -1,6 +1,7 @@
 const axios = require('axios')
 const User = require('../schemas/user')
 const Chat = require('../schemas/chat')
+const ChatRoom = require('../schemas/chatroom')
 require('dotenv').config()
 
 const riotToken = process.env.riotTokenKey
@@ -125,6 +126,14 @@ async function test3(req, res) {
     console.log(chat)
 }
 
+async function test4(req, res) {
+    const userId = '62d509be151f1fb3b2e0f792'
+
+    const room = await ChatRoom.find({userId: { $in: userId }})
+
+    console.log(room)
+}
+
 module.exports = {
     summoner,
     matchList,
@@ -132,5 +141,6 @@ module.exports = {
     createUser,
     test,
     test2,
-    test3
+    test3,
+    test4
 }

@@ -91,8 +91,11 @@ io.on('connection', (socket) => {
     })
 
     socket.on('typing', async (roomId) => {
-        // socket.broadcast.to(roomId).emit('onTyping')
-        io.to(roomId).emit('onTyping')
+        socket.broadcast.to(roomId).emit('onTyping')
+    })
+
+    socket.on('getChatRoom', async (userId) => {
+
     })
 })
 
