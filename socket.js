@@ -63,6 +63,7 @@ io.on('connection', (socket) => {
                             text: '$text',
                             userId: '$userId',
                             createdAt: '$createdAt',
+                            isRead: '$isRead',
                         },
                     },
                 },
