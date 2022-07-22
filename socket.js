@@ -136,7 +136,7 @@ io.on('connection', (socket) => {
             const lastMessage = allMessage.sort(function (a, b) {
                 return b[sortingField] - a[sortingField]
             })
-            array.lastMessage = lastMessage[0].text
+            array.lastMessageText = lastMessage[0].text
             array.lastMessagedTime = lastMessage[0].createdAt
             const unReadMessage = await Chat.find({
                 roomId: room[i].id,
