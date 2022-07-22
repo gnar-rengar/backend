@@ -2,7 +2,6 @@ const axios = require('axios')
 const User = require('../schemas/user')
 const Chat = require('../schemas/chat')
 const ChatRoom = require('../schemas/chatroom')
-const { all } = require('../routes')
 require('dotenv').config()
 
 const riotToken = process.env.riotTokenKey
