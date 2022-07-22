@@ -107,11 +107,13 @@ io.on('connection', (socket) => {
     })
 
     socket.on('typing', async (roomId) => {
-        socket.broadcast.to(roomId).emit('onTyping')
+        // socket.broadcast.to(roomId).emit('onTyping')
+        io.to(roomId).emit('onTyping')
     })
 
     socket.on('endTyping', async (roomId) => {
-        socket.broadcast.to(roomId).emit('onEndTyping')
+        // socket.broadcast.to(roomId).emit('onEndTyping')
+        io.to(roomId).emit('onEndTyping')
     })
 
     socket.on('getChatRoom', async (userId) => {
