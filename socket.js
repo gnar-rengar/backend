@@ -121,8 +121,6 @@ io.on('connection', (socket) => {
     socket.on('getChatRoom', async (userId) => {
         const room = await ChatRoom.find({ userId: { $in: userId } })
 
-        console.log('@@')
-
         let data = []
         for (let i = 0; i < room.length; i++) {
             let array = {}
@@ -147,8 +145,6 @@ io.on('connection', (socket) => {
             array.unRead = unReadMessage.length
             data.push(array)
         }
-
-        console.log(data)
 
         socket.emit('onGetChatRoom', data)
     })
