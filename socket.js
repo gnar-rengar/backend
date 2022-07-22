@@ -147,6 +147,8 @@ io.on('connection', (socket) => {
             data.push(array)
         }
 
+        console.log(data)
+
         socket.emit('onGetChatRoom', data)
     })
 })
