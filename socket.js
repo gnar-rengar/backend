@@ -4,6 +4,7 @@ const http = require('http')
 const https = require('https')
 const ChatRoom = require('./schemas/chatroom')
 const Chat = require('./schemas/chat')
+const User = require('./schemas/user')
 const moment = require('moment')
 
 let server = ''
