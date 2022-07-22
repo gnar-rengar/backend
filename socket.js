@@ -46,7 +46,7 @@ io.on('connection', (socket) => {
         await ChatRoom.create({ userId: array })
     })
 
-    socket.on('enterChatRoom', async (roomId) => {
+    socket.on('enterChatRoom', async (roomId, userId) => {
         socket.join(roomId)
         const chat = await Chat.aggregate([
             { $match: { roomId } },
@@ -91,7 +91,17 @@ io.on('connection', (socket) => {
             { $set: { isRead: true } }
         )
 
-        socket.emit('onEnterChatRoom', chat)
+        const room = await ChatRoom.findOne({ _id: roomId })
+        const opponentId = room.userId.find((x) => x != userId)
+        const opponent = await User.findOne({ _id: opponentId })
+        
+        let data = {}
+        data.userId = opponentId
+        data.profileUrl = opponent.profileUrl
+        data.lolNickname = opponent.lolNickname
+
+        socket.emit('getMessage', chat)
+        socket.emit('onEnterChatRoom', data)
     })
 
     socket.on('sendMessage', async (roomId, userId, text) => {
