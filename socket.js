@@ -100,7 +100,7 @@ io.on('connection', (socket) => {
         data.profileUrl = opponent.profileUrl
         data.lolNickname = opponent.lolNickname
 
-        socket.emit('getMessage', chat)
+        socket.emit('getMessages', chat)
         socket.emit('onEnterChatRoom', data)
     })
 
@@ -128,7 +128,7 @@ io.on('connection', (socket) => {
         io.to(roomId).emit('onEndTyping')
     })
 
-    socket.on('getChatRoom', async (userId) => {
+    socket.on('getChatRooms', async (userId) => {
         const room = await ChatRoom.find({ userId: { $in: userId } })
 
         let data = []
@@ -156,7 +156,7 @@ io.on('connection', (socket) => {
             data.push(array)
         }
 
-        socket.emit('onGetChatRoom', data)
+        socket.emit('onGetChatRooms', data)
     })
 })
 
