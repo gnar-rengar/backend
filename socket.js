@@ -27,6 +27,7 @@ const io = require('socket.io')(server, {
     cors: {
         origin: ['http://localhost:3000'],
         credentials: true,
+        transports: ['websocket', 'polling'],
     },
     autoConnect: false,
     allowEIO3: true,
