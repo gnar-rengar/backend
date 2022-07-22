@@ -120,6 +120,8 @@ io.on('connection', (socket) => {
     socket.on('getChatRoom', async (userId) => {
         const room = await ChatRoom.find({ userId: { $in: userId } })
 
+        console.log('@@')
+
         let data = []
         for (let i = 0; i < room.length; i++) {
             let array = {}
