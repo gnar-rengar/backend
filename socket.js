@@ -50,28 +50,44 @@ io.on('connection', (socket) => {
             { $match: { roomId } },
             {
                 $sort: {
-                    date : 1
-                }
+                    date: 1,
+                },
             },
             {
                 $group: {
-                    _id: "$date",
-                    obj: { $push: { text: "$text", userId: "$userId", createdAt: "$createdAt" } }
-                }
+                    _id: '$date',
+                    obj: {
+                        $push: {
+                            text: '$text',
+                            userId: '$userId',
+                            createdAt: '$createdAt',
+                        },
+                    },
+                },
             },
             {
                 $replaceRoot: {
                     newRoot: {
                         $let: {
-                            vars: { obj: [ { k: {$substr:["$_id", 0, -1 ]}, v: "$obj" } ] },
-                            in: { $arrayToObject: "$$obj" }
-                        }
-                    }
-                }
-            }
+                            vars: {
+                                obj: [
+                                    {
+                                        k: { $substr: ['$_id', 0, -1] },
+                                        v: '$obj',
+                                    },
+                                ],
+                            },
+                            in: { $arrayToObject: '$$obj' },
+                        },
+                    },
+                },
+            },
         ])
 
-        await Chat.updateMany({ roomId, isRead: false }, { $set: { isRead: true } })
+        await Chat.updateMany(
+            { roomId, isRead: false },
+            { $set: { isRead: true } }
+        )
 
         socket.emit('onEnterChatRoom', chat)
     })
@@ -94,8 +110,39 @@ io.on('connection', (socket) => {
         socket.broadcast.to(roomId).emit('onTyping')
     })
 
-    socket.on('getChatRoom', async (userId) => {
+    socket.on('endTyping', async (roomId) => {
+        socket.broadcast.to(roomId).emit('onEndTyping')
+    })
 
+    socket.on('getChatRoom', async (userId) => {
+        const room = await ChatRoom.find({ userId: { $in: userId } })
+
+        let data = []
+        for (let i = 0; i < room.length; i++) {
+            let array = {}
+            array.roomId = room[i].id
+            const opponentId = room[i].userId.find((x) => x != userId)
+            array.userId = opponentId
+            const opponent = await User.findOne({ _id: opponentId })
+            array.profileUrl = opponent.profileUrl
+            array.lolNickname = opponent.lolNickname
+
+            const allMessage = await Chat.find({ roomId: room[i].id })
+            const sortingField = 'createdAt'
+            const lastMessage = allMessage.sort(function (a, b) {
+                return b[sortingField] - a[sortingField]
+            })
+            array.lastMessage = lastMessage[0].text
+            array.createdAt = room[i].createdAt
+            const unReadMessage = await Chat.find({
+                roomId: room[i].id,
+                isRead: false,
+            })
+            array.unRead = unReadMessage.length
+            data.push(array)
+        }
+
+        socket.emit('onGetChatRoom', data)
     })
 })
 

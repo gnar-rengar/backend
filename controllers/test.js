@@ -2,6 +2,7 @@ const axios = require('axios')
 const User = require('../schemas/user')
 const Chat = require('../schemas/chat')
 const ChatRoom = require('../schemas/chatroom')
+const { all } = require('../routes')
 require('dotenv').config()
 
 const riotToken = process.env.riotTokenKey
@@ -78,23 +79,34 @@ async function test(req, res) {
     const roomId = '62d565601115b1eb5763d761'
     const chat = await Chat.aggregate([
         { $match: { roomId } },
-        { $sort: { date : 1 } },
+        { $sort: { date: 1 } },
         {
             $group: {
-                _id: "$date",
-                obj: { $push: { roomId: "$roomId", text: "$text", userId: "$userId", createdAt: "$createdAt" } }
-            }
+                _id: '$date',
+                obj: {
+                    $push: {
+                        roomId: '$roomId',
+                        text: '$text',
+                        userId: '$userId',
+                        createdAt: '$createdAt',
+                    },
+                },
+            },
         },
         {
             $replaceRoot: {
                 newRoot: {
                     $let: {
-                        vars: { obj: [ { k: {$substr:["$_id", 0, -1 ]}, v: "$obj" } ] },
-                        in: { $arrayToObject: "$$obj" }
-                    }
-                }
-            }
-        }
+                        vars: {
+                            obj: [
+                                { k: { $substr: ['$_id', 0, -1] }, v: '$obj' },
+                            ],
+                        },
+                        in: { $arrayToObject: '$$obj' },
+                    },
+                },
+            },
+        },
     ])
 
     console.log(chat)
@@ -113,7 +125,7 @@ async function test2(req, res) {
     // ])
 
     const list = await User.find({
-        playStyle: { $in: playStyle } 
+        playStyle: { $in: playStyle },
     })
     console.log(list)
 
@@ -121,7 +133,7 @@ async function test2(req, res) {
 }
 
 async function test3(req, res) {
-    const chat = await Chat.create({ text: 'ㅋㅋ '})
+    const chat = await Chat.create({ text: 'ㅋㅋ ' })
 
     console.log(chat)
 }
@@ -129,9 +141,34 @@ async function test3(req, res) {
 async function test4(req, res) {
     const userId = '62d509be151f1fb3b2e0f792'
 
-    const room = await ChatRoom.find({userId: { $in: userId }})
+    const room = await ChatRoom.find({ userId: { $in: userId } })
 
-    console.log(room)
+    let data = []
+    for (let i = 0; i < room.length; i++) {
+        let array = {}
+        array.roomId = room[i].id
+        const opponentId = room[i].userId.find((x) => x != userId)
+        array.userId = opponentId
+        const opponent = await User.findOne({ _id: opponentId })
+        array.profileUrl = opponent.profileUrl
+        array.lolNickname = opponent.lolNickname
+
+        const allMessage = await Chat.find({ roomId: room[i].id })
+        const sortingField = 'createdAt'
+        const lastMessage = allMessage.sort(function (a, b) {
+            return b[sortingField] - a[sortingField]
+        })
+        array.lastMessage = lastMessage[0].text
+        array.createdAt = room[i].createdAt
+        const unReadMessage = await Chat.find({
+            roomId: room[i].id,
+            isRead: false,
+        })
+        array.unRead = unReadMessage.length
+        data.push(array)
+    }
+
+    console.log(data)
 }
 
 module.exports = {
@@ -142,5 +179,5 @@ module.exports = {
     test,
     test2,
     test3,
-    test4
+    test4,
 }
