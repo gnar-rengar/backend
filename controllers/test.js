@@ -160,6 +160,7 @@ async function test4(req, res) {
         array.lastMessage = lastMessage[0].text
         array.createdAt = room[i].createdAt
         const unReadMessage = await Chat.find({
+            userId: { $ne: userId },
             roomId: room[i].id,
             isRead: false,
         })

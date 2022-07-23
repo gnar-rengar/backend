@@ -149,7 +149,7 @@ io.on('connection', (socket) => {
             array.lastMessageText = lastMessage[0].text
             array.lastMessagedTime = lastMessage[0].createdAt
             const unReadMessage = await Chat.find({
-                userId: { $not: { userId } },
+                userId: { $ne: userId },
                 roomId: room[i].id,
                 isRead: false,
             })
