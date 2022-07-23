@@ -87,11 +87,6 @@ io.on('connection', (socket) => {
             },
         ])
 
-        await Chat.updateMany(
-            { roomId, isRead: false },
-            { $set: { isRead: true } }
-        )
-
         const room = await ChatRoom.findOne({ _id: roomId })
         const opponentId = room.userId.find((x) => x != userId)
         const opponent = await User.findOne({ _id: opponentId })
@@ -101,8 +96,12 @@ io.on('connection', (socket) => {
         data.profileUrl = opponent.profileUrl
         data.lolNickname = opponent.lolNickname
 
-        socket.emit('getMessages', chat)
-        socket.emit('onEnterChatRoom', data)
+        socket.emit('onEnterChatRoom', data, chat)
+
+        await Chat.updateMany(
+            { roomId, isRead: false },
+            { $set: { isRead: true } }
+        )
     })
 
     socket.on('sendMessage', async (roomId, userId, text) => {
