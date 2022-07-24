@@ -13,8 +13,7 @@ const riotToken = process.env.riotTokenKey
 
 async function writeReview(req, res) {
     const reviewedId = req.params.userId
-    // const reviewerId = les.locals.userId
-    const reviewerId = '62d266524bca7feb901a2eac'
+    const reviewerId = les.locals.userId
 
     // const reviewerCheck = await Review.findOne({ reviewedId, reviewerId })
     // if(reviewerCheck) {
@@ -123,21 +122,18 @@ async function writeReview(req, res) {
         // }
 
         res.status(200).send({
-            success: true,
             message: '리뷰작성에 성공하였습니다.',
         })
     } catch (error) {
         console.log(error)
         res.send({
-            success: false,
             message: '리뷰작성에 실패하였습니다.',
         })
     }
 }
 
 async function userInfo(req, res) {
-    // const myId = res.locals.userId
-    const myId = '62d266524bca7feb901a2eac'
+    const myId = res.locals.userId
     const userId = req.params.userId
     const array = [myId, userId].sort()
     const goodReview = []
@@ -185,8 +181,7 @@ async function userInfo(req, res) {
 
         const review = await Review.findOne({ reviewedId: userId })
         if (review) {
-            res.status(200).send({
-                success: true,
+            res.status(200).json({
                 lolNickname,
                 profileUrl: currentUser.profileUrl,
                 leaguePoints: currentUser.leaguePoints,
@@ -202,8 +197,7 @@ async function userInfo(req, res) {
                 roomId,
             })
         } else {
-            res.status(200).send({
-                success: true,
+            res.status(200).json({
                 lolNickname,
                 profileUrl: currentUser.profileUrl,
                 leaguePoints: currentUser.leaguePoints,
@@ -221,8 +215,7 @@ async function userInfo(req, res) {
         }
     } catch (error) {
         console.log(error)
-        res.send({
-            success: false,
+        res.json({
             message: '유저정보 불러오기에 실패하였습니다.',
         })
     }
@@ -316,22 +309,19 @@ async function recentRecord(req, res) {
             recentRecord.push(data)
         }
 
-        res.status(200).send({
-            success: true,
+        res.status(200).json({
             recentRecord,
         })
     } catch (error) {
         console.log(error)
-        res.send({
-            success: false,
+        res.json({
             message: '최근전적 불러오기에 실패하였습니다.',
         })
     }
 }
 
 async function mypage(req, res) {
-    // const userId = res.locals.userId
-    const userId = '62d509be151f1fb3b2e0f792'
+    const userId = res.locals.userId
     let goodReview = []
     let badReview = []
 
@@ -351,8 +341,7 @@ async function mypage(req, res) {
 
         const review = await Review.findOne({ reviewedId: userId })
         if (review) {
-            res.status(200).send({
-                success: true,
+            res.status(200).json({
                 lolNickname,
                 profileUrl: currentUser.profileUrl,
                 leaguePoints: currentUser.leaguePoints,
@@ -363,8 +352,7 @@ async function mypage(req, res) {
                 badReview: review.badReview,
             })
         } else {
-            res.status(200).send({
-                success: true,
+            res.status(200).json({
                 lolNickname,
                 profileUrl: currentUser.profileUrl,
                 leaguePoints: currentUser.leaguePoints,
@@ -377,8 +365,7 @@ async function mypage(req, res) {
         }
     } catch (error) {
         console.log(error)
-        res.send({
-            success: false,
+        res.json({
             message: '내정보 불러오기에 실패하였습니다.',
         })
     }

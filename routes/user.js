@@ -1,14 +1,15 @@
 const router = require('express').Router()
 const multer = require('../middlewares/multers/multer')
 const userController = require('../controllers/user')
+const { checkTokens } = require('../middlewares/auth')
 
 //review 관련
-router.patch('/writeReview/:userId', userController.writeReview)
+router.patch('/writeReview/:userId', checkTokens, userController.writeReview)
 
 //user-profile 관련
-router.get('/userInfo/:userId', userController.userInfo)
-router.get('/recentRecord/:userId', userController.recentRecord)
+router.get('/userInfo/:userId', checkTokens, userController.userInfo)
+router.get('/recentRecord/:userId', checkTokens, userController.recentRecord)
 
-router.get('/mypage', userController.mypage)
+router.get('/mypage', checkTokens, userController.mypage)
 
 module.exports = router

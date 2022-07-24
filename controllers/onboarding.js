@@ -31,22 +31,19 @@ async function checkNick(req, res) {
             },
         })
         res.status(200).send({
-            success: true,
             profileUrl: `http://ddragon.leagueoflegends.com/cdn/12.11.1/img/profileicon/${summoner.data.profileIconId}.png`,
             message: '계정이 확인되었습니다.',
         })
     } catch (error) {
         console.log(error)
         res.status(404).send({
-            success: false,
             message: '존재하지 않는 계정입니다.',
         })
     }
 }
 
 async function updateOnboarding(req, res) {
-    // const userId = les.locals.userId
-    const userId = '62d509be151f1fb3b2e0f792'
+    const userId = les.locals.userId
     const lolNickname = req.body.lolNickname
 
     const data = {
@@ -102,27 +99,24 @@ async function updateOnboarding(req, res) {
         data.leaguePoints = leaguePoints
 
         await User.updateOne({ _id: userId }, { $set: data })
-        res.status(200).send({
-            success: true,
+        res.status(200).json({
             message: '추가정보 등록에 성공하였습니다.',
         })
     } catch (error) {
         console.log(error)
-        res.send({
-            success: false,
+        res.json({
             message: '추가정보 등록에 실패하였습니다.',
         })
     }
 }
 
 async function getOnboarding(req, res) {
-    // const userId = les.locals.userId
-    const userId = '62d509be151f1fb3b2e0f792'
+    const userId = les.locals.userId
 
     try {
         const currentUser = await User.findOne({ _id: userId })
 
-        res.status(200).send({
+        res.status(200).json({
             success: true,
             profileUrl: currentUser.profileUrl,
             lolNickname: currentUser.lolNickname,
@@ -134,8 +128,7 @@ async function getOnboarding(req, res) {
         })
     } catch (error) {
         console.log(error)
-        res.send({
-            success: false,
+        res.json({
             message: '온보딩 불러오기에 실패하였습니다.',
         })
     }

@@ -90,7 +90,7 @@ io.on('connection', (socket) => {
         const room = await ChatRoom.findOne({ _id: roomId })
         const opponentId = room.userId.find((x) => x != userId)
         const opponent = await User.findOne({ _id: opponentId })
-        
+
         let data = {}
         data.userId = opponentId
         data.profileUrl = opponent.profileUrl

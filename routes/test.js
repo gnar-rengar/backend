@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const testController = require('../controllers/test')
 const multer = require('../middlewares/multers/multer')
+const { checkTokens } = require('../middlewares/auth')
 
 router.get('/summoner', testController.summoner)
 router.get('/matchList', testController.matchList)

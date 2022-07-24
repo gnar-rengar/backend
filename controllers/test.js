@@ -78,16 +78,20 @@ async function test(req, res) {
     const roomId = '62d565601115b1eb5763d761'
     const chat = await Chat.aggregate([
         { $match: { roomId } },
-        { $sort: { date: 1 } },
+        {
+            $sort: {
+                date: 1,
+            },
+        },
         {
             $group: {
                 _id: '$date',
                 obj: {
                     $push: {
-                        roomId: '$roomId',
                         text: '$text',
                         userId: '$userId',
                         createdAt: '$createdAt',
+                        isRead: '$isRead',
                     },
                 },
             },
@@ -98,7 +102,10 @@ async function test(req, res) {
                     $let: {
                         vars: {
                             obj: [
-                                { k: { $substr: ['$_id', 0, -1] }, v: '$obj' },
+                                {
+                                    k: { $substr: ['$_id', 0, -1] },
+                                    v: '$obj',
+                                },
                             ],
                         },
                         in: { $arrayToObject: '$$obj' },
@@ -108,7 +115,7 @@ async function test(req, res) {
         },
     ])
 
-    console.log(chat)
+    console.log(chat[0])
 
     res.send({ success: true })
 }

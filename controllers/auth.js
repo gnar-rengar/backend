@@ -7,7 +7,7 @@ require('dotenv').config()
 const tokenExpireTime = process.env.VALID_ACCESS_TOKEN_TIME
 const rtokenExpireTime = process.env.VALID_REFRESH_TOKEN_TIME
 
-const kakaoCallback = (req, res, next) => {
+const kakaoCallback = (req, res) => {
     passport.authenticate(
         'kakao',
         { failureRedirect: '/' },
@@ -29,21 +29,24 @@ const kakaoCallback = (req, res, next) => {
 
             await RefreshToken.create({ userId, agent, refreshToken })
 
-            // res.cookie('token', token)
-            // res.cookie('refreshToken', refreshToken)
-
-            return res.json({
-                succcss: true,
-                token,
-                tokenExpireTime,
-                refreshToken,
-                rtokenExpireTime,
-                userId,
-                lolNickname: currentUser.lolNickname,
-                profileUrl: currentUser.profileUrl,
+            res.cookie('token', token, {
+                // httpOnly: true,
+                // secure: ~~
             })
+                .cookie('refreshToken', refreshToken, {
+                    // httpOnly: true,
+                    // secure: ~~
+                })
+                .status(200)
+                .json({
+                    tokenExpireTime,
+                    rtokenExpireTime,
+                    userId,
+                    lolNickname: currentUser.lolNickname,
+                    profileUrl: currentUser.profileUrl,
+                })
         }
-    )(req, res, next)
+    )(req, res)
 }
 
 const googleCallback = (req, res) => {
@@ -68,21 +71,27 @@ const googleCallback = (req, res) => {
 
             await RefreshToken.create({ userId, agent, refreshToken })
 
-            return res.json({
-                succcss: true,
-                token,
-                tokenExpireTime,
-                refreshToken,
-                rtokenExpireTime,
-                userId,
-                lolNickname: currentUser.lolNickname,
-                profileUrl: currentUser.profileUrl,
+            res.cookie('token', token, {
+                // httpOnly: true,
+                // secure: ~~
             })
+                .cookie('refreshToken', refreshToken, {
+                    // httpOnly: true,
+                    // secure: ~~
+                })
+                .status(200)
+                .json({
+                    tokenExpireTime,
+                    rtokenExpireTime,
+                    userId,
+                    lolNickname: currentUser.lolNickname,
+                    profileUrl: currentUser.profileUrl,
+                })
         }
-    )(req, res, next)
+    )(req, res)
 }
 
-const naverCallback = (req, res, next) => {
+const naverCallback = (req, res) => {
     passport.authenticate(
         'naver',
         { failureRedirect: '/' },
@@ -104,21 +113,27 @@ const naverCallback = (req, res, next) => {
 
             await RefreshToken.create({ userId, agent, refreshToken })
 
-            return res.json({
-                succcss: true,
-                token,
-                tokenExpireTime,
-                refreshToken,
-                rtokenExpireTime,
-                userId,
-                lolNickname: currentUser.lolNickname,
-                profileUrl: currentUser.profileUrl,
+            res.cookie('token', token, {
+                // httpOnly: true,
+                // secure: ~~
             })
+                .cookie('refreshToken', refreshToken, {
+                    // httpOnly: true,
+                    // secure: ~~
+                })
+                .status(200)
+                .json({
+                    tokenExpireTime,
+                    rtokenExpireTime,
+                    userId,
+                    lolNickname: currentUser.lolNickname,
+                    profileUrl: currentUser.profileUrl,
+                })
         }
-    )(req, res, next)
+    )(req, res)
 }
 
-const discordCallback = (req, res, next) => {
+const discordCallback = (req, res) => {
     passport.authenticate(
         'discord',
         { failureRedirect: '/' },
@@ -140,18 +155,24 @@ const discordCallback = (req, res, next) => {
 
             await RefreshToken.create({ userId, agent, refreshToken })
 
-            return res.json({
-                succcss: true,
-                token,
-                tokenExpireTime,
-                refreshToken,
-                rtokenExpireTime,
-                userId,
-                lolNickname: currentUser.lolNickname,
-                profileUrl: currentUser.profileUrl,
+            res.cookie('token', token, {
+                // httpOnly: true,
+                // secure: ~~
             })
+                .cookie('refreshToken', refreshToken, {
+                    // httpOnly: true,
+                    // secure: ~~
+                })
+                .status(200)
+                .json({
+                    tokenExpireTime,
+                    rtokenExpireTime,
+                    userId,
+                    lolNickname: currentUser.lolNickname,
+                    profileUrl: currentUser.profileUrl,
+                })
         }
-    )(req, res, next)
+    )(req, res)
 }
 
 async function checkMyInfo(req, res) {
@@ -159,8 +180,7 @@ async function checkMyInfo(req, res) {
     const lolNickname = res.locals.lolNickname
     const profileUrl = res.locals.profileUrl
 
-    res.send({
-        success: true,
+    res.status(200).json({
         userId,
         lolNickname,
         profileUrl,
@@ -173,8 +193,7 @@ async function logout(req, res) {
 
     await RefreshToken.deleteOne({ userId, agent })
 
-    res.send({
-        success: true,
+    res.clearCookie('token').clearCookie('refreshToken').status(200).send({
         message: '로그아웃 되었습니다.',
     })
 }
@@ -187,20 +206,21 @@ async function deleteUser(req, res) {
         if (userId) {
             await RefreshToken.deleteOne({ userId, agent })
             await User.deleteOne({ _id: userId })
-            res.status(200).send({
-                success: true,
-                message: '회원탈퇴에 성공하였습니다.',
-            })
+            res.clearCookie('token')
+                .clearCookie('refreshToken')
+                .status(200)
+                .json({
+                    message: '회원탈퇴에 성공하였습니다.',
+                })
         } else {
-            res.send({
+            res.json({
                 message: '즐',
             })
         }
     } catch (error) {
         console.log(error)
-        return next({
+        res.json({
             message: '회원탈퇴에 실패하였습니다.',
-            stack: error,
         })
     }
 }

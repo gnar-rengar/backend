@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const passport = require('passport')
 const authController = require('../controllers/auth')
+const { checkTokens } = require('../middlewares/auth')
 
 router.get('/kakao', passport.authenticate('kakao'))
 router.get('/kakao/callback', authController.kakaoCallback)
@@ -14,9 +15,9 @@ router.get('/naver/callback', authController.naverCallback)
 router.get('/discord', passport.authenticate('discord'))
 router.get('/discord/callback', authController.discordCallback)
 
-router.get('/', authController.checkMyInfo)
+router.get('/', checkTokens, authController.checkMyInfo)
 
-router.delete('/logout', authController.logout)
-router.delete('/deleteUser', authController.deleteUser)
+router.delete('/logout', checkTokens, authController.logout)
+router.delete('/deleteUser', checkTokens, authController.deleteUser)
 
 module.exports = router
