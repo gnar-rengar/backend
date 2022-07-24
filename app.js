@@ -20,7 +20,7 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: false, limit: '5mb' }))
 app.disable('x-powered-by')
 
-app.use(cookieParser(process.env.COOKIE_SECRET))
+app.use(cookieParser())
 app.use(
     session({
         resave: false,
