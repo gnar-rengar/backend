@@ -28,15 +28,9 @@ const kakaoCallback = (req, res) => {
             )
 
             await RefreshToken.create({ userId, agent, refreshToken })
-
-            res.cookie('token', token, {
-                // httpOnly: true,
-                // secure: ~~
-            })
-                .cookie('refreshToken', refreshToken, {
-                    // httpOnly: true,
-                    // secure: ~~
-                })
+            
+            res.cookie('token', token)
+                .cookie('refreshToken', refreshToken)
                 .status(200)
                 .json({
                     tokenExpireTime,
@@ -71,14 +65,8 @@ const googleCallback = (req, res) => {
 
             await RefreshToken.create({ userId, agent, refreshToken })
 
-            res.cookie('token', token, {
-                // httpOnly: true,
-                // secure: ~~
-            })
-                .cookie('refreshToken', refreshToken, {
-                    // httpOnly: true,
-                    // secure: ~~
-                })
+            res.cookie('token', token)
+                .cookie('refreshToken', refreshToken)
                 .status(200)
                 .json({
                     tokenExpireTime,
@@ -113,14 +101,8 @@ const naverCallback = (req, res) => {
 
             await RefreshToken.create({ userId, agent, refreshToken })
 
-            res.cookie('token', token, {
-                // httpOnly: true,
-                // secure: ~~
-            })
-                .cookie('refreshToken', refreshToken, {
-                    // httpOnly: true,
-                    // secure: ~~
-                })
+            res.cookie('token', token)
+                .cookie('refreshToken', refreshToken)
                 .status(200)
                 .json({
                     tokenExpireTime,
@@ -155,14 +137,8 @@ const discordCallback = (req, res) => {
 
             await RefreshToken.create({ userId, agent, refreshToken })
 
-            res.cookie('token', token, {
-                // httpOnly: true,
-                // secure: ~~
-            })
-                .cookie('refreshToken', refreshToken, {
-                    // httpOnly: true,
-                    // secure: ~~
-                })
+            res.cookie('token', token)
+                .cookie('refreshToken', refreshToken)
                 .status(200)
                 .json({
                     tokenExpireTime,
