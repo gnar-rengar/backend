@@ -56,8 +56,12 @@ module.exports = {
                         { expiresIn: process.env.VALID_ACCESS_TOKEN_TIME }
                     )
 
-                    res.clearCookie('token').cookie('token', newToken, COOKIE_OPTIONS)
-                    next()
+                    res.cookie('token', newToken, COOKIE_OPTIONS)
+                    .status(401)
+                    .json({
+                        message: 'new Token 발급',
+                        reason: 'token 만료'
+                    })
                 } else {
                     return res.status(401).json({
                         message: '다시 로그인해주세요.',
