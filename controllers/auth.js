@@ -162,8 +162,6 @@ async function checkMyInfo(req, res) {
     const lolNickname = res.locals.lolNickname
     const profileUrl = res.locals.profileUrl
 
-    console.log('###################')
-
     res.status(200).json({
         userId,
         lolNickname,
