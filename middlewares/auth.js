@@ -62,8 +62,6 @@ module.exports = {
                         message: '다시 로그인해주세요.',
                         reason: 'token에 문제가 있습니다.',
                     })
-
-                    
                 }
             } catch (error) {
                 if (error.name === 'TokenExpiredError') {
