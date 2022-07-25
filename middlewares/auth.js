@@ -14,8 +14,7 @@ module.exports = {
         try {
             // case 1 token 유효
             if (!req.cookies.token) {
-                console.log('@@@@')
-                next()
+                return next()
             }
 
             const token = req.cookies.token
