@@ -3,6 +3,12 @@ const User = require('../schemas/user')
 const RefreshToken = require('../schemas/refreshToken')
 require('dotenv').config()
 
+const COOKIE_OPTIONS = {
+    // httpOnly: false,
+    sameSite: "none",
+    secure: true,
+}
+
 module.exports = {
     async checkTokens(req, res, next) {
         try {
@@ -10,6 +16,7 @@ module.exports = {
             if (!req.cookies.token) next()
 
             const token = req.cookies.token
+            console.log(token)
             const userId = jwt.verify(token, process.env.TOKENKEY)
             const currentUser = await User.findOne({ _id: userId })
 
@@ -23,6 +30,7 @@ module.exports = {
                 if (error.name === 'TokenExpiredError') {
                     // case 2 token 만료, refreshToken 유효
                     const refreshToken = req.cookies.refreshToken
+                    console.log('@@@'+refreshToken)
                     const userId = jwt.verify(
                         refreshToken,
                         process.env.TOKENKEY
@@ -45,7 +53,7 @@ module.exports = {
                         { expiresIn: process.env.VALID_ACCESS_TOKEN_TIME }
                     )
 
-                    res.clearCookie('token').cookie('token', newToken)
+                    res.clearCookie('token').cookie('token', newToken, COOKIE_OPTIONS)
                     next()
                 } else {
                     return res.status(401).json({
