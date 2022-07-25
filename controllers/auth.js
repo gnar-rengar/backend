@@ -7,7 +7,7 @@ require('dotenv').config()
 const tokenExpireTime = process.env.VALID_ACCESS_TOKEN_TIME
 const rtokenExpireTime = process.env.VALID_REFRESH_TOKEN_TIME
 
-const COOKIE_OPTIONS = { httpOnly: false, sameSite: 'None', secure: false }
+const COOKIE_OPTIONS = { domain: '.localhost:3000',httpOnly: false, sameSite: 'None', secure: false }
 
 const kakaoCallback = (req, res) => {
     passport.authenticate(
