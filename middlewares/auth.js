@@ -17,9 +17,9 @@ module.exports = {
 
             const token = req.cookies.token
             console.log(token)
-            const userId = jwt.verify(token, process.env.TOKENKEY)
+            const user = jwt.verify(token, process.env.TOKENKEY)
             console.log(userId)
-            const currentUser = await User.findOne({ _id: userId })
+            const currentUser = await User.findOne({ _id: user.userId })
             console.log(currentUser)
 
             res.locals.userId = currentUser._id
@@ -33,14 +33,14 @@ module.exports = {
                     // case 2 token 만료, refreshToken 유효
                     const refreshToken = req.cookies.refreshToken
                     console.log('@@@'+refreshToken)
-                    const userId = jwt.verify(
+                    const user = jwt.verify(
                         refreshToken,
                         process.env.TOKENKEY
                     )
                     console.log(userId)
                     const agent = req.headers['user-agent']
                     const dbRefresh = await RefreshToken.findOne({
-                        userId,
+                        userId: user.userId,
                         agent,
                     })
 
@@ -51,7 +51,7 @@ module.exports = {
                         })
 
                     const newToken = jwt.sign(
-                        { userId: userId },
+                        { userId: user.userId },
                         process.env.TOKENKEY,
                         { expiresIn: process.env.VALID_ACCESS_TOKEN_TIME }
                     )
