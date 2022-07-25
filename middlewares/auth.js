@@ -13,7 +13,10 @@ module.exports = {
     async checkTokens(req, res, next) {
         try {
             // case 1 token 유효
-            if (!req.cookies.token) next()
+            if (!req.cookies.token) {
+                console.log('@@@@')
+                next()
+            }
 
             const token = req.cookies.token
             console.log(token)
