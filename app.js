@@ -28,6 +28,7 @@ app.use(
         secret: process.env.COOKIE_SECRET,
         cookie: {
             httpOnly: true,
+            SameSite: 'none',
             secure: false,
         },
     })
