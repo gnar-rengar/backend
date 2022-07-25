@@ -7,6 +7,8 @@ require('dotenv').config()
 const tokenExpireTime = process.env.VALID_ACCESS_TOKEN_TIME
 const rtokenExpireTime = process.env.VALID_REFRESH_TOKEN_TIME
 
+const COOKIE_OPTIONS = { httpOnly: true, sameSite: 'None', secure: false }
+
 const kakaoCallback = (req, res) => {
     passport.authenticate(
         'kakao',
@@ -29,8 +31,8 @@ const kakaoCallback = (req, res) => {
 
             await RefreshToken.create({ userId, agent, refreshToken })
             
-            res.cookie('token', token, { domain: '.localhost' })
-                .cookie('refreshToken', refreshToken, { domain: '.localhost' })
+            res.cookie('token', token, COOKIE_OPTIONS)
+                .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200)
                 .json({
                     tokenExpireTime,
@@ -65,8 +67,8 @@ const googleCallback = (req, res) => {
 
             await RefreshToken.create({ userId, agent, refreshToken })
 
-            res.cookie('token', token, { domain: '.localhost' })
-                .cookie('refreshToken', refreshToken, { domain: '.localhost' })
+            res.cookie('token', token, COOKIE_OPTIONS)
+                .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200)
                 .json({
                     tokenExpireTime,
@@ -101,8 +103,8 @@ const naverCallback = (req, res) => {
 
             await RefreshToken.create({ userId, agent, refreshToken })
 
-            res.cookie('token', token, { domain: '.localhost' })
-                .cookie('refreshToken', refreshToken, { domain: '.localhost' })
+            res.cookie('token', token, COOKIE_OPTIONS)
+                .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200)
                 .json({
                     tokenExpireTime,
@@ -137,8 +139,8 @@ const discordCallback = (req, res) => {
 
             await RefreshToken.create({ userId, agent, refreshToken })
 
-            res.cookie('token', token, { domain: '.localhost' })
-                .cookie('refreshToken', refreshToken, { domain: '.localhost' })
+            res.cookie('token', token, COOKIE_OPTIONS)
+                .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200)
                 .json({
                     tokenExpireTime,
