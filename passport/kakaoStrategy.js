@@ -54,10 +54,11 @@ module.exports = () => {
                                 ' ' +
                                 soloPoint.leaguePoints
 
-                        await User.updateOne(
-                            { socialId: profile.id, social: 'kakao' },
-                            { $set: { leaguePoints } }
-                        )
+                            await User.updateOne(
+                                { socialId: profile.id, social: 'kakao' },
+                                { $set: { leaguePoints } }
+                            )
+                        }
 
                         done(null, exUser)
                     } else {
