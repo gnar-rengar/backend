@@ -29,8 +29,8 @@ const kakaoCallback = (req, res) => {
 
             await RefreshToken.create({ userId, agent, refreshToken })
             
-            res.cookie('token', token)
-                .cookie('refreshToken', refreshToken)
+            res.cookie('token', token, { domain: '.localhost' })
+                .cookie('refreshToken', refreshToken, { domain: '.localhost' })
                 .status(200)
                 .json({
                     tokenExpireTime,
@@ -65,8 +65,8 @@ const googleCallback = (req, res) => {
 
             await RefreshToken.create({ userId, agent, refreshToken })
 
-            res.cookie('token', token)
-                .cookie('refreshToken', refreshToken)
+            res.cookie('token', token, { domain: '.localhost' })
+                .cookie('refreshToken', refreshToken, { domain: '.localhost' })
                 .status(200)
                 .json({
                     tokenExpireTime,
@@ -101,8 +101,8 @@ const naverCallback = (req, res) => {
 
             await RefreshToken.create({ userId, agent, refreshToken })
 
-            res.cookie('token', token)
-                .cookie('refreshToken', refreshToken)
+            res.cookie('token', token, { domain: '.localhost' })
+                .cookie('refreshToken', refreshToken, { domain: '.localhost' })
                 .status(200)
                 .json({
                     tokenExpireTime,
@@ -137,8 +137,8 @@ const discordCallback = (req, res) => {
 
             await RefreshToken.create({ userId, agent, refreshToken })
 
-            res.cookie('token', token)
-                .cookie('refreshToken', refreshToken)
+            res.cookie('token', token, { domain: '.localhost' })
+                .cookie('refreshToken', refreshToken, { domain: '.localhost' })
                 .status(200)
                 .json({
                     tokenExpireTime,
