@@ -18,7 +18,8 @@ module.exports = {
             const token = req.cookies.token
             console.log(token)
             const user = jwt.verify(token, process.env.TOKENKEY)
-            console.log(userId)
+            console.log(user)
+            console.log(user.userId)
             const currentUser = await User.findOne({ _id: user.userId })
             console.log(currentUser)
 
@@ -37,7 +38,8 @@ module.exports = {
                         refreshToken,
                         process.env.TOKENKEY
                     )
-                    console.log(userId)
+                    console.log(user)
+                    console.log(user.userId)
                     const agent = req.headers['user-agent']
                     const dbRefresh = await RefreshToken.findOne({
                         userId: user.userId,
