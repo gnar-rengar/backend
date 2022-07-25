@@ -40,7 +40,7 @@ module.exports = {
                     })
 
                     if (refreshToken !== dbRefresh)
-                        res.status(401).json({
+                        return res.status(401).json({
                             message: '다시 로그인해주세요.',
                             reason: 'database에 저장된 refreshToken과 다릅니다.',
                         })
@@ -51,26 +51,26 @@ module.exports = {
                         { expiresIn: process.env.VALID_ACCESS_TOKEN_TIME }
                     )
 
-                    res.cookie('token', newToken, COOKIE_OPTIONS)
+                    return res.cookie('token', newToken, COOKIE_OPTIONS)
                     .status(401)
                     .json({
                         message: 'new Token 발급',
                         reason: 'token 만료'
                     })
                 } else {
-                    res.status(401).json({
+                    return res.status(401).json({
                         message: '다시 로그인해주세요.',
                         reason: 'token에 문제가 있습니다.',
                     })
                 }
             } catch (error) {
                 if (error.name === 'TokenExpiredError') {
-                    res.status(401).json({
+                    return res.status(401).json({
                         message: '다시 로그인해주세요.',
                         reason: 'refreshToken이 만료되었습니다.',
                     })
                 } else {
-                    res.status(401).json({
+                    return res.status(401).json({
                         message: '다시 로그인해주세요.',
                         reason: 'refreshToken에 문제가 있습니다.',
                     })

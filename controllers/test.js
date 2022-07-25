@@ -178,6 +178,17 @@ async function test4(req, res) {
     console.log(data)
 }
 
+async function test5(req,res) {
+    // try{
+    //     new Error('ㅋㅋㅋㅋㅋ')
+    // } catch (error){
+    //     console.log(error)
+    //     res.json({message:'ㅋㅋ'})
+    // }
+    res.json({message:'ㅋㅋ'})
+    res.json({message:'ㅋㅋ'})
+}
+
 module.exports = {
     summoner,
     matchList,
@@ -187,4 +198,5 @@ module.exports = {
     test2,
     test3,
     test4,
+    test5,
 }
