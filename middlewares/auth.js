@@ -16,12 +16,8 @@ module.exports = {
             if (!req.cookies.token) next()
 
             const token = req.cookies.token
-            console.log(token)
             const user = jwt.verify(token, process.env.TOKENKEY)
-            console.log(user)
-            console.log(user.userId)
             const currentUser = await User.findOne({ _id: user.userId })
-            console.log(currentUser)
 
             res.locals.userId = currentUser._id
             res.locals.lolNickname = currentUser.lolNickname
@@ -33,13 +29,10 @@ module.exports = {
                 if (error.name === 'TokenExpiredError') {
                     // case 2 token 만료, refreshToken 유효
                     const refreshToken = req.cookies.refreshToken
-                    console.log('@@@'+refreshToken)
                     const user = jwt.verify(
                         refreshToken,
                         process.env.TOKENKEY
                     )
-                    console.log(user)
-                    console.log(user.userId)
                     const agent = req.headers['user-agent']
                     const dbRefresh = await RefreshToken.findOne({
                         userId: user.userId,
