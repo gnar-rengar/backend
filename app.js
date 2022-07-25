@@ -27,7 +27,7 @@ app.use(
         saveUninitialized: false,
         secret: process.env.COOKIE_SECRET,
         cookie: {
-            domain: '.localhost:3000',
+            domain: '.localhost',
             httpOnly: false,
             SameSite: 'none',
             secure: false,
