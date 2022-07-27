@@ -184,7 +184,12 @@ async function userInfo(req, res) {
             res.status(200).json({
                 lolNickname,
                 profileUrl: currentUser.profileUrl,
-                leaguePoints: currentUser.tier + currentUser.rank + currentUser.leaguePoints,
+                leaguePoints:
+                    currentUser.tier +
+                    ' ' +
+                    currentUser.rank +
+                    ' ' +
+                    currentUser.leaguePoints,
                 playStyle: currentUser.playStyle,
                 position: currentUser.position,
                 useVoice: currentUser.useVoice,
@@ -200,7 +205,12 @@ async function userInfo(req, res) {
             res.status(200).json({
                 lolNickname,
                 profileUrl: currentUser.profileUrl,
-                leaguePoints: currentUser.tier + currentUser.rank + currentUser.leaguePoints,
+                leaguePoints:
+                    currentUser.tier +
+                    ' ' +
+                    currentUser.rank +
+                    ' ' +
+                    currentUser.leaguePoints,
                 playStyle: currentUser.playStyle,
                 position: currentUser.position,
                 useVoice: currentUser.useVoice,
@@ -321,7 +331,8 @@ async function recentRecord(req, res) {
 }
 
 async function mypage(req, res) {
-    const userId = res.locals.userId
+    // const userId = res.locals.userId
+    const userId = '62e164c5629889c04717b69f'
     console.log(userId)
     let goodReview = []
     let badReview = []
@@ -347,7 +358,12 @@ async function mypage(req, res) {
             res.status(200).json({
                 lolNickname,
                 profileUrl: currentUser.profileUrl,
-                leaguePoints: currentUser.tier + currentUser.rank + currentUser.leaguePoints,
+                leaguePoints:
+                    currentUser.tier +
+                    ' ' +
+                    currentUser.rank +
+                    ' ' +
+                    currentUser.leaguePoints,
                 playStyle: currentUser.playStyle,
                 position: currentUser.position,
                 useVoice: currentUser.useVoice,
@@ -358,7 +374,12 @@ async function mypage(req, res) {
             res.status(200).json({
                 lolNickname,
                 profileUrl: currentUser.profileUrl,
-                leaguePoints: currentUser.tier + currentUser.rank + currentUser.leaguePoints,
+                leaguePoints:
+                    currentUser.tier +
+                    ' ' +
+                    currentUser.rank +
+                    ' ' +
+                    currentUser.leaguePoints,
                 playStyle: currentUser.playStyle,
                 position: currentUser.position,
                 useVoice: currentUser.useVoice,
