@@ -39,8 +39,8 @@ async function customList(req, res) {
 async function newList(req, res) {
     try {
         // const positionList = req.body.positionList
-        const positionList = ['탑', '정글']
-        const userList = await User.find({ position: { $in: positionList } })
+        const tierList = ['PLATINUM', 'GOLD']
+        const userList = await User.find({ tier: { $in: tierList } })
         const sortingField = 'createdAt'
         const newList = userList.sort(function (a, b) {
             return b[sortingField] - a[sortingField]
