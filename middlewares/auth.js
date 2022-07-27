@@ -43,7 +43,7 @@ module.exports = {
                     console.log(refreshToken)
                     console.log(dbRefresh)
 
-                    if (refreshToken !== dbRefresh)
+                    if (refreshToken !== dbRefresh.refreshToken)
                         return res.status(401).json({
                             message: '다시 로그인해주세요.',
                             reason: 'database에 저장된 refreshToken과 다릅니다.',
