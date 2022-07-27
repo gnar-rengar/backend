@@ -10,19 +10,19 @@ async function customList(req, res) {
         // const allUser = await User.find({
         //     playStyle: { $all: currentUser.playStyle[3] },
         // })
-        const customList = await User.aggregate([
-            {
-                $project: {
-                    _id: 1,
-                    social: 0,
-                    socialId: 0,
-                    nickname: 0,
-                    matchCount: {
-                        $cond: { if: { $in:  } }, 
-                    }
-                }
-            }
-        ])
+        // const customList = await User.aggregate([
+        //     {
+        //         $project: {
+        //             _id: 1,
+        //             social: 0,
+        //             socialId: 0,
+        //             nickname: 0,
+        //             matchCount: {
+        //                 $cond: { if: { $in:  } }, 
+        //             }
+        //         }
+        //     }
+        // ])
         
 
         console.log(customList)
