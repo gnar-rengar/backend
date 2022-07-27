@@ -50,16 +50,13 @@ module.exports = () => {
                             const soloPoint = leaguePoint.data.find(
                                 (x) => x.queueType == 'RANKED_SOLO_5x5'
                             )
-                            const leaguePoints =
-                                soloPoint.tier +
-                                ' ' +
-                                soloPoint.rank +
-                                ' ' +
-                                soloPoint.leaguePoints
+                            const tier = soloPoint.tier
+                            const rank = soloPoint.rank
+                            const leaguePoints = soloPoint.leaguePoints
 
                             await User.updateOne(
                                 { socialId: profile.id, social: 'naver' },
-                                { $set: { leaguePoints } }
+                                { $set: { tier, rank, leaguePoints } }
                             )
                         }
 

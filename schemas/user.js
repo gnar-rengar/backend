@@ -4,6 +4,8 @@ const userSchema = new mongoose.Schema(
     {
         social: { type: String },
         socialId: { type: String, unique: true },
+        tier: { type: String },
+        rank: { type: String },
         leaguePoints: { type: String },
         profileUrl: { type: String },
         nickname: { type: String },
