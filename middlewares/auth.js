@@ -40,6 +40,8 @@ module.exports = {
                         userId: user.userId,
                         agent,
                     })
+                    console.log(refreshToken)
+                    console.log(dbRefresh)
 
                     if (refreshToken !== dbRefresh)
                         return res.status(401).json({
