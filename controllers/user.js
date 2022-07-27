@@ -331,17 +331,14 @@ async function recentRecord(req, res) {
 }
 
 async function mypage(req, res) {
-    // const userId = res.locals.userId
-    const userId = '62e164c5629889c04717b69f'
-    console.log(userId)
+    const userId = res.locals.userId
+
     let goodReview = []
     let badReview = []
 
     try {
         const currentUser = await User.findOne({ _id: userId })
         const lolNickname = currentUser.lolNickname
-
-        console.log(currentUser)
 
         const summoner = await axios({
             method: 'GET',
