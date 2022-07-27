@@ -9,7 +9,7 @@ const rtokenExpireTime = process.env.VALID_REFRESH_TOKEN_TIME
 
 const COOKIE_OPTIONS = {
     // httpOnly: false,
-    sameSite: "none",
+    sameSite: 'none',
     secure: true,
 }
 
@@ -34,7 +34,7 @@ const kakaoCallback = (req, res) => {
             )
 
             await RefreshToken.create({ userId, agent, refreshToken })
-            
+
             res.cookie('token', token, COOKIE_OPTIONS)
                 .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200)

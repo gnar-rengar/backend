@@ -18,16 +18,15 @@ async function customList(req, res) {
         //             socialId: 0,
         //             nickname: 0,
         //             matchCount: {
-        //                 $cond: { if: { $in:  } }, 
+        //                 $cond: { if: { $in:  } },
         //             }
         //         }
         //     }
         // ])
-        
 
         console.log(customList)
         res.json({
-            customList
+            customList,
         })
     } catch (error) {
         console.log(error)
@@ -39,14 +38,16 @@ async function customList(req, res) {
 
 async function newList(req, res) {
     try {
-        const userList = await User.find()
+        // const positionList = req.body.positionList
+        const positionList = ['탑', '정글']
+        const userList = await User.find({ position: { $in: positionList } })
         const sortingField = 'createdAt'
         const newList = userList.sort(function (a, b) {
             return b[sortingField] - a[sortingField]
         })
 
         res.json({
-            newList
+            newList,
         })
     } catch (error) {
         console.log(error)
