@@ -329,6 +329,8 @@ async function mypage(req, res) {
         const currentUser = await User.findOne({ _id: userId })
         const lolNickname = currentUser.lolNickname
 
+        console.log(currentUser)
+
         const summoner = await axios({
             method: 'GET',
             url: encodeURI(
