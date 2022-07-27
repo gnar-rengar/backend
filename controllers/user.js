@@ -13,7 +13,7 @@ const riotToken = process.env.riotTokenKey
 
 async function writeReview(req, res) {
     const reviewedId = req.params.userId
-    const reviewerId = les.locals.userId
+    const reviewerId = res.locals.userId
 
     // const reviewerCheck = await Review.findOne({ reviewedId, reviewerId })
     // if(reviewerCheck) {

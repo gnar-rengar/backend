@@ -43,7 +43,7 @@ async function checkNick(req, res) {
 }
 
 async function updateOnboarding(req, res) {
-    const userId = les.locals.userId
+    const userId = res.locals.userId
     const lolNickname = req.body.lolNickname
 
     const data = {
@@ -111,7 +111,7 @@ async function updateOnboarding(req, res) {
 }
 
 async function getOnboarding(req, res) {
-    const userId = les.locals.userId
+    const userId = res.locals.userId
 
     try {
         const currentUser = await User.findOne({ _id: userId })
