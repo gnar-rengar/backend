@@ -164,17 +164,17 @@ async function checkMyInfo(req, res) {
 
     console.log(userId, lolNickname, profileUrl)
 
-    if (userId && lolNickname && profileUrl) {
-        console.log("@@")
+    // if (userId && lolNickname && profileUrl) {
+    //     console.log("@@")
         res.status(200).json({
             userId,
             lolNickname,
             profileUrl,
         })
-    } else {
-        console.log("@@@")
-        res.status(403)
-    }
+    // } else {
+    //     console.log("@@@")
+    //     res.status(403)
+    // }
 }
 
 async function logout(req, res) {
