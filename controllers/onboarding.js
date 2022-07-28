@@ -30,7 +30,9 @@ async function checkNick(req, res) {
                 'X-Riot-Token': riotToken,
             },
         })
+        console.log(summoner.data)
         res.status(200).send({
+            lolNickname: summoner.data.name,
             profileUrl: `http://ddragon.leagueoflegends.com/cdn/12.11.1/img/profileicon/${summoner.data.profileIconId}.png`,
             message: '계정이 확인되었습니다.',
         })
