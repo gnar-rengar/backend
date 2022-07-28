@@ -184,12 +184,9 @@ async function userInfo(req, res) {
             res.status(200).json({
                 lolNickname,
                 profileUrl: currentUser.profileUrl,
-                leaguePoints:
-                    currentUser.tier +
-                    ' ' +
-                    currentUser.rank +
-                    ' ' +
-                    currentUser.leaguePoints,
+                tier: currentUser.tier,
+                rank: currentUser.rank,
+                leaguePoints: currentUser.leaguePoints,
                 playStyle: currentUser.playStyle,
                 position: currentUser.position,
                 useVoice: currentUser.useVoice,
@@ -205,12 +202,9 @@ async function userInfo(req, res) {
             res.status(200).json({
                 lolNickname,
                 profileUrl: currentUser.profileUrl,
-                leaguePoints:
-                    currentUser.tier +
-                    ' ' +
-                    currentUser.rank +
-                    ' ' +
-                    currentUser.leaguePoints,
+                tier: currentUser.tier,
+                rank: currentUser.rank,
+                leaguePoints: currentUser.leaguePoints,
                 playStyle: currentUser.playStyle,
                 position: currentUser.position,
                 useVoice: currentUser.useVoice,
@@ -355,12 +349,9 @@ async function mypage(req, res) {
             res.status(200).json({
                 lolNickname,
                 profileUrl: currentUser.profileUrl,
-                leaguePoints:
-                    currentUser.tier +
-                    ' ' +
-                    currentUser.rank +
-                    ' ' +
-                    currentUser.leaguePoints,
+                tier: currentUser.tier,
+                rank: currentUser.rank,
+                leaguePoints: currentUser.leaguePoints,
                 playStyle: currentUser.playStyle,
                 position: currentUser.position,
                 useVoice: currentUser.useVoice,
@@ -371,12 +362,9 @@ async function mypage(req, res) {
             res.status(200).json({
                 lolNickname,
                 profileUrl: currentUser.profileUrl,
-                leaguePoints:
-                    currentUser.tier +
-                    ' ' +
-                    currentUser.rank +
-                    ' ' +
-                    currentUser.leaguePoints,
+                tier: currentUser.tier,
+                rank: currentUser.rank,
+                leaguePoints: currentUser.leaguePoints,
                 playStyle: currentUser.playStyle,
                 position: currentUser.position,
                 useVoice: currentUser.useVoice,
