@@ -1,5 +1,6 @@
 const User = require('../schemas/user')
 var mongoose = require('mongoose')
+const moment = require('moment')
 
 async function customList(req, res) {
     // let userId = res.locals.userId
@@ -21,21 +22,25 @@ async function customList(req, res) {
                 },
             },
         ])
-        customUser
+
+        const customList = customUser
             .sort(function (a, b) {
                 return b[sortingField] - a[sortingField]
             })
             .slice(0, 3)
-        console.log(customUser[0]._id)
+        console.log(customList)
 
-        for (let i = 0; i < 3; i++) {
+        const date = moment().format('YYYY년 M월 D일')
+        console.log(date)
+
+        for (let i = 0; i < customList.length; i++) {
+            console.log(customUser[i]._id)
             await User.updateOne(
                 { _id: userId },
                 {
-                    $push: {
-                        todaysCustom: {
-                            userId: customUser[i]._id,
-                        },
+                    $push: { 'todaysCustom.$.userId': customUser[i].id },
+                    $set: {
+                        date: date,
                     },
                 }
             )

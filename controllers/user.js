@@ -159,7 +159,7 @@ async function userInfo(req, res) {
             },
         })
 
-        const mostChampion = await axios({
+        const mostChampionList = await axios({
             method: 'GET',
             url: encodeURI(
                 `https://kr.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summoner.data.id}`
@@ -170,14 +170,18 @@ async function userInfo(req, res) {
         })
 
         const mostChampion1 = JSON.parse(chapmions).find(
-            (x) => x.key == mostChampion.data[0].championId
+            (x) => x.key == mostChampionList.data[0].championId
         ).id
         const mostChampion2 = JSON.parse(chapmions).find(
-            (x) => x.key == mostChampion.data[1].championId
+            (x) => x.key == mostChampionList.data[1].championId
         ).id
         const mostChampion3 = JSON.parse(chapmions).find(
-            (x) => x.key == mostChampion.data[2].championId
+            (x) => x.key == mostChampionList.data[2].championId
         ).id
+
+        let mostChampion = []
+        mostChampion.push(mostChampion1, mostChampion2, mostChampion3)
+
 
         const review = await Review.findOne({ reviewedId: userId })
         if (review) {
@@ -192,9 +196,7 @@ async function userInfo(req, res) {
                 useVoice: currentUser.useVoice,
                 voiceChannel: currentUser.voiceChannel,
                 communication: currentUser.communication,
-                mostChampion1,
-                mostChampion2,
-                mostChampion3,
+                mostChampion,
                 goodReview: review.goodReview,
                 roomId,
             })
@@ -210,9 +212,7 @@ async function userInfo(req, res) {
                 useVoice: currentUser.useVoice,
                 voiceChannel: currentUser.voiceChannel,
                 communication: currentUser.communication,
-                mostChampion1,
-                mostChampion2,
-                mostChampion3,
+                mostChampion,
                 goodReview,
                 roomId,
             })
