@@ -162,13 +162,17 @@ async function checkMyInfo(req, res) {
     const lolNickname = res.locals.lolNickname
     const profileUrl = res.locals.profileUrl
 
+    console.log(userId, lolNickname, profileUrl)
+
     if (userId && lolNickname && profileUrl) {
+        console.log("@@")
         res.status(200).json({
             userId,
             lolNickname,
             profileUrl,
         })
     } else {
+        console.log("@@@")
         res.status(403)
     }
 }
