@@ -182,7 +182,6 @@ async function userInfo(req, res) {
         let mostChampion = []
         mostChampion.push(mostChampion1, mostChampion2, mostChampion3)
 
-
         const review = await Review.findOne({ reviewedId: userId })
         if (review) {
             res.status(200).json({

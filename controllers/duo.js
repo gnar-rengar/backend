@@ -3,45 +3,61 @@ var mongoose = require('mongoose')
 const moment = require('moment')
 
 async function customList(req, res) {
-    // let userId = res.locals.userId
-    let userId = '62e1685075271273d5e68456'
+    let userId = res.locals.userId
     userId = mongoose.Types.ObjectId(userId)
 
     try {
         const currentUser = await User.findOne({ _id: userId })
-
-        const sortingField = 'count'
-        const customUser = await User.aggregate([
-            { $match: { _id: { $ne: userId } } },
-            { $unwind: '$playStyle' },
-            { $match: { playStyle: { $in: currentUser.playStyle } } },
-            {
-                $group: {
-                    _id: '$_id',
-                    count: { $sum: 1 },
-                },
-            },
-        ])
-
-        const customList = customUser
-            .sort(function (a, b) {
-                return b[sortingField] - a[sortingField]
-            })
-            .slice(0, 3)
-        console.log(customList)
-
         const date = moment().format('YYYY년 M월 D일')
-        console.log(date)
+        let customList = []
 
-        for (let i = 0; i < customList.length; i++) {
-            console.log(customUser[i]._id)
+        if (currentUser.customDate == date) {
+            // 12시 지나기 전
+            for (let i = 0; i < currentUser.todaysCustom.length; i++) {
+                const thisUser = await User.findOne({
+                    _id: currentUser.todaysCustom[i],
+                })
+                customList.push(thisUser)
+            }
+        } else {
+            // 12시 지나고 후 && 처음 customList 검색 시
+            // playStyle 일치하는 순으로 _id값과 count만 배열
+            const allCustomUser = await User.aggregate([
+                { $match: { _id: { $ne: userId } } },
+                { $unwind: '$playStyle' },
+                { $match: { playStyle: { $in: currentUser.playStyle } } },
+                {
+                    $group: {
+                        _id: '$_id',
+                        count: { $sum: 1 },
+                    },
+                },
+            ])
+
+            // count 높은순으로 sort 하면서 3개 slice
+            const sortingField = 'count'
+            const customUser = allCustomUser
+                .sort(function (a, b) {
+                    return b[sortingField] - a[sortingField]
+                })
+                .slice(0, 3)
+
+            let customIdList = []
+
+            // customIdList에 해당 _id값 담으면서 customList에 해당 유저 push
+            for (let i = 0; i < customUser.length; i++) {
+                const customId = customUser[i]._id.toString()
+                customIdList.push(customId)
+                const thisUser = await User.findOne({
+                    _id: customId,
+                })
+                customList.push(thisUser)
+            }
+
             await User.updateOne(
                 { _id: userId },
                 {
-                    $push: { 'todaysCustom.$.userId': customUser[i].id },
-                    $set: {
-                        date: date,
-                    },
+                    $set: { todaysCustom: customIdList, customDate: date },
                 }
             )
         }
