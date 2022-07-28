@@ -38,10 +38,10 @@ async function customList(req, res) {
 
 async function newList(req, res) {
     try {
-        // const tierList = req.body.tierList
+        const tierList = req.query.tier
         const page = req.query.page
         const size = 10
-        const tierList = ['PLATINUM', 'GOLD']
+
         const userList = await User.find({ tier: { $in: tierList } })
         const sortingField = 'createdAt'
         let newList
