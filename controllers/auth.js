@@ -162,11 +162,15 @@ async function checkMyInfo(req, res) {
     const lolNickname = res.locals.lolNickname
     const profileUrl = res.locals.profileUrl
 
-    res.status(200).json({
-        userId,
-        lolNickname,
-        profileUrl,
-    })
+    if (userId && lolNickname && profileUrl) {
+        res.status(200).json({
+            userId,
+            lolNickname,
+            profileUrl,
+        })
+    } else {
+        res.status(403)
+    }
 }
 
 async function logout(req, res) {

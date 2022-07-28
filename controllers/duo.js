@@ -1,30 +1,46 @@
 const User = require('../schemas/user')
+var mongoose = require('mongoose')
 
 async function customList(req, res) {
-    // const userId = res.locals.userId
-    const userId = '62d509be151f1fb3b2e0f792'
+    // let userId = res.locals.userId
+    let userId = '62e1685075271273d5e68456'
+    userId = mongoose.Types.ObjectId(userId)
 
     try {
         const currentUser = await User.findOne({ _id: userId })
 
-        // const allUser = await User.find({
-        //     playStyle: { $all: currentUser.playStyle[3] },
-        // })
-        // const customList = await User.aggregate([
-        //     {
-        //         $project: {
-        //             _id: 1,
-        //             social: 0,
-        //             socialId: 0,
-        //             nickname: 0,
-        //             matchCount: {
-        //                 $cond: { if: { $in:  } },
-        //             }
-        //         }
-        //     }
-        // ])
+        const sortingField = 'count'
+        const customUser = await User.aggregate([
+            { $match: { _id: { $ne: userId } } },
+            { $unwind: '$playStyle' },
+            { $match: { playStyle: { $in: currentUser.playStyle } } },
+            {
+                $group: {
+                    _id: '$_id',
+                    count: { $sum: 1 },
+                },
+            },
+        ])
+        customUser
+            .sort(function (a, b) {
+                return b[sortingField] - a[sortingField]
+            })
+            .slice(0, 3)
+        console.log(customUser[0]._id)
 
-        console.log(customList)
+        for (let i = 0; i < 3; i++) {
+            await User.updateOne(
+                { _id: userId },
+                {
+                    $push: {
+                        todaysCustom: {
+                            userId: customUser[i]._id,
+                        },
+                    },
+                }
+            )
+        }
+
         res.json({
             customList,
         })

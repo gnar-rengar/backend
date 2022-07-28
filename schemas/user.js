@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema(
         voiceChannel: { type: [String] },
         communication: { type: String },
         banId: { type: [String] },
+        todaysCustom: {
+            userId: { type: [String] },
+            date: { type: Date },
+        },
     },
     { timestamps: true }
 )
