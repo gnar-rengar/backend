@@ -3,7 +3,8 @@ var mongoose = require('mongoose')
 const moment = require('moment')
 
 async function customList(req, res) {
-    let userId = res.locals.userId
+    // let userId = res.locals.userId
+    let userId = '62e1685075271273d5e68456'
     userId = mongoose.Types.ObjectId(userId)
 
     try {
@@ -16,6 +17,17 @@ async function customList(req, res) {
             for (let i = 0; i < currentUser.todaysCustom.length; i++) {
                 const thisUser = await User.findOne({
                     _id: currentUser.todaysCustom[i],
+                }).select({
+                    social: 0,
+                    socialId: 0,
+                    nickname: 0,
+                    banId: 0,
+                    todaysCustom: 0,
+                    createdAt: 0,
+                    updatedAt: 0,
+                    __v: 0,
+                    communication: 0,
+                    customDate: 0,
                 })
                 customList.push(thisUser)
             }
@@ -50,6 +62,17 @@ async function customList(req, res) {
                 customIdList.push(customId)
                 const thisUser = await User.findOne({
                     _id: customId,
+                }).select({
+                    social: 0,
+                    socialId: 0,
+                    nickname: 0,
+                    banId: 0,
+                    todaysCustom: 0,
+                    createdAt: 0,
+                    updatedAt: 0,
+                    __v: 0,
+                    communication: 0,
+                    customDate: 0,
                 })
                 customList.push(thisUser)
             }
@@ -79,7 +102,18 @@ async function newList(req, res) {
         const page = req.query.page
         const size = 10
 
-        const userList = await User.find({ tier: { $in: tierList } })
+        const userList = await User.find({ tier: { $in: tierList } }).select({
+            social: 0,
+            socialId: 0,
+            nickname: 0,
+            banId: 0,
+            todaysCustom: 0,
+            createdAt: 0,
+            updatedAt: 0,
+            __v: 0,
+            communication: 0,
+            customDate: 0,
+        })
         const sortingField = 'createdAt'
         let newList
 

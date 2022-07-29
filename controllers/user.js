@@ -149,7 +149,7 @@ async function getRoomId(req, res) {
         }
 
         res.status(200).json({
-            roomId
+            roomId,
         })
     } catch (error) {
         res.json({
