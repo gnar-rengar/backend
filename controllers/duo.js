@@ -3,8 +3,7 @@ var mongoose = require('mongoose')
 const moment = require('moment')
 
 async function customList(req, res) {
-    // let userId = res.locals.userId
-    let userId = '62e1685075271273d5e68456'
+    let userId = res.locals.userId
     userId = mongoose.Types.ObjectId(userId)
 
     try {
