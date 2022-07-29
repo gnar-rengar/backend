@@ -43,7 +43,10 @@ io.on('connection', (socket) => {
 
     socket.on('makeChatRoom', async (user1, user2) => {
         const array = [user1, user2].sort()
-        await ChatRoom.create({ userId: array })
+        const room = await ChatRoom.create({ userId: array })
+        const roomId = room._id
+
+        socket.emit('onMakeChatRoom', roomId)
     })
 
     socket.on('enterChatRoom', async (roomId, userId) => {
