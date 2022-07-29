@@ -99,7 +99,7 @@ io.on('connection', (socket) => {
         socket.emit('onEnterChatRoom', data, chat)
 
         await Chat.updateMany(
-            { roomId, isRead: false },
+            { userId: { $ne: userId }, roomId, isRead: false },
             { $set: { isRead: true } }
         )
     })
