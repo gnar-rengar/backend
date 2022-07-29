@@ -41,13 +41,13 @@ io.on('connection', (socket) => {
         console.log('disconnect socketId : ', socket.id)
     })
 
-    socket.on('makeChatRoom', async (user1, user2) => {
-        const array = [user1, user2].sort()
-        const room = await ChatRoom.create({ userId: array })
-        const roomId = room._id
+    // socket.on('makeChatRoom', async (user1, user2) => {
+    //     const array = [user1, user2].sort()
+    //     const room = await ChatRoom.create({ userId: array })
+    //     const roomId = room._id
 
-        socket.emit('onMakeChatRoom', roomId)
-    })
+    //     socket.emit('onMakeChatRoom', roomId)
+    // })
 
     socket.on('enterChatRoom', async (roomId, userId) => {
         socket.join(roomId)

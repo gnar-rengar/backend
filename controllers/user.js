@@ -132,18 +132,35 @@ async function writeReview(req, res) {
     }
 }
 
-async function userInfo(req, res) {
+async function getRoomId(req, res) {
     const myId = res.locals.userId
     const userId = req.params.userId
     const array = [myId, userId].sort()
-    const goodReview = []
 
-    const exChatroom = await ChatRoom.findOne({ userId: array })
+    try {
+        const exChatroom = await ChatRoom.findOne({ userId: array })
 
-    let roomId = ''
-    if (exChatroom) {
-        roomId = exChatroom._id
+        let roomId = ''
+        if (exChatroom) {
+            roomId = exChatroom._id
+        } else {
+            const room = await ChatRoom.create({ userId: array })
+            roomId = room._id
+        }
+
+        res.status(200).json({
+            roomId
+        })
+    } catch (error) {
+        res.json({
+            message: '채팅방 아이디 불러오기에 실패하였습니다.',
+        })
     }
+}
+
+async function userInfo(req, res) {
+    const userId = req.params.userId
+    const goodReview = []
 
     try {
         const currentUser = await User.findOne({ _id: userId })
@@ -197,7 +214,6 @@ async function userInfo(req, res) {
                 communication: currentUser.communication,
                 mostChampion,
                 goodReview: review.goodReview,
-                roomId,
             })
         } else {
             res.status(200).json({
@@ -213,7 +229,6 @@ async function userInfo(req, res) {
                 communication: currentUser.communication,
                 mostChampion,
                 goodReview,
-                roomId,
             })
         }
     } catch (error) {
@@ -381,6 +396,7 @@ async function mypage(req, res) {
 
 module.exports = {
     writeReview,
+    getRoomId,
     userInfo,
     recentRecord,
     mypage,
