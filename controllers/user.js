@@ -33,13 +33,13 @@ async function writeReview(req, res) {
             for (let i = 0; i < goodReview.length; i++) {
                 const descriptionCheck = await Review.findOne({
                     reviewedId,
-                    'goodReview.description': goodReview[i].description,
+                    'goodReview.description': goodReview[i],
                 })
                 if (descriptionCheck) {
                     await Review.updateOne(
                         {
                             reviewedId,
-                            'goodReview.description': goodReview[i].description,
+                            'goodReview.description': goodReview[i],
                         },
                         { $inc: { 'goodReview.$.count': 1 } }
                     )
@@ -49,7 +49,7 @@ async function writeReview(req, res) {
                         {
                             $push: {
                                 goodReview: {
-                                    description: goodReview[i].description,
+                                    description: goodReview[i],
                                     count: 1,
                                 },
                             },
@@ -60,13 +60,13 @@ async function writeReview(req, res) {
             for (let i = 0; i < badReview.length; i++) {
                 const descriptionCheck = await Review.findOne({
                     reviewedId,
-                    'badReview.description': badReview[i].description,
+                    'badReview.description': badReview[i],
                 })
                 if (descriptionCheck) {
                     await Review.updateOne(
                         {
                             reviewedId,
-                            'badReview.description': badReview[i].description,
+                            'badReview.description': badReview[i],
                         },
                         { $inc: { 'badReview.$.count': 1 } }
                     )
@@ -76,7 +76,7 @@ async function writeReview(req, res) {
                         {
                             $push: {
                                 badReview: {
-                                    description: badReview[i].description,
+                                    description: badReview[i],
                                     count: 1,
                                 },
                             },
@@ -92,7 +92,7 @@ async function writeReview(req, res) {
                     {
                         $push: {
                             goodReview: {
-                                description: goodReview[i].description,
+                                description: goodReview[i],
                                 count: 1,
                             },
                         },
@@ -105,7 +105,7 @@ async function writeReview(req, res) {
                     {
                         $push: {
                             badReview: {
-                                description: badReview[i].description,
+                                description: badReview[i],
                                 count: 1,
                             },
                         },
