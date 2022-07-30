@@ -163,7 +163,7 @@ async function checkMyInfo(req, res) {
     const profileUrl = res.locals.profileUrl
 
     if (!req.cookies.token) {
-        return res.status(200)
+        return res.status(100)
     }
 
     if (userId && lolNickname && profileUrl) {
