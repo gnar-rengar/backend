@@ -123,7 +123,7 @@ io.on('connection', (socket) => {
             status: 'ok'
         })
 
-        socket.broadcast.to(roomId).emit('receiveMessage', newChat)
+        io.to(roomId).emit('receiveMessage', newChat)
     })
 
     socket.on('readMessage', async (roomId, userId) => {
