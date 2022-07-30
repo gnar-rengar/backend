@@ -107,7 +107,7 @@ io.on('connection', (socket) => {
         )
     })
 
-    socket.on('sendMessage', async (roomId, userId, text) => {
+    socket.on('sendMessage', async (roomId, userId, text, callback) => {
         const date = moment().format('YYYY년 M월 D일')
         const chat = {
             roomId,
@@ -118,7 +118,12 @@ io.on('connection', (socket) => {
         }
 
         const newChat = await Chat.create(chat)
-        io.to(roomId).emit('receiveMessage', newChat)
+
+        callback({
+            status: 'ok'
+        })
+
+        socket.broadcast.to(roomId).emit('receiveMessage', newChat)
     })
 
     socket.on('readMessage', async (roomId, userId) => {
