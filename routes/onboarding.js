@@ -3,7 +3,7 @@ const multer = require('../middlewares/multers/multer')
 const onboardingController = require('../controllers/onboarding')
 const { checkTokens } = require('../middlewares/auth')
 
-router.get('/checkNick', checkTokens, onboardingController.checkNick)
+router.get('/checkNick', onboardingController.checkNick)
 router.patch(
     '/',
     checkTokens,

@@ -8,8 +8,8 @@ router.patch('/writeReview/:userId', checkTokens, userController.writeReview)
 
 //user-profile 관련
 router.get('/roomId/:userId', checkTokens, userController.getRoomId)
-router.get('/userInfo/:userId', checkTokens, userController.userInfo)
-router.get('/recentRecord/:userId', checkTokens, userController.recentRecord)
+router.get('/userInfo/:userId', userController.userInfo)
+router.get('/recentRecord/:userId', userController.recentRecord)
 
 router.get('/mypage', checkTokens, userController.mypage)
 
