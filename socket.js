@@ -121,6 +121,13 @@ io.on('connection', (socket) => {
         io.to(roomId).emit('receiveMessage', newChat)
     })
 
+    socket.on('readMessage', async (roomId, userId) => {
+        await Chat.updateMany(
+            { userId: { $ne: userId }, roomId, isRead: false },
+            { $set: { isRead: true } }
+        )
+    })
+
     socket.on('typing', async (roomId) => {
         socket.broadcast.to(roomId).emit('onTyping')
         // io.to(roomId).emit('onTyping')
