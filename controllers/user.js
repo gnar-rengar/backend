@@ -241,6 +241,8 @@ async function userInfo(req, res) {
 
 async function recentRecord(req, res) {
     const userId = req.params.userId
+    const page = req.query.page
+    const size = 5
 
     try {
         const currentUser = await User.findOne({ _id: userId })
@@ -259,7 +261,7 @@ async function recentRecord(req, res) {
         const matchList = await axios({
             method: 'GET',
             url: encodeURI(
-                `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${summoner.data.puuid}/ids?start=0&count=10`
+                `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${summoner.data.puuid}/ids?start=0&count=100`
             ),
             headers: {
                 'X-Riot-Token': riotToken,
@@ -268,7 +270,7 @@ async function recentRecord(req, res) {
 
         let recentRecord = []
 
-        for (let i = 0; i < matchList.data.length; i++) {
+        for (let i = (page - 1) * size; i < size * page; i++) {
             let data = {}
 
             const match = await axios({
