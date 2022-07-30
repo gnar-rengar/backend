@@ -183,7 +183,7 @@ async function logout(req, res) {
 
     await RefreshToken.deleteOne({ userId, agent })
 
-    res.clearCookie('token').clearCookie('refreshToken').status(200).send({
+    res.clearCookie('token', COOKIE_OPTIONS).clearCookie('refreshToken', COOKIE_OPTIONS).status(200).send({
         message: '로그아웃 되었습니다.',
     })
 }
@@ -196,8 +196,8 @@ async function deleteUser(req, res) {
         if (userId) {
             await RefreshToken.deleteOne({ userId, agent })
             await User.deleteOne({ _id: userId })
-            res.clearCookie('token')
-                .clearCookie('refreshToken')
+            res.clearCookie('token', COOKIE_OPTIONS)
+                .clearCookie('refreshToken', COOKIE_OPTIONS)
                 .status(200)
                 .json({
                     message: '회원탈퇴에 성공하였습니다.',
