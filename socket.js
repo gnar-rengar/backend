@@ -119,10 +119,6 @@ io.on('connection', (socket) => {
 
         const newChat = await Chat.create(chat)
 
-        // callback({
-        //     status: 'ok'
-        // })
-
         io.to(roomId).emit('receiveMessage', newChat)
     })
 
