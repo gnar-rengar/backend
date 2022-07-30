@@ -102,20 +102,38 @@ async function newList(req, res) {
         const tierList = req.query.tier
         const page = req.query.page
         const size = 10
+        let userList
 
-        const userList = await User.find({ tier: { $in: tierList } }).select({
-            social: 0,
-            socialId: 0,
-            nickname: 0,
-            voiceChannel: 0,
-            banId: 0,
-            todaysCustom: 0,
-            createdAt: 0,
-            updatedAt: 0,
-            __v: 0,
-            communication: 0,
-            customDate: 0,
-        })
+        if (tierList) {
+            userList = await User.find({ tier: { $in: tierList } }).select({
+                social: 0,
+                socialId: 0,
+                nickname: 0,
+                voiceChannel: 0,
+                banId: 0,
+                todaysCustom: 0,
+                createdAt: 0,
+                updatedAt: 0,
+                __v: 0,
+                communication: 0,
+                customDate: 0,
+            })
+        } else {
+            userList = await User.find().select({
+                social: 0,
+                socialId: 0,
+                nickname: 0,
+                voiceChannel: 0,
+                banId: 0,
+                todaysCustom: 0,
+                createdAt: 0,
+                updatedAt: 0,
+                __v: 0,
+                communication: 0,
+                customDate: 0,
+            })
+        }
+
         const sortingField = 'createdAt'
         let newList
 
