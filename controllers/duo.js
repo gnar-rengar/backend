@@ -119,7 +119,7 @@ async function newList(req, res) {
                 customDate: 0,
             })
         } else {
-            userList = await User.find().select({
+            userList = await User.find({ lolNickname: { $ne: null }}).select({
                 social: 0,
                 socialId: 0,
                 nickname: 0,
