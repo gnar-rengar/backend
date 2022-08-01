@@ -41,7 +41,7 @@ async function getOpponent(req, res) {
         const opponentUser = await User.findOne({ _id: opponentId })
 
         let opponent= {}
-        opponent.userId = opponentUser
+        opponent.userId = opponentUser._id
         opponent.profileUrl = opponentUser.profileUrl
         opponent.lolNickname = opponentUser.lolNickname
 
