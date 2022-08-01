@@ -33,7 +33,7 @@ async function getRoomId(req, res) {
 
 async function getOpponent(req, res) {
     const userId = res.locals.userId
-    const roomId = res.params.roomId
+    const roomId = req.params.roomId
 
     try {
         const room = await ChatRoom.findOne({ _id: roomId })
@@ -57,6 +57,8 @@ async function getOpponent(req, res) {
 }
 
 async function getChat(req, res) {
+    const roomId = req.params.roomId
+
     try {
         const chat = await Chat.aggregate([
             { $match: { roomId } },
