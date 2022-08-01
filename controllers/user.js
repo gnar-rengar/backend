@@ -1,7 +1,6 @@
 const axios = require('axios')
 const User = require('../schemas/user')
 const Review = require('../schemas/review')
-const ChatRoom = require('../schemas/chatroom')
 require('dotenv').config()
 const fs = require('fs')
 const chapmions = fs.readFileSync('datas/champions.json', 'utf8')
@@ -128,32 +127,6 @@ async function writeReview(req, res) {
         console.log(error)
         res.send({
             message: '리뷰작성에 실패하였습니다.',
-        })
-    }
-}
-
-async function getRoomId(req, res) {
-    const myId = res.locals.userId
-    const userId = req.params.userId
-    const array = [myId, userId].sort()
-
-    try {
-        const exChatroom = await ChatRoom.findOne({ userId: array })
-
-        let roomId = ''
-        if (exChatroom) {
-            roomId = exChatroom._id
-        } else {
-            const room = await ChatRoom.create({ userId: array })
-            roomId = room._id
-        }
-
-        res.status(200).json({
-            roomId,
-        })
-    } catch (error) {
-        res.json({
-            message: '채팅방 아이디 불러오기에 실패하였습니다.',
         })
     }
 }
@@ -398,7 +371,6 @@ async function mypage(req, res) {
 
 module.exports = {
     writeReview,
-    getRoomId,
     userInfo,
     recentRecord,
     mypage,

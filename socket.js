@@ -51,56 +51,7 @@ io.on('connection', (socket) => {
 
     socket.on('enterChatRoom', async (roomId, userId) => {
         socket.join(roomId)
-        const chat = await Chat.aggregate([
-            { $match: { roomId } },
-            {
-                $sort: {
-                    date: 1,
-                },
-            },
-            {
-                $group: {
-                    _id: '$date',
-                    obj: {
-                        $push: {
-                            text: '$text',
-                            userId: '$userId',
-                            createdAt: '$createdAt',
-                            isRead: '$isRead',
-                        },
-                    },
-                },
-            },
-            {
-                $replaceRoot: {
-                    newRoot: {
-                        $let: {
-                            vars: {
-                                obj: [
-                                    {
-                                        k: { $substr: ['$_id', 0, -1] },
-                                        v: '$obj',
-                                    },
-                                ],
-                            },
-                            in: { $arrayToObject: '$$obj' },
-                        },
-                    },
-                },
-            },
-        ])
-
-        const room = await ChatRoom.findOne({ _id: roomId })
-        const opponentId = room.userId.find((x) => x != userId)
-        const opponent = await User.findOne({ _id: opponentId })
-
-        let data = {}
-        data.userId = opponentId
-        data.profileUrl = opponent.profileUrl
-        data.lolNickname = opponent.lolNickname
-
-        socket.emit('onEnterChatRoom', data, chat)
-
+        
         await Chat.updateMany(
             { userId: { $ne: userId }, roomId, isRead: false },
             { $set: { isRead: true } }
