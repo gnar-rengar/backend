@@ -6,6 +6,12 @@ async function customList(req, res) {
     let userId = res.locals.userId
     userId = mongoose.Types.ObjectId(userId)
 
+    if (!userId) {
+        return res.status(401).json({
+            message: '로그인이 필요합니다.',
+        })
+    }
+
     try {
         const currentUser = await User.findOne({ _id: userId })
         const date = moment().format('YYYY년 M월 D일')
