@@ -149,13 +149,13 @@ async function newList(req, res) {
         if (page) {
             newList = userList
                 .sort(function (a, b) {
-                    return a[sortingField] - b[sortingField]
+                    return b[sortingField] - a[sortingField]
                 })
                 .slice((page - 1) * size, size * page)
         } else {
             newList = userList
                 .sort(function (a, b) {
-                    return a[sortingField] - b[sortingField]
+                    return b[sortingField] - a[sortingField]
                 })
                 .slice(0, 3)
         }
