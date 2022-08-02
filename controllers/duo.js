@@ -4,12 +4,13 @@ const moment = require('moment')
 
 async function customList(req, res) {
     let userId = res.locals.userId
-    userId = mongoose.Types.ObjectId(userId)
 
     if (!userId) {
         return res.status(401).json({
             message: '로그인이 필요합니다.',
         })
+    } else {
+        userId = mongoose.Types.ObjectId(userId)
     }
 
     try {
