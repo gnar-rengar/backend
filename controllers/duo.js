@@ -133,7 +133,7 @@ async function newList(req, res) {
                 voiceChannel: 0,
                 banId: 0,
                 todaysCustom: 0,
-                createdAt: 0,
+                // createdAt: 0,
                 updatedAt: 0,
                 __v: 0,
                 communication: 0,
