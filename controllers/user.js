@@ -366,9 +366,15 @@ async function mypage(req, res) {
         }
     } catch (error) {
         console.log(error)
-        res.json({
-            message: '내정보 불러오기에 실패하였습니다.',
-        })
+        if (error == '로그인이 필요합니다.') {
+            return res.status(401).json({
+                message: '로그인이 필요합니다.',
+            })
+        } else {
+            res.json({
+                message: '내정보 불러오기에 실패하였습니다.',
+            })
+        }
     }
 }
 
