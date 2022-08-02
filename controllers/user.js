@@ -317,7 +317,7 @@ async function mypage(req, res) {
     const userId = res.locals.userId
 
     if(!userId)
-        throw new error('로그인이 필요합니다.')
+        throw ('로그인이 필요합니다.')
 
     let goodReview = []
     let badReview = []
