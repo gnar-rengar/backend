@@ -133,15 +133,13 @@ async function newList(req, res) {
                 voiceChannel: 0,
                 banId: 0,
                 todaysCustom: 0,
-                // createdAt: 0,
+                createdAt: 0,
                 updatedAt: 0,
                 __v: 0,
                 communication: 0,
                 customDate: 0,
             })
         }
-
-        console.log(userList)
 
         const sortingField = 'createdAt'
         let newList
@@ -159,8 +157,6 @@ async function newList(req, res) {
                 })
                 .slice(0, 3)
         }
-
-        console.log(userList)
 
         res.json({
             newList,
