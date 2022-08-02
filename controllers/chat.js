@@ -40,13 +40,13 @@ async function getOpponent(req, res) {
         const opponentId = room.userId.find((x) => x != userId)
         const opponentUser = await User.findOne({ _id: opponentId })
 
-        let opponent= {}
+        let opponent = {}
         opponent.userId = opponentUser._id
         opponent.profileUrl = opponentUser.profileUrl
         opponent.lolNickname = opponentUser.lolNickname
 
         res.status(200).json({
-            opponent
+            opponent,
         })
     } catch (error) {
         console.log(error)
@@ -100,7 +100,7 @@ async function getChat(req, res) {
         ])
 
         res.status(200).json({
-            chat
+            chat,
         })
     } catch (error) {
         console.log(error)
@@ -108,11 +108,10 @@ async function getChat(req, res) {
             message: '채팅 내역 불러오기에 실패하였습니다.',
         })
     }
-
 }
 
 module.exports = {
     getRoomId,
     getOpponent,
-    getChat
+    getChat,
 }

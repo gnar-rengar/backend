@@ -187,9 +187,12 @@ async function logout(req, res) {
 
     await RefreshToken.deleteOne({ userId, agent })
 
-    res.clearCookie('token', COOKIE_OPTIONS).clearCookie('refreshToken', COOKIE_OPTIONS).status(200).send({
-        message: '로그아웃 되었습니다.',
-    })
+    res.clearCookie('token', COOKIE_OPTIONS)
+        .clearCookie('refreshToken', COOKIE_OPTIONS)
+        .status(200)
+        .send({
+            message: '로그아웃 되었습니다.',
+        })
 }
 
 async function deleteUser(req, res) {

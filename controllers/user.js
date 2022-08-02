@@ -317,8 +317,11 @@ async function mypage(req, res) {
     const userId = res.locals.userId
     console.log(userId)
 
-    if(!userId)
-        throw ('로그인이 필요합니다.')
+    if (!userId) {
+        return res.status(401).json({
+            message: '로그인이 필요합니다.',
+        })
+    }
 
     let goodReview = []
     let badReview = []
@@ -367,15 +370,9 @@ async function mypage(req, res) {
         }
     } catch (error) {
         console.log(error)
-        if (error == '로그인이 필요합니다.') {
-            return res.status(401).json({
-                message: '로그인이 필요합니다.',
-            })
-        } else {
-            res.json({
-                message: '내정보 불러오기에 실패하였습니다.',
-            })
-        }
+        res.json({
+            message: '내정보 불러오기에 실패하였습니다.',
+        })
     }
 }
 

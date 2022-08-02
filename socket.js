@@ -51,7 +51,7 @@ io.on('connection', (socket) => {
 
     socket.on('enterChatRoom', async (roomId, userId) => {
         socket.join(roomId)
-        
+
         await Chat.updateMany(
             { userId: { $ne: userId }, roomId, isRead: false },
             { $set: { isRead: true } }
