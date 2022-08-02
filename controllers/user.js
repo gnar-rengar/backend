@@ -315,7 +315,6 @@ async function recentRecord(req, res) {
 
 async function mypage(req, res) {
     const userId = res.locals.userId
-    console.log(userId)
 
     if (!userId) {
         return res.status(401).json({
