@@ -141,6 +141,8 @@ async function newList(req, res) {
             })
         }
 
+        console.log(userList)
+
         const sortingField = 'createdAt'
         let newList
 
@@ -157,6 +159,8 @@ async function newList(req, res) {
                 })
                 .slice(0, 3)
         }
+
+        console.log(userList)
 
         res.json({
             newList,
