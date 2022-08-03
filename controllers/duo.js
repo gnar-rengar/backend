@@ -14,6 +14,7 @@ async function customList(req, res) {
     }
 
     try {
+        console.log(userId)
         const currentUser = await User.findOne({ _id: userId })
         const date = moment().format('YYYY년 M월 D일')
         let customList = []
