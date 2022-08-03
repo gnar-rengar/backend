@@ -14,6 +14,12 @@ async function writeReview(req, res) {
     const reviewedId = req.params.userId
     const reviewerId = res.locals.userId
 
+    if (!reviewerId) {
+        return res.status(401).json({
+            message: '로그인이 필요합니다.',
+        })
+    }
+
     // const reviewerCheck = await Review.findOne({ reviewedId, reviewerId })
     // if(reviewerCheck) {
     //     return res.send({

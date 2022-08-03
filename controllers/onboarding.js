@@ -48,6 +48,12 @@ async function updateOnboarding(req, res) {
     const userId = res.locals.userId
     const lolNickname = req.body.lolNickname
 
+    if (!userId) {
+        return res.status(401).json({
+            message: '로그인이 필요합니다.',
+        })
+    }
+
     const data = {
         profileUrl: req.body.profileUrl,
         lolNickname: req.body.lolNickname,
@@ -117,6 +123,12 @@ async function updateOnboarding(req, res) {
 
 async function getOnboarding(req, res) {
     const userId = res.locals.userId
+
+    if (!userId) {
+        return res.status(401).json({
+            message: '로그인이 필요합니다.',
+        })
+    }
 
     try {
         const currentUser = await User.findOne({ _id: userId })
