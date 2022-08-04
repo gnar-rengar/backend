@@ -36,7 +36,7 @@ const kakaoCallback = (req, res) => {
             await RefreshToken.create({ userId, agent, refreshToken })
 
             res.cookie('token', token, COOKIE_OPTIONS)
-                // .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
+                .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200)
                 .json({
                     tokenExpireTime,
