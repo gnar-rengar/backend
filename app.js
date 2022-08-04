@@ -1,10 +1,12 @@
 const express = require('express')
+const cookieParser = require('cookie-parser')
 const app = express()
+app.use(cookieParser())
 const cors = require('cors')
 const Router = require('./routes')
 const passport = require('passport')
 const session = require('express-session')
-var cookieParser = require('cookie-parser')
+
 const passportConfig = require('./passport')
 
 require('dotenv').config()
@@ -23,7 +25,6 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: false, limit: '5mb' }))
 app.disable('x-powered-by')
 
-app.use(cookieParser())
 // app.use(
 //     session({
 //         resave: false,
