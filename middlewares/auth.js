@@ -4,7 +4,7 @@ const RefreshToken = require('../schemas/refreshToken')
 require('dotenv').config()
 
 const COOKIE_OPTIONS = {
-    domain: 'http://duo-duo.ga',
+    domain: '.duo-duo.ga',
     // httpOnly: false,
     sameSite: 'none',
     secure: false,
