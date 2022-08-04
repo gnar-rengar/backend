@@ -6,7 +6,7 @@ require('dotenv').config()
 const COOKIE_OPTIONS = {
     // httpOnly: false,
     sameSite: 'none',
-    secure: true,
+    secure: false,
 }
 
 module.exports = {
