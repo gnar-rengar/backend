@@ -7,7 +7,7 @@ const COOKIE_OPTIONS = {
     domain: 'http://duo-duo.ga',
     // httpOnly: false,
     sameSite: 'none',
-    secure: true,
+    secure: false,
 }
 
 module.exports = {
