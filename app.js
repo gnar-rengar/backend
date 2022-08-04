@@ -24,24 +24,24 @@ app.use(express.urlencoded({ extended: false, limit: '5mb' }))
 app.disable('x-powered-by')
 
 app.use(cookieParser())
-app.use(
-    session({
-        resave: false,
-        saveUninitialized: false,
-        secret: process.env.COOKIE_SECRET,
-        cookie: {
-            // httpOnly: false,
-            sameSite: 'none',
-            secure: true,
-        },
-    })
-)
+// app.use(
+//     session({
+//         resave: false,
+//         saveUninitialized: false,
+//         secret: process.env.COOKIE_SECRET,
+//         cookie: {
+//             // httpOnly: false,
+//             sameSite: 'none',
+//             secure: true,
+//         },
+//     })
+// )
 const connect = require('./schemas')
 connect()
 passportConfig()
 
 app.use(passport.initialize())
-app.use(passport.session())
+// app.use(passport.session())
 
 app.use('/', Router)
 
