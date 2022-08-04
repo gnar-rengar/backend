@@ -10,7 +10,7 @@ const rtokenExpireTime = process.env.VALID_REFRESH_TOKEN_TIME
 const COOKIE_OPTIONS = {
     // httpOnly: false,
     sameSite: 'none',
-    secure: false,
+    secure: true,
 }
 
 const kakaoCallback = (req, res) => {
