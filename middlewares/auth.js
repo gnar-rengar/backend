@@ -6,7 +6,7 @@ require('dotenv').config()
 const COOKIE_OPTIONS = {
     // domain: '.duo-duo.ga',
     // httpOnly: true,
-    // sameSite: 'none',
+    sameSite: 'None',
     secure: true,
 }
 
