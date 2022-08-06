@@ -8,9 +8,10 @@ const tokenExpireTime = process.env.VALID_ACCESS_TOKEN_TIME
 const rtokenExpireTime = process.env.VALID_REFRESH_TOKEN_TIME
 
 const COOKIE_OPTIONS = {
-    // httpOnly: false,
+    domain: '.duo-duo.ga',
+    httpOnly: true,
     sameSite: 'none',
-    secure: true,
+    secure: false,
 }
 
 const kakaoCallback = (req, res) => {
