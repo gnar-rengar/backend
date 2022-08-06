@@ -263,7 +263,7 @@ async function recentRecord(req, res) {
             })
 
             const myData = match.data.info.participants.filter(
-                (x) => x.summonerName == lolNickname
+                (x) => x.summonerId == summoner.data.puuid
             )
 
             data.gameMode = match.data.info.gameMode
