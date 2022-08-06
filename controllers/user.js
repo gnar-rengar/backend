@@ -278,7 +278,7 @@ async function recentRecord(req, res) {
             const champion = JSON.parse(chapmions).find(
                 (x) => x.id === myData[0].championName
             )
-            data.championName_KR = champion.name
+            data.championNameKR = champion.name
             const primaryStyle = JSON.parse(perks).find(
                 (x) => x.id === myData[0].perks.styles[0].style
             )
