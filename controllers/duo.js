@@ -36,7 +36,68 @@ async function customList(req, res) {
                     communication: 0,
                     customDate: 0,
                 })
+
                 customList.push(thisUser)
+
+                if (!thisUser._id) {
+                    // 추천 소환사 리스트 3명 중 누군가 회원탈퇴 했을 때 리스트를 새로 리프레시
+                    customList = []
+
+                    const allCustomUser = await User.aggregate([
+                        { $match: { _id: { $ne: userId } } },
+                        { $unwind: '$playStyle' },
+                        { $match: { playStyle: { $in: currentUser.playStyle } } },
+                        {
+                            $group: {
+                                _id: '$_id',
+                                count: { $sum: 1 },
+                            },
+                        },
+                    ])
+
+                    // count 높은순으로 sort 하면서 3개 slice
+                    const sortingField = 'count'
+                    const customUser = allCustomUser
+                        .sort(function (a, b) {
+                            return b[sortingField] - a[sortingField]
+                        })
+                        .slice(0, 3)
+
+                    let customIdList = []
+
+                    // customIdList에 해당 _id값 담으면서 customList에 해당 유저 push
+                    for (let i = 0; i < customUser.length; i++) {
+                        const customId = customUser[i]._id.toString()
+                        customIdList.push(customId)
+                        const thisUser = await User.findOne({
+                            _id: customId,
+                        }).select({
+                            social: 0,
+                            socialId: 0,
+                            nickname: 0,
+                            voiceChannel: 0,
+                            banId: 0,
+                            todaysCustom: 0,
+                            createdAt: 0,
+                            updatedAt: 0,
+                            __v: 0,
+                            communication: 0,
+                            customDate: 0,
+                        })
+                        customList.push(thisUser)
+                    }
+
+                    await User.updateOne(
+                        { _id: userId },
+                        {
+                            $set: { todaysCustom: customIdList, customDate: date },
+                        }
+                    )
+
+                    return res.json({
+                        customList,
+                    })
+                }
             }
         } else {
             // 12시 지나고 후 && 처음 customList 검색 시
