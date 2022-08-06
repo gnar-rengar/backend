@@ -6,8 +6,8 @@ require('dotenv').config()
 const COOKIE_OPTIONS = {
     // domain: '.duo-duo.ga',
     // httpOnly: true,
-    sameSite: 'None',
-    secure: true,
+    // sameSite: 'None',
+    // secure: true,
 }
 
 module.exports = {
