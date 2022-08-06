@@ -275,6 +275,10 @@ async function recentRecord(req, res) {
             data.gameEndTimestamp = match.data.info.gameEndTimestamp
             data.win = myData[0].win
             data.championName = myData[0].championName
+            const champion = JSON.parse(chapmions).find(
+                (x) => x.id === myData[0].championName
+            )
+            data.championName_KR = champion.name
             const primaryStyle = JSON.parse(perks).find(
                 (x) => x.id === myData[0].perks.styles[0].style
             )
