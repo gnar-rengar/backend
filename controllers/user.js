@@ -263,9 +263,8 @@ async function recentRecord(req, res) {
             })
 
             const myData = match.data.info.participants.filter(
-                (x) => x.summonerId == summoner.data.puuid
+                (x) => x.puuid == summoner.data.puuid
             )
-            console.log(myData)
 
             data.gameMode = match.data.info.gameMode
             data.gameType = match.data.info.gameType
