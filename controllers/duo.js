@@ -46,7 +46,11 @@ async function customList(req, res) {
                     const allCustomUser = await User.aggregate([
                         { $match: { _id: { $ne: userId } } },
                         { $unwind: '$playStyle' },
-                        { $match: { playStyle: { $in: currentUser.playStyle } } },
+                        {
+                            $match: {
+                                playStyle: { $in: currentUser.playStyle },
+                            },
+                        },
                         {
                             $group: {
                                 _id: '$_id',
@@ -90,7 +94,10 @@ async function customList(req, res) {
                     await User.updateOne(
                         { _id: userId },
                         {
-                            $set: { todaysCustom: customIdList, customDate: date },
+                            $set: {
+                                todaysCustom: customIdList,
+                                customDate: date,
+                            },
                         }
                     )
 
@@ -203,18 +210,18 @@ async function newList(req, res) {
         const sortingField = 'createdAt'
         let newList
 
-        if (page) {
-            newList = userList
-                .sort(function (a, b) {
-                    return b[sortingField] - a[sortingField]
-                })
-                .slice((page - 1) * size, size * page)
-        } else {
+        if (page == 0) {
             newList = userList
                 .sort(function (a, b) {
                     return b[sortingField] - a[sortingField]
                 })
                 .slice(0, 3)
+        } else {
+            newList = userList
+                .sort(function (a, b) {
+                    return b[sortingField] - a[sortingField]
+                })
+                .slice((page - 1) * size, size * page)
         }
 
         res.json({

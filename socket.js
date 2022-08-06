@@ -29,7 +29,7 @@ const io = require('socket.io')(server, {
         origin: [
             'http://localhost:3000',
             'http://localhost:3001',
-            'http://duo-duo.ga'
+            'http://duo-duo.ga',
         ],
         credentials: true,
         transports: ['websocket', 'polling'],
