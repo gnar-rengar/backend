@@ -10,7 +10,7 @@ const rtokenExpireTime = process.env.VALID_REFRESH_TOKEN_TIME
 const COOKIE_OPTIONS = {
     // domain: '.duo-duo.ga',
     // httpOnly: true,
-    sameSite: 'none',
+    // sameSite: 'none',
     secure: true,
 }
 
