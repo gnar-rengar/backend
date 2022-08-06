@@ -41,7 +41,7 @@ async function customList(req, res) {
 
                 console.log(thisUser)
 
-                if (!thisUser._id) {
+                if (thisUser._id == null) {
                     // 추천 소환사 리스트 3명 중 누군가 회원탈퇴 했을 때 리스트를 새로 리프레시
                     customList = []
 
