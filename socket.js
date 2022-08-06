@@ -28,6 +28,7 @@ const io = require('socket.io')(server, {
     cors: {
         origin: [
             'http://localhost:3000',
+            'http://localhost:3001',
             'http://duo-duo.ga'
         ],
         credentials: true,
