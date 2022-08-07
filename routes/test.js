@@ -3,6 +3,9 @@ const testController = require('../controllers/test')
 const multer = require('../middlewares/multers/multer')
 const { checkTokens } = require('../middlewares/auth')
 
-router.get('', testController.test)
+router.post(
+    '/',
+    multer.upload.single('Image')
+)
 
 module.exports = router

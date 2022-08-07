@@ -15,9 +15,10 @@ const userSchema = new mongoose.Schema(
         useVoice: { type: Boolean },
         voiceChannel: { type: [String] },
         communication: { type: String },
-        banId: { type: [String] },
+        // banId: { type: [String] },
         todaysCustom: { type: [String] },
         customDate: { type: String },
+        isOnBoarded: { type: Boolean, default: false }
     },
     { timestamps: true }
 )

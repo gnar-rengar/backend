@@ -158,24 +158,19 @@ async function checkMyInfo(req, res) {
     const userId = res.locals.userId
     const lolNickname = res.locals.lolNickname
     const profileUrl = res.locals.profileUrl
+    const isOnBoarded = res.locals.isOnBoarded
 
     if (!req.cookies.token) {
         return res.status(100)
     }
 
-    if (userId && lolNickname && profileUrl) {
-        res.status(200).json({
-            userId,
-            lolNickname,
-            profileUrl,
-        })
-    } else {
-        res.status(403).json({
-            userId,
-            lolNickname,
-            profileUrl,
-        })
-    }
+    res.status(200).json({
+        userId,
+        lolNickname,
+        profileUrl,
+        isOnBoarded
+    })
+
 }
 
 async function logout(req, res) {

@@ -25,6 +25,7 @@ module.exports = {
             res.locals.userId = currentUser._id
             res.locals.lolNickname = currentUser.lolNickname
             res.locals.profileUrl = currentUser.profileUrl
+            res.locals.isOnBoarded = currentUser.isOnBoarded
 
             next()
         } catch (error) {
