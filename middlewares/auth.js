@@ -4,7 +4,7 @@ const RefreshToken = require('../schemas/refreshToken')
 require('dotenv').config()
 
 const COOKIE_OPTIONS = {
-    domain: '.kakao.com',
+    domain: '.lol',
     httpOnly: true,
     sameSite: 'none',
     secure: true
