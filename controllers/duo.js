@@ -224,7 +224,8 @@ async function newList(req, res) {
                 .slice((page - 1) * size, size * page)
         }
 
-        res.json({
+        res.cookie('plz', sortingField)
+        .json({
             newList,
         })
     } catch (error) {
