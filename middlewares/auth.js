@@ -19,6 +19,7 @@ module.exports = {
             }
 
             const token = req.cookies.token
+            console.log(req.cookies.token)
             const user = jwt.verify(token, process.env.TOKENKEY)
             const currentUser = await User.findOne({ _id: user.userId })
 
