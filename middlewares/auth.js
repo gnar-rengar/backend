@@ -5,9 +5,9 @@ require('dotenv').config()
 
 const COOKIE_OPTIONS = {
     domain: '.rengasis.shop',
+    secure: true,
     httpOnly: true,
     sameSite: 'none',
-    secure: true
 }
 
 module.exports = {
