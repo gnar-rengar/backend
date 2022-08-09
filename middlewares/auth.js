@@ -4,7 +4,7 @@ const RefreshToken = require('../schemas/refreshToken')
 require('dotenv').config()
 
 const COOKIE_OPTIONS = {
-    domain: 'https://duoduo.lol',
+    domain: '.kakao.com',
     httpOnly: true,
     sameSite: 'none',
     secure: true
