@@ -4,10 +4,10 @@ const RefreshToken = require('../schemas/refreshToken')
 require('dotenv').config()
 
 const COOKIE_OPTIONS = {
-    domain: 'https://duoduo.lol',
+    // domain: 'https://duoduo.lol',
     httpOnly: true,
-    sameSite: 'None',
-    secure: true,
+    sameSite: 'none',
+    secure: true
 }
 
 module.exports = {
