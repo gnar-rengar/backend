@@ -2,6 +2,13 @@ const User = require('../schemas/user')
 var mongoose = require('mongoose')
 const moment = require('moment')
 
+const COOKIE_OPTIONS = {
+    // domain: '.duoduo.lol',
+    httpOnly: true,
+    sameSite: 'None',
+    secure: true,
+}
+
 async function customList(req, res) {
     let userId = res.locals.userId
 
@@ -224,7 +231,7 @@ async function newList(req, res) {
                 .slice((page - 1) * size, size * page)
         }
 
-        res.cookie('plz', sortingField)
+        res.cookie('plz', sortingField, COOKIE_OPTIONS)
         .json({
             newList,
         })
