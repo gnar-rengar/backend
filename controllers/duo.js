@@ -231,7 +231,7 @@ async function newList(req, res) {
                 .slice((page - 1) * size, size * page)
         }
 
-        res.append('Set-Cookie', 'foo=bar; Path=/; HttpOnly')
+        res.append('Set-Cookie', 'foo=bar; Path=/; HttpOnly; Secure;')
         .json({
             newList,
         })
