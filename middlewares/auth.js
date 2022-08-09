@@ -14,7 +14,7 @@ module.exports = {
     async checkTokens(req, res, next) {
         try {
             // case 1 token 유효
-            console.log(req.cookies.token)
+            console.log(req.headers)
             if (!req.cookies.token) {
                 return next()
             }
