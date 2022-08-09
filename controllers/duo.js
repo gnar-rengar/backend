@@ -2,13 +2,6 @@ const User = require('../schemas/user')
 var mongoose = require('mongoose')
 const moment = require('moment')
 
-const COOKIE_OPTIONS = {
-    // domain: '.duoduo.lol',
-    httpOnly: true,
-    sameSite: 'None',
-    secure: true,
-}
-
 async function customList(req, res) {
     let userId = res.locals.userId
 
