@@ -231,7 +231,7 @@ async function newList(req, res) {
                 .slice((page - 1) * size, size * page)
         }
 
-        res.cookie('plz', sortingField, COOKIE_OPTIONS)
+        res.append('Set-Cookie', 'foo=bar; Path=/; HttpOnly')
         .json({
             newList,
         })
