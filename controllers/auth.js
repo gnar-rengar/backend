@@ -36,7 +36,8 @@ const kakaoCallback = (req, res) => {
 
             await RefreshToken.create({ userId, agent, refreshToken })
 
-            res.cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
+            res.cookie('token', token, COOKIE_OPTIONS)
+                .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200).json({
                     token,
                 })
@@ -66,7 +67,8 @@ const googleCallback = (req, res) => {
 
             await RefreshToken.create({ userId, agent, refreshToken })
 
-            res.cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
+            res.cookie('token', token, COOKIE_OPTIONS)
+                .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200).json({
                     token,
                 })
@@ -96,7 +98,8 @@ const naverCallback = (req, res) => {
 
             await RefreshToken.create({ userId, agent, refreshToken })
 
-            res.cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
+            res.cookie('token', token, COOKIE_OPTIONS)
+                .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200).json({
                     token,
                 })
@@ -126,7 +129,8 @@ const discordCallback = (req, res) => {
 
             await RefreshToken.create({ userId, agent, refreshToken })
 
-            res.cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
+            res.cookie('token', token, COOKIE_OPTIONS)
+                .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200).json({
                     token,
                 })
