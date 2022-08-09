@@ -36,9 +36,9 @@ const kakaoCallback = (req, res) => {
 
             await RefreshToken.create({ userId, agent, refreshToken })
 
-            res.cookie('token', token, COOKIE_OPTIONS)
             res.cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
             res.status(200).json({
+                token,
                 tokenExpireTime,
                 rtokenExpireTime,
                 userId,
