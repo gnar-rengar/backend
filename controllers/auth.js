@@ -148,10 +148,6 @@ async function checkMyInfo(req, res) {
     const profileUrl = res.locals.profileUrl
     const isOnBoarded = res.locals.isOnBoarded
 
-    if (!req.cookies.token) {
-        return res.status(100)
-    }
-
     res.status(200).json({
         userId,
         lolNickname,

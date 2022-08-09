@@ -14,9 +14,6 @@ module.exports = {
     async checkTokens(req, res, next) {
         try {
             // case 1 token 유효
-            if (!req.cookies.token) {
-                return next()
-            }
 
             const token = req.cookies.token
             const user = jwt.verify(token, process.env.TOKENKEY)
