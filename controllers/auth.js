@@ -39,9 +39,6 @@ const kakaoCallback = (req, res) => {
             res.cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200).json({
                     token,
-                    userId,
-                    lolNickname: currentUser.lolNickname,
-                    profileUrl: currentUser.profileUrl,
                 })
         }
     )(req, res)
@@ -72,9 +69,6 @@ const googleCallback = (req, res) => {
             res.cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200).json({
                     token,
-                    userId,
-                    lolNickname: currentUser.lolNickname,
-                    profileUrl: currentUser.profileUrl,
                 })
         }
     )(req, res)
@@ -105,9 +99,6 @@ const naverCallback = (req, res) => {
             res.cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200).json({
                     token,
-                    userId,
-                    lolNickname: currentUser.lolNickname,
-                    profileUrl: currentUser.profileUrl,
                 })
         }
     )(req, res)
@@ -138,9 +129,6 @@ const discordCallback = (req, res) => {
             res.cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200).json({
                     token,
-                    userId,
-                    lolNickname: currentUser.lolNickname,
-                    profileUrl: currentUser.profileUrl,
                 })
         }
     )(req, res)
