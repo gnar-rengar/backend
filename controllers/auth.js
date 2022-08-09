@@ -37,14 +37,14 @@ const kakaoCallback = (req, res) => {
             await RefreshToken.create({ userId, agent, refreshToken })
 
             res.cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
-            res.status(200).json({
-                token,
-                tokenExpireTime,
-                rtokenExpireTime,
-                userId,
-                lolNickname: currentUser.lolNickname,
-                profileUrl: currentUser.profileUrl,
-            })
+                .status(200).json({
+                    token,
+                    tokenExpireTime,
+                    rtokenExpireTime,
+                    userId,
+                    lolNickname: currentUser.lolNickname,
+                    profileUrl: currentUser.profileUrl,
+                })
         }
     )(req, res)
 }
@@ -71,15 +71,15 @@ const googleCallback = (req, res) => {
 
             await RefreshToken.create({ userId, agent, refreshToken })
 
-            res.cookie('token', token, COOKIE_OPTIONS)
             res.cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
-            res.status(200).json({
-                tokenExpireTime,
-                rtokenExpireTime,
-                userId,
-                lolNickname: currentUser.lolNickname,
-                profileUrl: currentUser.profileUrl,
-            })
+                .status(200).json({
+                    token,
+                    tokenExpireTime,
+                    rtokenExpireTime,
+                    userId,
+                    lolNickname: currentUser.lolNickname,
+                    profileUrl: currentUser.profileUrl,
+                })
         }
     )(req, res)
 }
@@ -106,15 +106,15 @@ const naverCallback = (req, res) => {
 
             await RefreshToken.create({ userId, agent, refreshToken })
 
-            res.cookie('token', token, COOKIE_OPTIONS)
             res.cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
-            res.status(200).json({
-                tokenExpireTime,
-                rtokenExpireTime,
-                userId,
-                lolNickname: currentUser.lolNickname,
-                profileUrl: currentUser.profileUrl,
-            })
+                .status(200).json({
+                    token,
+                    tokenExpireTime,
+                    rtokenExpireTime,
+                    userId,
+                    lolNickname: currentUser.lolNickname,
+                    profileUrl: currentUser.profileUrl,
+                })
         }
     )(req, res)
 }
@@ -141,15 +141,15 @@ const discordCallback = (req, res) => {
 
             await RefreshToken.create({ userId, agent, refreshToken })
 
-            res.cookie('token', token, COOKIE_OPTIONS)
             res.cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
-            res.status(200).json({
-                tokenExpireTime,
-                rtokenExpireTime,
-                userId,
-                lolNickname: currentUser.lolNickname,
-                profileUrl: currentUser.profileUrl,
-            })
+                .status(200).json({
+                    token,
+                    tokenExpireTime,
+                    rtokenExpireTime,
+                    userId,
+                    lolNickname: currentUser.lolNickname,
+                    profileUrl: currentUser.profileUrl,
+                })
         }
     )(req, res)
 }
