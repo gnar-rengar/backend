@@ -40,6 +40,7 @@ const kakaoCallback = (req, res) => {
                 .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200).json({
                     token,
+                    tokenExpireTime
                 })
         }
     )(req, res)
@@ -71,6 +72,7 @@ const googleCallback = (req, res) => {
                 .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200).json({
                     token,
+                    tokenExpireTime
                 })
         }
     )(req, res)
@@ -102,6 +104,7 @@ const naverCallback = (req, res) => {
                 .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200).json({
                     token,
+                    tokenExpireTime
                 })
         }
     )(req, res)
@@ -133,6 +136,7 @@ const discordCallback = (req, res) => {
                 .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200).json({
                     token,
+                    tokenExpireTime
                 })
         }
     )(req, res)
