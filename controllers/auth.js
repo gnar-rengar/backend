@@ -171,25 +171,20 @@ async function checkMyInfo(req, res) {
 
 async function logout(req, res) {
     const userId = res.locals.userId
-    const agent = req.headers['user-agent']
-
-    await RefreshToken.deleteOne({ userId, agent })
 
     res.clearCookie('token', COOKIE_OPTIONS)
         .clearCookie('refreshToken', COOKIE_OPTIONS)
         .status(200)
-        .send({
+        .json({
             message: '로그아웃 되었습니다.',
         })
 }
 
 async function deleteUser(req, res) {
     const userId = res.locals.userId
-    const agent = req.headers['user-agent']
 
     try {
         if (userId) {
-            await RefreshToken.deleteOne({ userId, agent })
             await User.deleteOne({ _id: userId })
             res.clearCookie('token', COOKIE_OPTIONS)
                 .clearCookie('refreshToken', COOKIE_OPTIONS)
