@@ -57,7 +57,7 @@ module.exports = {
                     res.locals.lolNickname = currentUser.lolNickname
                     res.locals.profileUrl = currentUser.profileUrl
                     res.locals.isOnBoarded = currentUser.isOnBoarded
-                    
+
                     next()
                         // .status(401)
                         // .json({
@@ -65,6 +65,7 @@ module.exports = {
                         //     reason: 'token 만료',
                         // })
                 } else {
+                    console.log(error)
                     return res.status(401).json({
                         message: '다시 로그인해주세요.',
                         reason: 'token에 문제가 있습니다.',
@@ -77,6 +78,7 @@ module.exports = {
                         reason: 'refreshToken이 만료되었습니다.',
                     })
                 } else {
+                    console.log(error)
                     return res.status(401).json({
                         message: '다시 로그인해주세요.',
                         reason: 'refreshToken에 문제가 있습니다.',
