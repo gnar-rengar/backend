@@ -32,13 +32,10 @@ module.exports = {
                     // case 2 token 만료, refreshToken 유효
                     const refreshToken = req.cookies.refreshToken
                     const user = jwt.verify(refreshToken, process.env.TOKENKEY)
-                    const agent = req.headers['user-agent']
-                    console.log(req.headers)
+
                     const dbRefresh = await RefreshToken.findOne({
                         userId: user.userId,
-                        agent,
                     })
-                    console.log(dbRefresh)
 
                     if (refreshToken !== dbRefresh.refreshToken)
                         return res.status(401).json({
@@ -62,11 +59,6 @@ module.exports = {
                     res.locals.isOnBoarded = currentUser.isOnBoarded
 
                     next()
-                    // .status(401)
-                    // .json({
-                    //     message: 'new Token 발급',
-                    //     reason: 'token 만료',
-                    // })
                 } else {
                     console.log(error)
                     return res.status(401).json({

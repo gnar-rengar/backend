@@ -20,29 +20,30 @@ const kakaoCallback = (req, res, next) => {
         { failureRedirect: '/' },
         async (err, user, info) => {
             if (err) return next(err)
-            const agent = req.headers['user-agent']
             const userId = user._id
-            const currentUser = await User.findOne({ _id: userId })
             const token = jwt.sign({ userId: userId }, process.env.TOKENKEY, {
                 expiresIn: tokenExpireTime,
             })
-            const refreshToken = jwt.sign(
-                { userId: userId },
-                process.env.TOKENKEY,
-                {
-                    expiresIn: rtokenExpireTime,
-                }
-            )
+            let refreshToken = ''
 
-            await RefreshToken.create({ userId, agent, refreshToken })
+            const dbRefresh = await RefreshToken.findOne({ userId })
+            if (dbRefresh) {
+                refreshToken = dbRefresh.refreshToken
+            } else {
+                refreshToken = jwt.sign(
+                    { userId: userId },
+                    process.env.TOKENKEY,
+                    {
+                        expiresIn: rtokenExpireTime,
+                    }
+                )
+
+                await RefreshToken.create({ userId, refreshToken })
+            }
 
             res.cookie('token', token, COOKIE_OPTIONS)
                 .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200)
-                .json({
-                    token,
-                    tokenExpireTime,
-                })
         }
     )(req, res)
 }
@@ -53,29 +54,30 @@ const googleCallback = (req, res) => {
         { failureRedirect: '/' },
         async (err, user, info) => {
             if (err) return next(err)
-            const agent = req.headers['user-agent']
             const userId = user._id
-            const currentUser = await User.findOne({ _id: userId })
             const token = jwt.sign({ userId: userId }, process.env.TOKENKEY, {
                 expiresIn: tokenExpireTime,
             })
-            const refreshToken = jwt.sign(
-                { userId: userId },
-                process.env.TOKENKEY,
-                {
-                    expiresIn: rtokenExpireTime,
-                }
-            )
+            let refreshToken = ''
 
-            await RefreshToken.create({ userId, agent, refreshToken })
+            const dbRefresh = await RefreshToken.findOne({ userId })
+            if (dbRefresh) {
+                refreshToken = dbRefresh.refreshToken
+            } else {
+                refreshToken = jwt.sign(
+                    { userId: userId },
+                    process.env.TOKENKEY,
+                    {
+                        expiresIn: rtokenExpireTime,
+                    }
+                )
+
+                await RefreshToken.create({ userId, refreshToken })
+            }
 
             res.cookie('token', token, COOKIE_OPTIONS)
                 .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200)
-                .json({
-                    token,
-                    tokenExpireTime,
-                })
         }
     )(req, res)
 }
@@ -86,29 +88,30 @@ const naverCallback = (req, res) => {
         { failureRedirect: '/' },
         async (err, user, info) => {
             if (err) return next(err)
-            const agent = req.headers['user-agent']
             const userId = user._id
-            const currentUser = await User.findOne({ _id: userId })
             const token = jwt.sign({ userId: userId }, process.env.TOKENKEY, {
                 expiresIn: tokenExpireTime,
             })
-            const refreshToken = jwt.sign(
-                { userId: userId },
-                process.env.TOKENKEY,
-                {
-                    expiresIn: rtokenExpireTime,
-                }
-            )
+            let refreshToken = ''
 
-            await RefreshToken.create({ userId, agent, refreshToken })
+            const dbRefresh = await RefreshToken.findOne({ userId })
+            if (dbRefresh) {
+                refreshToken = dbRefresh.refreshToken
+            } else {
+                refreshToken = jwt.sign(
+                    { userId: userId },
+                    process.env.TOKENKEY,
+                    {
+                        expiresIn: rtokenExpireTime,
+                    }
+                )
+
+                await RefreshToken.create({ userId, refreshToken })
+            }
 
             res.cookie('token', token, COOKIE_OPTIONS)
                 .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200)
-                .json({
-                    token,
-                    tokenExpireTime,
-                })
         }
     )(req, res)
 }
@@ -119,29 +122,30 @@ const discordCallback = (req, res) => {
         { failureRedirect: '/' },
         async (err, user, info) => {
             if (err) return next(err)
-            const agent = req.headers['user-agent']
             const userId = user._id
-            const currentUser = await User.findOne({ _id: userId })
             const token = jwt.sign({ userId: userId }, process.env.TOKENKEY, {
                 expiresIn: tokenExpireTime,
             })
-            const refreshToken = jwt.sign(
-                { userId: userId },
-                process.env.TOKENKEY,
-                {
-                    expiresIn: rtokenExpireTime,
-                }
-            )
+            let refreshToken = ''
 
-            await RefreshToken.create({ userId, agent, refreshToken })
+            const dbRefresh = await RefreshToken.findOne({ userId })
+            if (dbRefresh) {
+                refreshToken = dbRefresh.refreshToken
+            } else {
+                refreshToken = jwt.sign(
+                    { userId: userId },
+                    process.env.TOKENKEY,
+                    {
+                        expiresIn: rtokenExpireTime,
+                    }
+                )
+
+                await RefreshToken.create({ userId, refreshToken })
+            }
 
             res.cookie('token', token, COOKIE_OPTIONS)
                 .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200)
-                .json({
-                    token,
-                    tokenExpireTime,
-                })
         }
     )(req, res)
 }
