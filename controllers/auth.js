@@ -14,14 +14,15 @@ const COOKIE_OPTIONS = {
     sameSite: 'none',
 }
 
-const kakaoCallback = (req, res) => {
+const kakaoCallback = (req, res, next) => {
     passport.authenticate(
         'kakao',
         { failureRedirect: '/' },
         async (err, user, info) => {
-            if (err){
+            if (err) {
                 console.log(err)
-            } return next(err)
+                return next(err)
+            } 
             const agent = req.headers['user-agent']
             const userId = user._id
             const currentUser = await User.findOne({ _id: userId })
