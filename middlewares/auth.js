@@ -15,6 +15,7 @@ module.exports = {
         try {
             // case 1 token 유효
 
+            console.log(req.cookies)
             const token = req.cookies.token
             const user = jwt.verify(token, process.env.TOKENKEY)
             const currentUser = await User.findOne({ _id: user.userId })
