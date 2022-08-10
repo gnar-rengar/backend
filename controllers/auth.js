@@ -8,7 +8,7 @@ const tokenExpireTime = process.env.VALID_ACCESS_TOKEN_TIME
 const rtokenExpireTime = process.env.VALID_REFRESH_TOKEN_TIME
 
 const COOKIE_OPTIONS = {
-    domain: '.rengasis.shop',
+    domain: '.duoduo.lol',
     secure: true,
     httpOnly: true,
     sameSite: 'none',

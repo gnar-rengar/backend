@@ -4,7 +4,7 @@ const RefreshToken = require('../schemas/refreshToken')
 require('dotenv').config()
 
 const COOKIE_OPTIONS = {
-    domain: '.rengasis.shop',
+    domain: '.duoduo.lol',
     secure: true,
     httpOnly: true,
     sameSite: 'none',
