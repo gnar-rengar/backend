@@ -62,7 +62,7 @@ async function updateOnboarding(req, res) {
         voiceChannel: req.body.voiceChannel,
         communication: req.body.communication,
         playStyle: req.body.playStyle,
-        isOnBoarded: true
+        isOnBoarded: true,
     }
 
     try {

@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema(
         // banId: { type: [String] },
         todaysCustom: { type: [String] },
         customDate: { type: String },
-        isOnBoarded: { type: Boolean, default: false }
+        isOnBoarded: { type: Boolean, default: false },
     },
     { timestamps: true }
 )

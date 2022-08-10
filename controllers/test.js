@@ -9,7 +9,7 @@ const riotToken = process.env.riotTokenKey
 async function test(req, res) {
     const plz = 'plz'
 
-    res.cookie('plz',plz)
+    res.cookie('plz', plz)
 }
 
 module.exports = {

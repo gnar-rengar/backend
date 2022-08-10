@@ -60,11 +60,11 @@ module.exports = {
                     res.locals.isOnBoarded = currentUser.isOnBoarded
 
                     next()
-                        // .status(401)
-                        // .json({
-                        //     message: 'new Token 발급',
-                        //     reason: 'token 만료',
-                        // })
+                    // .status(401)
+                    // .json({
+                    //     message: 'new Token 발급',
+                    //     reason: 'token 만료',
+                    // })
                 } else {
                     console.log(error)
                     return res.status(401).json({

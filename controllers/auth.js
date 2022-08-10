@@ -19,10 +19,7 @@ const kakaoCallback = (req, res, next) => {
         'kakao',
         { failureRedirect: '/' },
         async (err, user, info) => {
-            if (err) {
-                console.log(err)
-                return next(err)
-            } 
+            if (err) return next(err)
             const agent = req.headers['user-agent']
             const userId = user._id
             const currentUser = await User.findOne({ _id: userId })
@@ -41,9 +38,10 @@ const kakaoCallback = (req, res, next) => {
 
             res.cookie('token', token, COOKIE_OPTIONS)
                 .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
-                .status(200).json({
+                .status(200)
+                .json({
                     token,
-                    tokenExpireTime
+                    tokenExpireTime,
                 })
         }
     )(req, res)
@@ -73,9 +71,10 @@ const googleCallback = (req, res) => {
 
             res.cookie('token', token, COOKIE_OPTIONS)
                 .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
-                .status(200).json({
+                .status(200)
+                .json({
                     token,
-                    tokenExpireTime
+                    tokenExpireTime,
                 })
         }
     )(req, res)
@@ -105,9 +104,10 @@ const naverCallback = (req, res) => {
 
             res.cookie('token', token, COOKIE_OPTIONS)
                 .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
-                .status(200).json({
+                .status(200)
+                .json({
                     token,
-                    tokenExpireTime
+                    tokenExpireTime,
                 })
         }
     )(req, res)
@@ -137,9 +137,10 @@ const discordCallback = (req, res) => {
 
             res.cookie('token', token, COOKIE_OPTIONS)
                 .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
-                .status(200).json({
+                .status(200)
+                .json({
                     token,
-                    tokenExpireTime
+                    tokenExpireTime,
                 })
         }
     )(req, res)
@@ -155,9 +156,8 @@ async function checkMyInfo(req, res) {
         userId,
         lolNickname,
         profileUrl,
-        isOnBoarded
+        isOnBoarded,
     })
-
 }
 
 async function logout(req, res) {

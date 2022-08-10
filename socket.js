@@ -26,10 +26,7 @@ if (process.env.PORT) {
 
 const io = require('socket.io')(server, {
     cors: {
-        origin: [
-            'http://localhost:3000',
-            'https://duoduo.lol',
-        ],
+        origin: ['http://localhost:3000', 'https://duoduo.lol'],
         credentials: true,
         transports: ['websocket', 'polling'],
     },
