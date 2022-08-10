@@ -31,7 +31,7 @@ app.use(
         saveUninitialized: false,
         secret: process.env.COOKIE_SECRET,
         cookie: {
-            domain: '.rengasis.shop',
+            domain: '.duoduo.lol',
             httpOnly: true,
             sameSite: 'none',
             secure: true
