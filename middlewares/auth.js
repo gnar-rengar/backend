@@ -32,9 +32,8 @@ module.exports = {
                     // case 2 token 만료, refreshToken 유효
                     const refreshToken = req.cookies.refreshToken
                     const user = jwt.verify(refreshToken, process.env.TOKENKEY)
-                    console.log(user)
                     const agent = req.headers['user-agent']
-                    console.log(agent)
+                    console.log(headers)
                     const dbRefresh = await RefreshToken.findOne({
                         userId: user.userId,
                         agent,
