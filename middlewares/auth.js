@@ -28,6 +28,7 @@ module.exports = {
             next()
         } catch (error) {
             try {
+                console.log(error)
                 if (error.name === 'TokenExpiredError') {
                     // case 2 token 만료, refreshToken 유효
                     const refreshToken = req.cookies.refreshToken
