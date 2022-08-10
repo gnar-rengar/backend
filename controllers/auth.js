@@ -19,7 +19,9 @@ const kakaoCallback = (req, res) => {
         'kakao',
         { failureRedirect: '/' },
         async (err, user, info) => {
-            if (err) return next(err)
+            if (err){
+                console.log(err)
+            } return next(err)
             const agent = req.headers['user-agent']
             const userId = user._id
             const currentUser = await User.findOne({ _id: userId })
