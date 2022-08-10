@@ -49,9 +49,16 @@ module.exports = {
                         { expiresIn: process.env.VALID_ACCESS_TOKEN_TIME }
                     )
 
-                    res
-                        .cookie('token', newToken, COOKIE_OPTIONS)
-                        next()
+                    res.cookie('token', newToken, COOKIE_OPTIONS)
+
+                    const currentUser = await User.findOne({ _id: user.userId })
+
+                    res.locals.userId = currentUser._id
+                    res.locals.lolNickname = currentUser.lolNickname
+                    res.locals.profileUrl = currentUser.profileUrl
+                    res.locals.isOnBoarded = currentUser.isOnBoarded
+                    
+                    next()
                         // .status(401)
                         // .json({
                         //     message: 'new Token 발급',
