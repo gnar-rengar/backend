@@ -20,6 +20,7 @@ const kakaoCallback = (req, res, next) => {
         { failureRedirect: '/' },
         async (err, user, info) => {
             if (err) return next(err)
+            console.log(user)
             const userId = user._id
             const token = jwt.sign({ userId: userId }, process.env.TOKENKEY, {
                 expiresIn: tokenExpireTime,
