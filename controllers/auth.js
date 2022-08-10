@@ -185,6 +185,7 @@ async function deleteUser(req, res) {
     try {
         if (userId) {
             await User.deleteOne({ _id: userId })
+            await RefreshToken.deleteOne({ userId })
             res.clearCookie('token', COOKIE_OPTIONS)
                 .clearCookie('refreshToken', COOKIE_OPTIONS)
                 .status(200)
