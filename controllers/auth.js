@@ -159,12 +159,14 @@ async function checkMyInfo(req, res) {
     const lolNickname = res.locals.lolNickname
     const profileUrl = res.locals.profileUrl
     const isOnBoarded = res.locals.isOnBoarded
+    const playStyle = res.locals.playStyle
 
     res.status(200).json({
         userId,
         lolNickname,
         profileUrl,
         isOnBoarded,
+        playStyle
     })
 }
 

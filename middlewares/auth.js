@@ -23,6 +23,7 @@ module.exports = {
             res.locals.lolNickname = currentUser.lolNickname
             res.locals.profileUrl = currentUser.profileUrl
             res.locals.isOnBoarded = currentUser.isOnBoarded
+            res.locals.playStyle = currentUser.playStyle
 
             next()
         } catch (error) {
@@ -56,6 +57,7 @@ module.exports = {
                     res.locals.lolNickname = currentUser.lolNickname
                     res.locals.profileUrl = currentUser.profileUrl
                     res.locals.isOnBoarded = currentUser.isOnBoarded
+                    res.locals.playStyle = currentUser.playStyle
 
                     next()
                 } else {
