@@ -102,13 +102,26 @@ async function updateOnboarding(req, res) {
         const soloPoint = leaguePoint.data.find(
             (x) => x.queueType == 'RANKED_SOLO_5x5'
         )
-        const tier = soloPoint.tier
-        const rank = soloPoint.rank
-        const leaguePoints = soloPoint.leaguePoints
 
-        data.tier = tier
-        data.rank = rank
-        data.leaguePoints = leaguePoints
+        if (soloPoint) {
+            const tier = soloPoint.tier
+            const rank = soloPoint.rank
+            const leaguePoints = soloPoint.leaguePoints
+
+            data.tier = tier
+            data.rank = rank
+            data.leaguePoints = leaguePoints
+        } else {
+            const tier = 'unranked'
+            const rank = ''
+            const leaguePoints = ''
+
+            data.tier = tier
+            data.rank = rank
+            data.leaguePoints = leaguePoints
+        }
+
+
 
         await User.updateOne({ _id: userId }, { $set: data })
         res.status(200).json({
