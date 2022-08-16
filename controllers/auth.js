@@ -166,7 +166,7 @@ async function checkMyInfo(req, res) {
         lolNickname,
         profileUrl,
         isOnBoarded,
-        playStyle
+        playStyle,
     })
 }
 

@@ -121,8 +121,6 @@ async function updateOnboarding(req, res) {
             data.leaguePoints = leaguePoints
         }
 
-
-
         await User.updateOne({ _id: userId }, { $set: data })
         res.status(200).json({
             message: '추가정보 등록에 성공하였습니다.',
