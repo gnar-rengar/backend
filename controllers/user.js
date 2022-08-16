@@ -317,7 +317,6 @@ async function recentRecord(req, res) {
                 data.kda =
                     (myData[0].kills + myData[0].assists) / myData[0].deaths
             }
-            console.log(data.kda)
 
             recentRecord.push(data)
         }
