@@ -307,10 +307,15 @@ async function recentRecord(req, res) {
             data.kills = myData[0].kills
             data.deaths = myData[0].deaths
             data.assists = myData[0].assists
-            if (myData[0].deaths === 0) {
-                data.kda = 1e500 // Infinity
+            if (myData[0].deaths == 0) {
+                if (myData[0].kills + myData[0].assists == 0) {
+                    data.kda = 0
+                } else {
+                    data.kda = -1 // Infinity
+                }
             } else {
-                data.kda = (myData[0].kills + myData[0].assists) / myData[0].deaths
+                data.kda =
+                    (myData[0].kills + myData[0].assists) / myData[0].deaths
             }
             console.log(data.kda)
 
