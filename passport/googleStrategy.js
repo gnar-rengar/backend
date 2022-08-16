@@ -22,6 +22,9 @@ module.exports = () => {
                     })
                     if (exUser) {
                         const lolNickname = exUser.lolNickname
+                        let tier = ''
+                        let rank = ''
+                        let leaguePoints = ''
 
                         if (exUser.lolNickname) {
                             const summoner = await axios({
@@ -49,21 +52,13 @@ module.exports = () => {
                             )
                             
                             if (soloPoint) {
-                                const tier = soloPoint.tier
-                                const rank = soloPoint.rank
-                                const leaguePoints = soloPoint.leaguePoints
-                    
-                                data.tier = tier
-                                data.rank = rank
-                                data.leaguePoints = leaguePoints
+                                tier = soloPoint.tier
+                                rank = soloPoint.rank
+                                leaguePoints = soloPoint.leaguePoints
                             } else {
-                                const tier = 'unranked'
-                                const rank = ''
-                                const leaguePoints = ''
-                    
-                                data.tier = tier
-                                data.rank = rank
-                                data.leaguePoints = leaguePoints
+                                tier = 'unranked'
+                                rank = ''
+                                leaguePoints = ''
                             }
 
                             await User.updateOne(
