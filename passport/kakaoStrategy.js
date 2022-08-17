@@ -56,7 +56,7 @@ module.exports = () => {
                                 rank = soloPoint.rank
                                 leaguePoints = soloPoint.leaguePoints
                             } else {
-                                tier = 'unranked'
+                                tier = 'UNRANKED'
                                 rank = ''
                                 leaguePoints = ''
                             }

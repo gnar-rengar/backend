@@ -112,7 +112,7 @@ async function updateOnboarding(req, res) {
             data.rank = rank
             data.leaguePoints = leaguePoints
         } else {
-            const tier = 'unranked'
+            const tier = 'UNRANKED'
             const rank = ''
             const leaguePoints = ''
 
