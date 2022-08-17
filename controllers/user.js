@@ -346,22 +346,11 @@ async function mypage(req, res) {
 
     try {
         const currentUser = await User.findOne({ _id: userId })
-        const lolNickname = currentUser.lolNickname
-
-        const summoner = await axios({
-            method: 'GET',
-            url: encodeURI(
-                `https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${lolNickname}`
-            ),
-            headers: {
-                'X-Riot-Token': riotToken,
-            },
-        })
-
         const review = await Review.findOne({ reviewedId: userId })
+        
         if (review) {
             res.status(200).json({
-                lolNickname,
+                lolNickname: currentUser.lolNickname,
                 profileUrl: currentUser.profileUrl,
                 tier: currentUser.tier,
                 rank: currentUser.rank,
@@ -374,7 +363,7 @@ async function mypage(req, res) {
             })
         } else {
             res.status(200).json({
-                lolNickname,
+                lolNickname: currentUser.lolNickname,
                 profileUrl: currentUser.profileUrl,
                 tier: currentUser.tier,
                 rank: currentUser.rank,
