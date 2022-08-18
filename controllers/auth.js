@@ -26,6 +26,8 @@ const kakaoCallback = (req, res, next) => {
             })
             let refreshToken = ''
 
+            const currentUser = await User.findOne({ _id: userId })
+
             const dbRefresh = await RefreshToken.findOne({ userId })
             if (dbRefresh) {
                 refreshToken = dbRefresh.refreshToken
@@ -44,7 +46,9 @@ const kakaoCallback = (req, res, next) => {
             res.cookie('token', token, COOKIE_OPTIONS)
                 .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200)
-                .end()
+                .json({
+                    isOnBoarded: currentUser.isOnBoarded
+                })
         }
     )(req, res)
 }
@@ -61,6 +65,8 @@ const googleCallback = (req, res) => {
             })
             let refreshToken = ''
 
+            const currentUser = await User.findOne({ _id: userId })
+
             const dbRefresh = await RefreshToken.findOne({ userId })
             if (dbRefresh) {
                 refreshToken = dbRefresh.refreshToken
@@ -79,7 +85,9 @@ const googleCallback = (req, res) => {
             res.cookie('token', token, COOKIE_OPTIONS)
                 .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200)
-                .end()
+                .json({
+                    isOnBoarded: currentUser.isOnBoarded
+                })
         }
     )(req, res)
 }
@@ -96,6 +104,8 @@ const naverCallback = (req, res) => {
             })
             let refreshToken = ''
 
+            const currentUser = await User.findOne({ _id: userId })
+
             const dbRefresh = await RefreshToken.findOne({ userId })
             if (dbRefresh) {
                 refreshToken = dbRefresh.refreshToken
@@ -114,7 +124,9 @@ const naverCallback = (req, res) => {
             res.cookie('token', token, COOKIE_OPTIONS)
                 .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200)
-                .end()
+                .json({
+                    isOnBoarded: currentUser.isOnBoarded
+                })
         }
     )(req, res)
 }
@@ -131,6 +143,8 @@ const discordCallback = (req, res) => {
             })
             let refreshToken = ''
 
+            const currentUser = await User.findOne({ _id: userId })
+
             const dbRefresh = await RefreshToken.findOne({ userId })
             if (dbRefresh) {
                 refreshToken = dbRefresh.refreshToken
@@ -149,7 +163,9 @@ const discordCallback = (req, res) => {
             res.cookie('token', token, COOKIE_OPTIONS)
                 .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200)
-                .end()
+                .json({
+                    isOnBoarded: currentUser.isOnBoarded
+                })
         }
     )(req, res)
 }
