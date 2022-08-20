@@ -166,10 +166,10 @@ async function userInfo(req, res) {
         })
 
         let mostChampion = []
-        console.log(mostChampionList)
-        console.log(mostChampionList.length)
+        console.log(mostChampionList.data)
+        console.log(mostChampionList.data.length)
 
-        if (mostChampionList.length !== 0) {
+        if (mostChampionList.data.length !== 0) {
             const mostChampion1 = JSON.parse(chapmions).find(
                 (x) => x.key == mostChampionList.data[0].championId
             ).id
