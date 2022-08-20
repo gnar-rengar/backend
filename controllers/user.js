@@ -166,6 +166,8 @@ async function userInfo(req, res) {
         })
 
         let mostChampion = []
+        console.log(mostChampionList)
+        console.log(mostChampionList.length)
 
         if (mostChampionList.length !== 0) {
             const mostChampion1 = JSON.parse(chapmions).find(
