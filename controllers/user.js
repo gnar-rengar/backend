@@ -166,8 +166,6 @@ async function userInfo(req, res) {
         })
 
         let mostChampion = []
-        console.log(mostChampionList.data)
-        console.log(mostChampionList.data.length)
 
         if (mostChampionList.data.length !== 0) {
             const mostChampion1 = JSON.parse(chapmions).find(
@@ -254,76 +252,79 @@ async function recentRecord(req, res) {
 
         let recentRecord = []
 
-        for (let i = (page - 1) * size; i < size * page; i++) {
-            let data = {}
+        if (matchList.data.length !== 0) {
 
-            const match = await axios({
-                method: 'GET',
-                url: encodeURI(
-                    `https://asia.api.riotgames.com/lol/match/v5/matches/${matchList.data[i]}`
-                ),
-                headers: {
-                    'X-Riot-Token': riotToken,
-                },
-            })
+            for (let i = (page - 1) * size; i < size * page; i++) {
+                let data = {}
 
-            const myData = match.data.info.participants.filter(
-                (x) => x.puuid == summoner.data.puuid
-            )
+                const match = await axios({
+                    method: 'GET',
+                    url: encodeURI(
+                        `https://asia.api.riotgames.com/lol/match/v5/matches/${matchList.data[i]}`
+                    ),
+                    headers: {
+                        'X-Riot-Token': riotToken,
+                    },
+                })
 
-            data.gameMode = match.data.info.gameMode
-            data.gameType = match.data.info.gameType
-            data.queueType = JSON.parse(queueTypes).find(
-                (x) => x.queueId === match.data.info.queueId
-            ).description
-            data.gameStartTimestamp = match.data.info.gameStartTimestamp
-            data.gameEndTimestamp = match.data.info.gameEndTimestamp
-            data.win = myData[0].win
-            const champion = JSON.parse(chapmions).find(
-                (x) => x.key == myData[0].championId
-            )
-            data.championName = champion.id
-            data.championNameKR = champion.name
-            const primaryStyle = JSON.parse(perks).find(
-                (x) => x.id === myData[0].perks.styles[0].style
-            )
-            data.perk1 = primaryStyle.slots[0].runes.find(
-                (x) => x.id === myData[0].perks.styles[0].selections[0].perk
-            ).icon
-            data.perk2 = JSON.parse(perks).find(
-                (x) => x.id === myData[0].perks.styles[1].style
-            ).icon
-            data.spell1 = JSON.parse(spells).find(
-                (x) => x.key == myData[0].summoner1Id
-            ).id
-            data.spell2 = JSON.parse(spells).find(
-                (x) => x.key == myData[0].summoner2Id
-            ).id
-            data.item0 = myData[0].item0
-            data.item1 = myData[0].item1
-            data.item2 = myData[0].item2
-            data.item3 = myData[0].item3
-            data.item4 = myData[0].item4
-            data.item5 = myData[0].item5
-            data.item6 = myData[0].item6
-            data.champLevel = myData[0].champLevel
-            data.totalMinionsKilled =
-                myData[0].totalMinionsKilled + myData[0].neutralMinionsKilled
-            data.kills = myData[0].kills
-            data.deaths = myData[0].deaths
-            data.assists = myData[0].assists
-            if (myData[0].deaths == 0) {
-                if (myData[0].kills + myData[0].assists == 0) {
-                    data.kda = 0
+                const myData = match.data.info.participants.filter(
+                    (x) => x.puuid == summoner.data.puuid
+                )
+
+                data.gameMode = match.data.info.gameMode
+                data.gameType = match.data.info.gameType
+                data.queueType = JSON.parse(queueTypes).find(
+                    (x) => x.queueId === match.data.info.queueId
+                ).description
+                data.gameStartTimestamp = match.data.info.gameStartTimestamp
+                data.gameEndTimestamp = match.data.info.gameEndTimestamp
+                data.win = myData[0].win
+                const champion = JSON.parse(chapmions).find(
+                    (x) => x.key == myData[0].championId
+                )
+                data.championName = champion.id
+                data.championNameKR = champion.name
+                const primaryStyle = JSON.parse(perks).find(
+                    (x) => x.id === myData[0].perks.styles[0].style
+                )
+                data.perk1 = primaryStyle.slots[0].runes.find(
+                    (x) => x.id === myData[0].perks.styles[0].selections[0].perk
+                ).icon
+                data.perk2 = JSON.parse(perks).find(
+                    (x) => x.id === myData[0].perks.styles[1].style
+                ).icon
+                data.spell1 = JSON.parse(spells).find(
+                    (x) => x.key == myData[0].summoner1Id
+                ).id
+                data.spell2 = JSON.parse(spells).find(
+                    (x) => x.key == myData[0].summoner2Id
+                ).id
+                data.item0 = myData[0].item0
+                data.item1 = myData[0].item1
+                data.item2 = myData[0].item2
+                data.item3 = myData[0].item3
+                data.item4 = myData[0].item4
+                data.item5 = myData[0].item5
+                data.item6 = myData[0].item6
+                data.champLevel = myData[0].champLevel
+                data.totalMinionsKilled =
+                    myData[0].totalMinionsKilled + myData[0].neutralMinionsKilled
+                data.kills = myData[0].kills
+                data.deaths = myData[0].deaths
+                data.assists = myData[0].assists
+                if (myData[0].deaths == 0) {
+                    if (myData[0].kills + myData[0].assists == 0) {
+                        data.kda = 0
+                    } else {
+                        data.kda = -1 // Infinity
+                    }
                 } else {
-                    data.kda = -1 // Infinity
+                    data.kda =
+                        (myData[0].kills + myData[0].assists) / myData[0].deaths
                 }
-            } else {
-                data.kda =
-                    (myData[0].kills + myData[0].assists) / myData[0].deaths
-            }
 
-            recentRecord.push(data)
+                recentRecord.push(data)
+            }
         }
 
         res.status(200).json({
@@ -352,7 +353,7 @@ async function mypage(req, res) {
     try {
         const currentUser = await User.findOne({ _id: userId })
         const review = await Review.findOne({ reviewedId: userId })
-        
+
         if (review) {
             res.status(200).json({
                 lolNickname: currentUser.lolNickname,
