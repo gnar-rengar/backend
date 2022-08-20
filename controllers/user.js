@@ -165,18 +165,21 @@ async function userInfo(req, res) {
             },
         })
 
-        const mostChampion1 = JSON.parse(chapmions).find(
-            (x) => x.key == mostChampionList.data[0].championId
-        ).id
-        const mostChampion2 = JSON.parse(chapmions).find(
-            (x) => x.key == mostChampionList.data[1].championId
-        ).id
-        const mostChampion3 = JSON.parse(chapmions).find(
-            (x) => x.key == mostChampionList.data[2].championId
-        ).id
-
         let mostChampion = []
-        mostChampion.push(mostChampion1, mostChampion2, mostChampion3)
+
+        if (mostChampionList.length !== 0) {
+            const mostChampion1 = JSON.parse(chapmions).find(
+                (x) => x.key == mostChampionList.data[0].championId
+            ).id
+            const mostChampion2 = JSON.parse(chapmions).find(
+                (x) => x.key == mostChampionList.data[1].championId
+            ).id
+            const mostChampion3 = JSON.parse(chapmions).find(
+                (x) => x.key == mostChampionList.data[2].championId
+            ).id
+
+            mostChampion.push(mostChampion1, mostChampion2, mostChampion3)
+        }
 
         const review = await Review.findOne({ reviewedId: userId })
         if (review) {
