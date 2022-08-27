@@ -101,6 +101,7 @@ io.on('connection', (socket) => {
             array.roomId = room[i].id
             const opponentId = room[i].userId.find((x) => x != userId)
             array.userId = opponentId
+            console.log(opponentId)
             const opponent = await User.findOne({ _id: opponentId })
             console.log(opponent)
             array.profileUrl = opponent.profileUrl
