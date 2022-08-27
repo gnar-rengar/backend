@@ -100,6 +100,7 @@ io.on('connection', (socket) => {
             const opponentId = room[i].userId.find((x) => x != userId)
             array.userId = opponentId
             const opponent = await User.findOne({ _id: opponentId })
+            console.log(opponent)
             array.profileUrl = opponent.profileUrl
             array.lolNickname = opponent.lolNickname
 
