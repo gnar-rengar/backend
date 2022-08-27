@@ -1,6 +1,7 @@
 const axios = require('axios')
 const User = require('../schemas/user')
 const Review = require('../schemas/review')
+const Improvement = require('../schemas/improvement')
 require('dotenv').config()
 const fs = require('fs')
 const chapmions = fs.readFileSync('datas/champions.json', 'utf8')
@@ -30,6 +31,7 @@ async function writeReview(req, res) {
 
     const goodReview = req.body.goodReview
     const badReview = req.body.badReview
+    const improvement = req.body.additionalBadReview
 
     try {
         const reviewedCheck = await Review.findOne({ reviewedId })
@@ -125,6 +127,10 @@ async function writeReview(req, res) {
         //         { $push: { banId: reviewedId } }
         //     )
         // }
+
+        if(improvement) {
+            await Improvement.create({ context: improvement })
+        }
 
         res.status(200).send({
             message: '리뷰작성에 성공하였습니다.',
