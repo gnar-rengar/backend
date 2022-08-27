@@ -128,7 +128,7 @@ async function writeReview(req, res) {
         //     )
         // }
 
-        if(improvement) {
+        if (improvement) {
             await Improvement.create({ context: improvement })
         }
 
@@ -259,7 +259,6 @@ async function recentRecord(req, res) {
         let recentRecord = []
 
         if (matchList.data.length !== 0) {
-
             for (let i = (page - 1) * size; i < size * page; i++) {
                 let data = {}
 
@@ -314,7 +313,8 @@ async function recentRecord(req, res) {
                 data.item6 = myData[0].item6
                 data.champLevel = myData[0].champLevel
                 data.totalMinionsKilled =
-                    myData[0].totalMinionsKilled + myData[0].neutralMinionsKilled
+                    myData[0].totalMinionsKilled +
+                    myData[0].neutralMinionsKilled
                 data.kills = myData[0].kills
                 data.deaths = myData[0].deaths
                 data.assists = myData[0].assists

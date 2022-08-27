@@ -2,6 +2,7 @@ const passport = require('passport')
 const jwt = require('jsonwebtoken')
 const User = require('../schemas/user')
 const RefreshToken = require('../schemas/refreshToken')
+const Improvement = require('../schemas/improvement')
 require('dotenv').config()
 
 const tokenExpireTime = process.env.VALID_ACCESS_TOKEN_TIME
@@ -47,7 +48,7 @@ const kakaoCallback = (req, res, next) => {
                 .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200)
                 .json({
-                    isOnBoarded: currentUser.isOnBoarded
+                    isOnBoarded: currentUser.isOnBoarded,
                 })
         }
     )(req, res)
@@ -86,7 +87,7 @@ const googleCallback = (req, res) => {
                 .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200)
                 .json({
-                    isOnBoarded: currentUser.isOnBoarded
+                    isOnBoarded: currentUser.isOnBoarded,
                 })
         }
     )(req, res)
@@ -125,7 +126,7 @@ const naverCallback = (req, res) => {
                 .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200)
                 .json({
-                    isOnBoarded: currentUser.isOnBoarded
+                    isOnBoarded: currentUser.isOnBoarded,
                 })
         }
     )(req, res)
@@ -164,7 +165,7 @@ const discordCallback = (req, res) => {
                 .cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 .status(200)
                 .json({
-                    isOnBoarded: currentUser.isOnBoarded
+                    isOnBoarded: currentUser.isOnBoarded,
                 })
         }
     )(req, res)
@@ -199,9 +200,14 @@ async function logout(req, res) {
 
 async function deleteUser(req, res) {
     const userId = res.locals.userId
+    const improvement = req.body.reason
 
     try {
         if (userId) {
+            if (improvement) {
+                await Improvement.create({ context: improvement })
+            }
+
             await User.deleteOne({ _id: userId })
             await RefreshToken.deleteOne({ userId })
             res.clearCookie('token', COOKIE_OPTIONS)
