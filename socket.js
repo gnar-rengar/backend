@@ -103,7 +103,7 @@ io.on('connection', (socket) => {
             array.profileUrl = opponent.profileUrl
             array.lolNickname = opponent.lolNickname
 
-            const allMessage = await Ch pm2at.find({ roomId: room[i].id })
+            const allMessage = await Chat.find({ roomId: room[i].id })
             const sortingField = 'createdAt'
             const lastMessage = allMessage.sort(function (a, b) {
                 return b[sortingField] - a[sortingField]
