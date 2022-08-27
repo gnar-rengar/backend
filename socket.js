@@ -91,9 +91,7 @@ io.on('connection', (socket) => {
     })
 
     socket.on('getChatRooms', async (userId) => {
-        console.log(userId)
         const room = await ChatRoom.find({ userId: { $in: userId } })
-        console.log(room)
 
         let data = []
         for (let i = 0; i < room.length; i++) {
@@ -101,13 +99,11 @@ io.on('connection', (socket) => {
             array.roomId = room[i].id
             const opponentId = room[i].userId.find((x) => x != userId)
             array.userId = opponentId
-            console.log(opponentId)
             const opponent = await User.findOne({ _id: opponentId })
-            console.log(opponent)
             array.profileUrl = opponent.profileUrl
             array.lolNickname = opponent.lolNickname
 
-            const allMessage = await Chat.find({ roomId: room[i].id })
+            const allMessage = await Ch pm2at.find({ roomId: room[i].id })
             const sortingField = 'createdAt'
             const lastMessage = allMessage.sort(function (a, b) {
                 return b[sortingField] - a[sortingField]
