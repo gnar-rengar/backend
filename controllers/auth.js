@@ -2,6 +2,7 @@ const passport = require('passport')
 const jwt = require('jsonwebtoken')
 const User = require('../schemas/user')
 const RefreshToken = require('../schemas/refreshToken')
+const ChatRoom = require('../schemas/chatroom')
 const Improvement = require('../schemas/improvement')
 require('dotenv').config()
 
@@ -210,6 +211,7 @@ async function deleteUser(req, res) {
 
             await User.deleteOne({ _id: userId })
             await RefreshToken.deleteOne({ userId })
+            await ChatRoom.deleteMany({ userId: { $in: userId } })
             res.clearCookie('token', COOKIE_OPTIONS)
                 .clearCookie('refreshToken', COOKIE_OPTIONS)
                 .status(200)
