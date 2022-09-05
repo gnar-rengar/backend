@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema(
         todaysCustom: { type: [String] },
         customDate: { type: String },
         isOnBoarded: { type: Boolean, default: false },
+        phoneNumber: { type: String },
     },
     { timestamps: true }
 )
