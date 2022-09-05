@@ -241,7 +241,7 @@ async function sendVerificationSMS(req, res) {
         const userId = '62f63bd76e6b6341b60cee01'
         const phoneNumber = req.body.phoneNumber
 
-        const user_phone_number = phoneNumber.split('-').join('') // SMS를 수신할 전화번호
+        // const user_phone_number = phoneNumber.split('-').join('') // SMS를 수신할 전화번호
         const verificationCode =
             Math.floor(Math.random() * (999999 - 100000)) + 100000 // 인증 코드 (6자리 숫자)
         const date = Date.now().toString() // 날짜 string
@@ -341,14 +341,6 @@ async function verifyCode(req, res) {
     }
 }
 
-async function agreeSMS(req, res) {
-    // const userId = res.locals.userId
-    const userId = '62f63bd76e6b6341b60cee01'
-    const agreeSMS = req.body.agreeSMS
-
-    
-}
-
 module.exports = {
     kakaoCallback,
     googleCallback,
@@ -359,5 +351,4 @@ module.exports = {
     deleteUser,
     sendVerificationSMS,
     verifyCode,
-    agreeSMS,
 }

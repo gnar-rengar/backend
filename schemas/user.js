@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema(
         customDate: { type: String },
         isOnBoarded: { type: Boolean, default: false },
         phoneNumber: { type: String },
-        agreeSMS: { type: Boolean }
+        agreeSMS: { type: Boolean },
     },
     { timestamps: true }
 )

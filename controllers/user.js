@@ -8,6 +8,7 @@ const chapmions = fs.readFileSync('datas/champions.json', 'utf8')
 const perks = fs.readFileSync('datas/perks.json', 'utf8')
 const queueTypes = fs.readFileSync('datas/queueTypes.json', 'utf8')
 const spells = fs.readFileSync('datas/spells.json', 'utf8')
+const crypto = require('crypto')
 
 const riotToken = process.env.riotTokenKey
 
@@ -372,6 +373,7 @@ async function mypage(req, res) {
                 useVoice: currentUser.useVoice,
                 goodReview: review.goodReview,
                 badReview: review.badReview,
+                agreeSMS: currentUser.agreeSMS,
             })
         } else {
             res.status(200).json({
@@ -385,6 +387,7 @@ async function mypage(req, res) {
                 useVoice: currentUser.useVoice,
                 goodReview,
                 badReview,
+                agreeSMS: currentUser.agreeSMS,
             })
         }
     } catch (error) {
@@ -395,9 +398,55 @@ async function mypage(req, res) {
     }
 }
 
+async function getPhoneNumber(req, res) {
+    try {
+        // const userId = res.locals.userId
+        const userId = '62f63bd76e6b6341b60cee01'
+
+        const currentUser = await User.findOne({ _id: userId })
+
+        const key = process.env.CRYPTO_KEY
+        const decode = crypto.createDecipher('des', key)
+        const decodeResult =
+            decode.update(currentUser.phoneNumber, 'base64', 'utf8') +
+            decode.final('utf8')
+        // const user_phone_number = decodeResult.split('-').join('') // SMS를 수신할 전화번호
+
+        res.json({
+            phoneNumber: decodeResult,
+        })
+    } catch (error) {
+        console.log(error)
+        res.json({
+            message: '핸드폰 번호 불러오기에 실패하였습니다.',
+        })
+    }
+}
+
+async function agreeSMS(req, res) {
+    try {
+        // const userId = res.locals.userId
+        const userId = '62f63bd76e6b6341b60cee01'
+        const agreeSMS = req.body.agreeSMS
+
+        await User.updateOne({ _id: userId }, { $set: { agreeSMS } })
+
+        res.json({
+            message: '문자 수신동의 변경에 성공하였습니다.',
+        })
+    } catch (error) {
+        console.log(error)
+        res.json({
+            message: '문자 수신동의 변경에 실패하였습니다.',
+        })
+    }
+}
+
 module.exports = {
     writeReview,
     userInfo,
     recentRecord,
     mypage,
+    getPhoneNumber,
+    agreeSMS,
 }
