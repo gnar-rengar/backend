@@ -241,8 +241,8 @@ async function deleteUser(req, res) {
 
 async function sendVerificationSMS(req, res) {
     try {
-        // const userId = res.locals.userId
-        const userId = '62f63bd76e6b6341b60cee01'
+        const userId = res.locals.userId
+
         const phoneNumber = req.body.phoneNumber
 
         // const user_phone_number = phoneNumber.split('-').join('') // SMS를 수신할 전화번호
@@ -319,8 +319,8 @@ async function sendVerificationSMS(req, res) {
 }
 
 async function verifyCode(req, res) {
-    // const userId = res.locals.userId
-    const userId = '62f63bd76e6b6341b60cee01'
+    const userId = res.locals.userId
+
     const { phoneNumber, code } = req.body
 
     const dbCode = await Certification.findOne({ userId })

@@ -357,10 +357,17 @@ async function mypage(req, res) {
 
     let goodReview = []
     let badReview = []
+    let registerPhone
 
     try {
         const currentUser = await User.findOne({ _id: userId })
         const review = await Review.findOne({ reviewedId: userId })
+        if(currentUser.phoneNumber){
+            registerPhone = true
+        }
+        else {
+            registerPhone = false
+        }
 
         if (review) {
             res.status(200).json({
@@ -374,7 +381,7 @@ async function mypage(req, res) {
                 useVoice: currentUser.useVoice,
                 goodReview: review.goodReview,
                 badReview: review.badReview,
-                agreeSMS: currentUser.agreeSMS,
+                registerPhone
             })
         } else {
             res.status(200).json({
@@ -388,7 +395,7 @@ async function mypage(req, res) {
                 useVoice: currentUser.useVoice,
                 goodReview,
                 badReview,
-                agreeSMS: currentUser.agreeSMS,
+                registerPhone
             })
         }
     } catch (error) {
@@ -426,8 +433,7 @@ async function getPhoneNumber(req, res) {
 
 async function agreeSMS(req, res) {
     try {
-        // const userId = res.locals.userId
-        const userId = '62f63bd76e6b6341b60cee01'
+        const userId = res.locals.userId
         const agreeSMS = req.body.agreeSMS
 
         await User.updateOne({ _id: userId }, { $set: { agreeSMS } })
@@ -445,10 +451,8 @@ async function agreeSMS(req, res) {
 
 async function sendSMS(req, res) {
     try {
-        // const userId = res.locals.userId
-        // const opponentId = req.body.opponentId
-        const userId = '6309b2770ace3287b48dc2e5'
-        const opponentId = '62f63bd76e6b6341b60cee01'
+        const userId = res.locals.userId
+        const opponentId = req.body.opponentId
 
         const user = await User.findOne({ _id: userId })
         const opponent = await User.findOne({ _id: opponentId })
@@ -525,8 +529,7 @@ async function sendSMS(req, res) {
 }
 
 async function firstLogin(req, res) {
-    // const userId = res.locals.userId
-    const userId = '62f63bd76e6b6341b60cee01'
+    const userId = res.locals.userId
 
     await User.updateOne({ _id: userId }, { $set: { firstLogin: false } })
 }

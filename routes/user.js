@@ -11,9 +11,9 @@ router.get('/userInfo/:userId', userController.userInfo)
 router.get('/recentRecord/:userId', userController.recentRecord)
 
 router.get('/mypage', checkTokens, userController.mypage)
-router.get('/getPhoneNumber', userController.getPhoneNumber)
-router.patch('/agreeSMS', userController.agreeSMS)
-router.post('/sendSMS', userController.sendSMS)
-router.patch('/firstLogin', userController.firstLogin)
+router.get('/getPhoneNumber', checkTokens, userController.getPhoneNumber)
+router.patch('/agreeSMS', checkTokens, userController.agreeSMS)
+router.post('/sendSMS', checkTokens, userController.sendSMS)
+router.patch('/firstLogin', checkTokens, userController.firstLogin)
 
 module.exports = router

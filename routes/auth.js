@@ -20,7 +20,7 @@ router.get('/', checkTokens, authController.checkMyInfo)
 router.delete('/logout', checkTokens, authController.logout)
 router.delete('/deleteUser', checkTokens, authController.deleteUser)
 
-router.post('/sendCode', authController.sendVerificationSMS)
-router.post('/verifyCode', authController.verifyCode)
+router.post('/sendCode', checkTokens, authController.sendVerificationSMS)
+router.post('/verifyCode', checkTokens, authController.verifyCode)
 
 module.exports = router
