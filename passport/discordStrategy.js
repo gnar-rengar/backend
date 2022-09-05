@@ -77,6 +77,7 @@ module.exports = () => {
                             social: 'discord',
                             socialId: profile.id,
                             nickname,
+                            firstLogin: true
                         })
                         done(null, newUser)
                     }

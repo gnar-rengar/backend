@@ -80,6 +80,7 @@ module.exports = () => {
                             social: 'kakao',
                             socialId: profile.id,
                             nickname,
+                            firstLogin: true
                         })
                         done(null, newUser)
                     }

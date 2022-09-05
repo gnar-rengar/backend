@@ -21,6 +21,7 @@ const userSchema = new mongoose.Schema(
         isOnBoarded: { type: Boolean, default: false },
         phoneNumber: { type: String },
         agreeSMS: { type: Boolean },
+        firstLogin: { type: Boolean },
     },
     { timestamps: true }
 )
