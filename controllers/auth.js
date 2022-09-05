@@ -332,13 +332,21 @@ async function verifyCode(req, res) {
 
         await User.updateOne(
             { _id: userId },
-            { $set: { phoneNumber: encryptResult } }
+            { $set: { phoneNumber: encryptResult, agreeSMS: true } }
         )
 
         return res.status(200).json({ message: '핸드폰 인증 완료.' })
     } else {
         return res.status(400).json({ message: '인증번호가 다릅니다.' })
     }
+}
+
+async function agreeSMS(req, res) {
+    // const userId = res.locals.userId
+    const userId = '62f63bd76e6b6341b60cee01'
+    const agreeSMS = req.body.agreeSMS
+
+    
 }
 
 module.exports = {
@@ -351,4 +359,5 @@ module.exports = {
     deleteUser,
     sendVerificationSMS,
     verifyCode,
+    agreeSMS,
 }
