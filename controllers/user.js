@@ -8,6 +8,7 @@ const chapmions = fs.readFileSync('datas/champions.json', 'utf8')
 const perks = fs.readFileSync('datas/perks.json', 'utf8')
 const queueTypes = fs.readFileSync('datas/queueTypes.json', 'utf8')
 const spells = fs.readFileSync('datas/spells.json', 'utf8')
+const CryptoJS = require('crypto-js')
 const crypto = require('crypto')
 
 const riotToken = process.env.riotTokenKey
@@ -442,6 +443,80 @@ async function agreeSMS(req, res) {
     }
 }
 
+async function sendSMS(req, res) {
+    // const userId = req.body.userId
+    // const opponentId = req.body.opponentId
+    const userId = '6309b2770ace3287b48dc2e5'
+    const opponentId = '62f63bd76e6b6341b60cee01'
+
+    const user = await User.findOne({ _id: userId })
+    const opponent = await User.findOne({ _id: opponentId })
+
+    if (opponent.agreeSMS === true) {
+        const key = process.env.CRYPTO_KEY
+        const decode = crypto.createDecipher('des', key)
+        const decodeResult =
+            decode.update(opponent.phoneNumber, 'base64', 'utf8') +
+            decode.final('utf8')
+        const date = Date.now().toString()
+
+        // 환경 변수
+        const sens_service_id = process.env.NCP_SENS_ID
+        const sens_access_key = process.env.NCP_SENS_ACCESS
+        const sens_secret_key = process.env.NCP_SENS_SECRET
+        const sens_call_number = process.env.CALLER_NUMBER
+
+        // url 관련 변수 선언
+        const method = 'POST'
+        const space = ' '
+        const newLine = '\n'
+        const url = `https://sens.apigw.ntruss.com/sms/v2/services/${sens_service_id}/messages`
+        const url2 = `/sms/v2/services/${sens_service_id}/messages`
+
+        // signature 작성 : crypto-js 모듈을 이용하여 암호화
+        const hmac = CryptoJS.algo.HMAC.create(
+            CryptoJS.algo.SHA256,
+            sens_secret_key
+        )
+        hmac.update(method)
+        hmac.update(space)
+        hmac.update(url2)
+        hmac.update(newLine)
+        hmac.update(date)
+        hmac.update(newLine)
+        hmac.update(sens_access_key)
+        const hash = hmac.finalize()
+        const signature = hash.toString(CryptoJS.enc.Base64)
+
+        const smsRes = await axios({
+            method: method,
+            url: url,
+            headers: {
+                'Contenc-type': 'application/json; charset=utf-8',
+                'x-ncp-iam-access-key': sens_access_key,
+                'x-ncp-apigw-timestamp': date,
+                'x-ncp-apigw-signature-v2': signature,
+            },
+            data: {
+                type: 'SMS',
+                countryCode: '82',
+                from: sens_call_number,
+                content: `${opponent.lolNickname}님, ${user.lolNickname}님이 새로운 채팅을 보냈어요! \n https://duoduo.lol`,
+                messages: [{ to: `${decodeResult}` }],
+            },
+        })
+        console.log('response', smsRes.data)
+
+        res.json({
+            message: '문자를 발송했습니다.',
+        })
+    } else {
+        res.json({
+            message: '수신동의 거부한 유저입니다.',
+        })
+    }
+}
+
 module.exports = {
     writeReview,
     userInfo,
@@ -449,4 +524,5 @@ module.exports = {
     mypage,
     getPhoneNumber,
     agreeSMS,
+    sendSMS
 }

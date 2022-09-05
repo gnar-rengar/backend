@@ -289,7 +289,7 @@ async function sendVerificationSMS(req, res) {
                 countryCode: '82',
                 from: sens_call_number,
                 content: `듀오해듀오 인증번호는 [${verificationCode}] 입니다.`,
-                messages: [{ to: `${user_phone_number}` }],
+                messages: [{ to: `${phoneNumber}` }],
             },
         })
         console.log('response', smsRes.data)

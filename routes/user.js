@@ -13,5 +13,6 @@ router.get('/recentRecord/:userId', userController.recentRecord)
 router.get('/mypage', checkTokens, userController.mypage)
 router.get('/getPhoneNumber', userController.getPhoneNumber)
 router.patch('/agreeSMS', userController.agreeSMS)
+router.post('/sendSMS', userController.sendSMS)
 
 module.exports = router
