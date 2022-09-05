@@ -14,5 +14,6 @@ router.get('/mypage', checkTokens, userController.mypage)
 router.get('/getPhoneNumber', userController.getPhoneNumber)
 router.patch('/agreeSMS', userController.agreeSMS)
 router.post('/sendSMS', userController.sendSMS)
+router.patch('/firstLogin', userController.firstLogin)
 
 module.exports = router

@@ -54,7 +54,7 @@ const kakaoCallback = (req, res, next) => {
                 .status(200)
                 .json({
                     isOnBoarded: currentUser.isOnBoarded,
-                    firstLogin: currentUser.firstLogin
+                    firstLogin: currentUser.firstLogin,
                 })
         }
     )(req, res)
@@ -94,7 +94,7 @@ const googleCallback = (req, res) => {
                 .status(200)
                 .json({
                     isOnBoarded: currentUser.isOnBoarded,
-                    firstLogin: currentUser.firstLogin
+                    firstLogin: currentUser.firstLogin,
                 })
         }
     )(req, res)
@@ -134,7 +134,7 @@ const naverCallback = (req, res) => {
                 .status(200)
                 .json({
                     isOnBoarded: currentUser.isOnBoarded,
-                    firstLogin: currentUser.firstLogin
+                    firstLogin: currentUser.firstLogin,
                 })
         }
     )(req, res)
@@ -174,7 +174,7 @@ const discordCallback = (req, res) => {
                 .status(200)
                 .json({
                     isOnBoarded: currentUser.isOnBoarded,
-                    firstLogin: currentUser.firstLogin
+                    firstLogin: currentUser.firstLogin,
                 })
         }
     )(req, res)

@@ -77,7 +77,7 @@ module.exports = () => {
                             social: 'google',
                             socialId: profile.id,
                             nickname,
-                            firstLogin: true
+                            firstLogin: true,
                         })
                         done(null, newUser)
                     }
