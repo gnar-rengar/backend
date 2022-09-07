@@ -67,13 +67,6 @@ module.exports = () => {
                             )
                         }
 
-                        if(!exUser.firstLogin) {
-                            await User.updateOne(
-                                { socialId: profile.id, social: 'discord' },
-                                { $set: { firstLogin: true } }
-                            )
-                        }
-
                         done(null, exUser)
                     } else {
                         let nickname = profile._json.properties.nickname
