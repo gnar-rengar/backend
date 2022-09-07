@@ -64,6 +64,8 @@ module.exports = () => {
                                 leaguePoints = ''
                             }
 
+                            console.log(tier, rank, leaguePoints)
+
                             await User.updateOne(
                                 { socialId: profile.id, social: 'naver' },
                                 { $set: { tier, rank, leaguePoints } }
