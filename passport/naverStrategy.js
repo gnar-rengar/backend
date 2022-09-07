@@ -70,6 +70,15 @@ module.exports = () => {
                             )
                         }
 
+                        console.log(exUser.firstLogin)
+
+                        if(exUser.firstLogin) {
+                            await User.updateOne(
+                                { socialId: profile.id, social: 'naver' },
+                                { $set: { firstLogin: true } }
+                            )
+                        }
+
                         done(null, exUser)
                     } else {
                         let nickname = profile.nickname
