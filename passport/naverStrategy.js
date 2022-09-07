@@ -50,9 +50,13 @@ module.exports = () => {
                                 },
                             })
 
+                            console.log(leaguePoint)
+
                             const soloPoint = leaguePoint.data.find(
                                 (x) => x.queueType == 'RANKED_SOLO_5x5'
                             )
+
+                            console.log(soloPoint)
 
                             if (soloPoint) {
                                 tier = soloPoint.tier
