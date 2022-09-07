@@ -70,10 +70,7 @@ module.exports = () => {
                             )
                         }
 
-                        console.log(exUser.firstLogin)
-
                         if(!exUser.firstLogin) {
-                            console.log('@@@')
                             await User.updateOne(
                                 { socialId: profile.id, social: 'naver' },
                                 { $set: { firstLogin: true } }

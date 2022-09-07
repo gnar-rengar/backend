@@ -67,6 +67,13 @@ module.exports = () => {
                             )
                         }
 
+                        if(!exUser.firstLogin) {
+                            await User.updateOne(
+                                { socialId: profile.id, social: 'naver' },
+                                { $set: { firstLogin: true } }
+                            )
+                        }
+
                         done(null, exUser)
                     } else {
                         let nickname = profile.nickname //profile.nickname 맞는지 확인해야함
