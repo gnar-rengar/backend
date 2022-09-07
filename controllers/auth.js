@@ -186,6 +186,7 @@ async function checkMyInfo(req, res) {
     const profileUrl = res.locals.profileUrl
     const isOnBoarded = res.locals.isOnBoarded
     const playStyle = res.locals.playStyle
+    const firstLogin = res.locals.firstLogin
 
     res.status(200).json({
         userId,
@@ -193,6 +194,7 @@ async function checkMyInfo(req, res) {
         profileUrl,
         isOnBoarded,
         playStyle,
+        firstLogin
     })
 }
 

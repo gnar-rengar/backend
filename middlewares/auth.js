@@ -24,6 +24,7 @@ module.exports = {
             res.locals.profileUrl = currentUser.profileUrl
             res.locals.isOnBoarded = currentUser.isOnBoarded
             res.locals.playStyle = currentUser.playStyle
+            res.locals.firstLogin = currentUser.firstLogin
 
             next()
         } catch (error) {
@@ -58,6 +59,7 @@ module.exports = {
                     res.locals.profileUrl = currentUser.profileUrl
                     res.locals.isOnBoarded = currentUser.isOnBoarded
                     res.locals.playStyle = currentUser.playStyle
+                    res.locals.firstLogin = currentUser.firstLogin
 
                     next()
                 } else {
