@@ -410,8 +410,7 @@ async function mypage(req, res) {
 
 async function getPhoneNumber(req, res) {
     try {
-        // const userId = res.locals.userId
-        const userId = '62f63bd76e6b6341b60cee01'
+        const userId = res.locals.userId
 
         const currentUser = await User.findOne({ _id: userId })
 
