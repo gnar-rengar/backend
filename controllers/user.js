@@ -533,6 +533,10 @@ async function firstLogin(req, res) {
     const userId = res.locals.userId
 
     await User.updateOne({ _id: userId }, { $set: { firstLogin: false } })
+
+    res.json({
+        message: '첫 로그인 false 변경.',
+    })
 }
 
 module.exports = {
