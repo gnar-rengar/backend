@@ -381,7 +381,8 @@ async function mypage(req, res) {
                 useVoice: currentUser.useVoice,
                 goodReview: review.goodReview,
                 badReview: review.badReview,
-                registerPhone
+                registerPhone,
+                agreeSMS: currentUser.agreeSMS
             })
         } else {
             res.status(200).json({
@@ -395,7 +396,8 @@ async function mypage(req, res) {
                 useVoice: currentUser.useVoice,
                 goodReview,
                 badReview,
-                registerPhone
+                registerPhone,
+                agreeSMS: currentUser.agreeSMS
             })
         }
     } catch (error) {
