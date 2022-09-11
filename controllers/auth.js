@@ -314,7 +314,7 @@ async function sendVerificationSMS(req, res) {
         })
     } catch (err) {
         console.log(err)
-        res.json({
+        res.status(400).json({
             message: '인증번호 전송을 실패하였습니다.',
         })
     }
