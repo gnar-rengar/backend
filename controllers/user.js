@@ -414,16 +414,12 @@ async function getPhoneNumber(req, res) {
 
         const currentUser = await User.findOne({ _id: userId })
 
-        console.log(currentUser.nickname)
-
         const key = process.env.CRYPTO_KEY
         const decode = crypto.createDecipher('des', key)
         const decodeResult =
             decode.update(currentUser.phoneNumber, 'base64', 'utf8') +
             decode.final('utf8')
         // const user_phone_number = decodeResult.split('-').join('') // SMS를 수신할 전화번호
-
-        console.log(decodeResult)
 
         res.json({
             phoneNumber: decodeResult,
