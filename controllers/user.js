@@ -362,10 +362,9 @@ async function mypage(req, res) {
     try {
         const currentUser = await User.findOne({ _id: userId })
         const review = await Review.findOne({ reviewedId: userId })
-        if(currentUser.phoneNumber){
+        if (currentUser.phoneNumber) {
             registerPhone = true
-        }
-        else {
+        } else {
             registerPhone = false
         }
 
@@ -382,7 +381,7 @@ async function mypage(req, res) {
                 goodReview: review.goodReview,
                 badReview: review.badReview,
                 registerPhone,
-                agreeSMS: currentUser.agreeSMS
+                agreeSMS: currentUser.agreeSMS,
             })
         } else {
             res.status(200).json({
@@ -397,7 +396,7 @@ async function mypage(req, res) {
                 goodReview,
                 badReview,
                 registerPhone,
-                agreeSMS: currentUser.agreeSMS
+                agreeSMS: currentUser.agreeSMS,
             })
         }
     } catch (error) {

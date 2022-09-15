@@ -70,7 +70,10 @@ module.exports = () => {
                             )
                         }
 
-                        if(exUser.firstLogin !== true && exUser.firstLogin !== false) {
+                        if (
+                            exUser.firstLogin !== true &&
+                            exUser.firstLogin !== false
+                        ) {
                             await User.updateOne(
                                 { socialId: profile.id, social: 'naver' },
                                 { $set: { firstLogin: true } }

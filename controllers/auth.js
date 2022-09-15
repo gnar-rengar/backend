@@ -194,7 +194,7 @@ async function checkMyInfo(req, res) {
         profileUrl,
         isOnBoarded,
         playStyle,
-        firstLogin
+        firstLogin,
     })
 }
 
