@@ -506,7 +506,7 @@ async function sendSMS(req, res) {
                     type: 'SMS',
                     countryCode: '82',
                     from: sens_call_number,
-                    content: `[듀오해듀오] ${opponent.lolNickname}님, ${user.lolNickname}님이 새로운 채팅을 보냈어요. 지금 바로 확인하러 가요! \n https://duoduo.lol`,
+                    content: `[듀오해듀오] ${opponent.lolNickname}님, ${user.lolNickname}님이 새로운 채팅을 보냈어요! \n https://duoduo.lol`,
                     messages: [{ to: `${decodeResult}` }],
                 },
             })
