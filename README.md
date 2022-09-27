@@ -1,7 +1,5 @@
 # 듀오해듀오
 
-![Frame 9125.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ad2734d6-1a8c-473d-b585-2be6b6f49757/Frame_9125.jpg)
-
 듀오해듀오는 내 플레이스타일 기반 찰떡 듀오를 매칭해주는 서비스에요
 
 1️⃣ 롤비티아이 기반 알고리즘으로 찰떡 듀오를 매칭해드려요 🤝
