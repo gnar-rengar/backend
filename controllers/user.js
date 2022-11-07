@@ -304,7 +304,9 @@ async function recentRecord(req, res) {
                         (x) => x.id === myData[0].perks.styles[0].style
                     )
                     data.perk1 = primaryStyle.slots[0].runes.find(
-                        (x) => x.id === myData[0].perks.styles[0].selections[0].perk
+                        (x) =>
+                            x.id ===
+                            myData[0].perks.styles[0].selections[0].perk
                     ).icon
                     data.perk2 = JSON.parse(perks).find(
                         (x) => x.id === myData[0].perks.styles[1].style
@@ -337,13 +339,18 @@ async function recentRecord(req, res) {
                         }
                     } else {
                         data.kda =
-                            (myData[0].kills + myData[0].assists) / myData[0].deaths
+                            (myData[0].kills + myData[0].assists) /
+                            myData[0].deaths
                     }
 
                     recentRecord.push(data)
                 }
             }
-            await redis.setEx(`${userId}/${page}`, 3600, JSON.stringify(recentRecord))
+            await redis.setEx(
+                `${userId}/${page}`,
+                3600,
+                JSON.stringify(recentRecord)
+            )
             res.status(200).json({
                 recentRecord,
             })
