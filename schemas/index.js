@@ -12,6 +12,6 @@ const connect = () => {
             if (err) throw err
         })
 }
-console.log('데이터베이스에 연결되었습니다.')
+console.log('MONGODB 데이터베이스에 연결되었습니다.')
 
 module.exports = connect

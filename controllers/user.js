@@ -10,6 +10,7 @@ const queueTypes = fs.readFileSync('datas/queueTypes.json', 'utf8')
 const spells = fs.readFileSync('datas/spells.json', 'utf8')
 const CryptoJS = require('crypto-js')
 const crypto = require('crypto')
+const redis = require('../redis/redis').v4
 
 const riotToken = process.env.riotTokenKey
 
@@ -233,111 +234,120 @@ async function recentRecord(req, res) {
     const userId = req.params.userId
     const page = req.query.page
     const size = 5
+    let recentRecord = []
 
     try {
-        const currentUser = await User.findOne({ _id: userId })
-        const lolNickname = currentUser.lolNickname
+        const cacheExist = await redis.exists(`${userId}/${page}`)
 
-        const summoner = await axios({
-            method: 'GET',
-            url: encodeURI(
-                `https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${lolNickname}`
-            ),
-            headers: {
-                'X-Riot-Token': riotToken,
-            },
-        })
+        if (cacheExist) {
+            const cacheData = await redis.get(`${userId}/${page}`)
 
-        const matchList = await axios({
-            method: 'GET',
-            url: encodeURI(
-                `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${summoner.data.puuid}/ids?start=0&count=100`
-            ),
-            headers: {
-                'X-Riot-Token': riotToken,
-            },
-        })
+            res.status(200).json({
+                recentRecord: JSON.parse(cacheData),
+            })
+        } else {
+            const currentUser = await User.findOne({ _id: userId })
+            const lolNickname = currentUser.lolNickname
 
-        let recentRecord = []
+            const summoner = await axios({
+                method: 'GET',
+                url: encodeURI(
+                    `https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${lolNickname}`
+                ),
+                headers: {
+                    'X-Riot-Token': riotToken,
+                },
+            })
 
-        if (matchList.data.length !== 0) {
-            for (let i = (page - 1) * size; i < size * page; i++) {
-                let data = {}
+            const matchList = await axios({
+                method: 'GET',
+                url: encodeURI(
+                    `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${summoner.data.puuid}/ids?start=0&count=100`
+                ),
+                headers: {
+                    'X-Riot-Token': riotToken,
+                },
+            })
 
-                const match = await axios({
-                    method: 'GET',
-                    url: encodeURI(
-                        `https://asia.api.riotgames.com/lol/match/v5/matches/${matchList.data[i]}`
-                    ),
-                    headers: {
-                        'X-Riot-Token': riotToken,
-                    },
-                })
+            if (matchList.data.length !== 0) {
+                for (let i = (page - 1) * size; i < size * page; i++) {
+                    let data = {}
 
-                const myData = match.data.info.participants.filter(
-                    (x) => x.puuid == summoner.data.puuid
-                )
+                    const match = await axios({
+                        method: 'GET',
+                        url: encodeURI(
+                            `https://asia.api.riotgames.com/lol/match/v5/matches/${matchList.data[i]}`
+                        ),
+                        headers: {
+                            'X-Riot-Token': riotToken,
+                        },
+                    })
 
-                data.gameMode = match.data.info.gameMode
-                data.gameType = match.data.info.gameType
-                data.queueType = JSON.parse(queueTypes).find(
-                    (x) => x.queueId === match.data.info.queueId
-                ).description
-                data.gameStartTimestamp = match.data.info.gameStartTimestamp
-                data.gameEndTimestamp = match.data.info.gameEndTimestamp
-                data.win = myData[0].win
-                const champion = JSON.parse(chapmions).find(
-                    (x) => x.key == myData[0].championId
-                )
-                data.championName = champion.id
-                data.championNameKR = champion.name
-                const primaryStyle = JSON.parse(perks).find(
-                    (x) => x.id === myData[0].perks.styles[0].style
-                )
-                data.perk1 = primaryStyle.slots[0].runes.find(
-                    (x) => x.id === myData[0].perks.styles[0].selections[0].perk
-                ).icon
-                data.perk2 = JSON.parse(perks).find(
-                    (x) => x.id === myData[0].perks.styles[1].style
-                ).icon
-                data.spell1 = JSON.parse(spells).find(
-                    (x) => x.key == myData[0].summoner1Id
-                ).id
-                data.spell2 = JSON.parse(spells).find(
-                    (x) => x.key == myData[0].summoner2Id
-                ).id
-                data.item0 = myData[0].item0
-                data.item1 = myData[0].item1
-                data.item2 = myData[0].item2
-                data.item3 = myData[0].item3
-                data.item4 = myData[0].item4
-                data.item5 = myData[0].item5
-                data.item6 = myData[0].item6
-                data.champLevel = myData[0].champLevel
-                data.totalMinionsKilled =
-                    myData[0].totalMinionsKilled +
-                    myData[0].neutralMinionsKilled
-                data.kills = myData[0].kills
-                data.deaths = myData[0].deaths
-                data.assists = myData[0].assists
-                if (myData[0].deaths == 0) {
-                    if (myData[0].kills + myData[0].assists == 0) {
-                        data.kda = 0
+                    const myData = match.data.info.participants.filter(
+                        (x) => x.puuid == summoner.data.puuid
+                    )
+
+                    data.gameMode = match.data.info.gameMode
+                    data.gameType = match.data.info.gameType
+                    data.queueType = JSON.parse(queueTypes).find(
+                        (x) => x.queueId === match.data.info.queueId
+                    ).description
+                    data.gameStartTimestamp = match.data.info.gameStartTimestamp
+                    data.gameEndTimestamp = match.data.info.gameEndTimestamp
+                    data.win = myData[0].win
+                    const champion = JSON.parse(chapmions).find(
+                        (x) => x.key == myData[0].championId
+                    )
+                    data.championName = champion.id
+                    data.championNameKR = champion.name
+                    const primaryStyle = JSON.parse(perks).find(
+                        (x) => x.id === myData[0].perks.styles[0].style
+                    )
+                    data.perk1 = primaryStyle.slots[0].runes.find(
+                        (x) => x.id === myData[0].perks.styles[0].selections[0].perk
+                    ).icon
+                    data.perk2 = JSON.parse(perks).find(
+                        (x) => x.id === myData[0].perks.styles[1].style
+                    ).icon
+                    data.spell1 = JSON.parse(spells).find(
+                        (x) => x.key == myData[0].summoner1Id
+                    ).id
+                    data.spell2 = JSON.parse(spells).find(
+                        (x) => x.key == myData[0].summoner2Id
+                    ).id
+                    data.item0 = myData[0].item0
+                    data.item1 = myData[0].item1
+                    data.item2 = myData[0].item2
+                    data.item3 = myData[0].item3
+                    data.item4 = myData[0].item4
+                    data.item5 = myData[0].item5
+                    data.item6 = myData[0].item6
+                    data.champLevel = myData[0].champLevel
+                    data.totalMinionsKilled =
+                        myData[0].totalMinionsKilled +
+                        myData[0].neutralMinionsKilled
+                    data.kills = myData[0].kills
+                    data.deaths = myData[0].deaths
+                    data.assists = myData[0].assists
+                    if (myData[0].deaths == 0) {
+                        if (myData[0].kills + myData[0].assists == 0) {
+                            data.kda = 0
+                        } else {
+                            data.kda = -1 // Infinity
+                        }
                     } else {
-                        data.kda = -1 // Infinity
+                        data.kda =
+                            (myData[0].kills + myData[0].assists) / myData[0].deaths
                     }
-                } else {
-                    data.kda =
-                        (myData[0].kills + myData[0].assists) / myData[0].deaths
+
+                    recentRecord.push(data)
                 }
-
-                recentRecord.push(data)
             }
+            await redis.setEx(`${userId}/${page}`, 3600, JSON.stringify(recentRecord))
+            res.status(200).json({
+                recentRecord,
+            })
         }
-
-        res.status(200).json({
-            recentRecord,
-        })
     } catch (error) {
         console.log(error)
         res.json({
