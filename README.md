@@ -36,7 +36,8 @@
 
 ### **Library**
 
-![image](https://user-images.githubusercontent.com/86117661/192492116-8797751b-fcbf-458e-a29e-0b099a6772e7.png)
+![image](https://user-images.githubusercontent.com/86117661/200250200-09cfdf5a-e790-43c4-ae59-20c36ad0ed35.png)
+
 
 ## 5️⃣ Trouble Shooting
 
@@ -53,6 +54,28 @@
 - → 서버와 클라이언트의 도메인이 달라 서버 측 도메인에 쿠키가 저장되고 있었음
 - → 여전히 클라이언트에서 그 쿠키를 사용할 순 없었기에 클라이언트 주소인 [https://duoduo.lol](https://duoduo.lol에)의 하위 도메인인  [https://server.duoduo.lol](https://server.duoduo.lol로)로 서버 주소를 이전함
 - → 원하던 대로 네트워크 헤더에도, 브라우저 쿠키에도 둘 다 저장이 됨!
+
+### issue 2
+
+### 🤔 situation
+
+- 하루에 한번 나의 플레이스타일에 맞는 유저 3명을 추천해주는 가장 중요한 API가 있었는데, 모든 유저를 불러와서 알고리즘을 적용시키는 것은 말도 안되는 방법이었기에 DB에서 가져올 때 애초에 3명을 뽑아와야 했는데 이전 프로젝트를 하면서 익숙해진 mySQL이 아닌 mongoDB를 사용하였기에 그 방법이 떠오르지 않음
+
+### 😙 solution
+
+- 오랜 검색 끝에 mongoose의 aggregate를 사용하여 해결
+- 이 때 mongoDB도 mySQL처럼 관계형은 아니지만, 관계형처럼 사용할 수 있는 방법이 많다는 것을 알아냄
+
+### issue 3
+
+### 🤔 situation
+
+- 최근 전적을 불러올 때,  유저고유ID를 통해 MongoDB에서 해당 유저의 롤 닉네임을 가져온 뒤, axios를 이용하여 riot api와 통신하여 소환사 데이터를 받고, 받은 데이터에서 소환사 puuid를 가지고 다시 한번 riot api와 통신하여 매치id 리스트를 100개를 받아왔다. 그 후 최근 전적 페이지네이션에 따라 5개씩 또 riot api와 통신해서 각 매치의 정보를 받아왔다. 최근전적 5개를 가져올 때 axios통신만 7번씩 해야해서 응답속도가 너무 오래걸렸고 유저에게 불편한 경험을 줄 것 같았다.
+
+### 😙 solution
+
+- redis를 이용하여 캐싱을 해서 해결
+- 캐시 데이터가 만료되기 전까지는 응답속도를 평균 **3.03 s → 389 ms** 로 88%가량 단축시켰다.
 
 ## 6️⃣ Members
 
