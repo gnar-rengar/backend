@@ -20,9 +20,64 @@
 
 2022.07 ~ 2022.08 (6주)
 
-## 2️⃣ 깃허브 링크
+## 2️⃣ 서비스 화면
 
-[https://github.com/gnar-rengar/backend](https://github.com/gnar-rengar/backend)
+### 온보딩 및 롤비티아이(플레이스타일 검사)
+
+![duo-tendency_test](https://user-images.githubusercontent.com/78065948/219393510-2e815669-17a1-4508-ad47-735b3d3c42d4.gif)
+
+### 홈
+
+![duo-home](https://user-images.githubusercontent.com/78065948/219356198-e50e47c8-10f7-4e07-bb18-0b9e9fc8faab.gif)
+
+### 맞춤 추천 소환사
+
+![duo-recommendjpg](https://user-images.githubusercontent.com/78065948/219357409-00ead885-e31a-45c9-8ac8-92e35d084001.jpg)
+
+### 최신 소환사
+
+![duo-recommend_new](https://user-images.githubusercontent.com/78065948/219357502-e9a40c31-00fa-4c33-8949-060b010ee262.gif)
+
+### 유저 프로필
+
+![duo-profile](https://user-images.githubusercontent.com/78065948/219356502-0c8be51d-bea4-4dca-94a6-17e69882987d.gif)
+
+### 전적
+
+![duo-match_history](https://user-images.githubusercontent.com/78065948/219356897-c51a30a9-c6ba-4aa9-8f08-60271c0a6b21.gif)
+
+### 채팅
+
+![duo-chat](https://user-images.githubusercontent.com/78065948/219401185-7d7378b2-b5c3-4916-8ef3-e1ed22b856a6.gif)
+![duo-chat_notice](https://user-images.githubusercontent.com/78065948/219405808-c85157c9-0826-47cf-adcf-6526faabbce3.gif)
+
+### 리뷰 작성
+
+![duo-review_positive](https://user-images.githubusercontent.com/78065948/219357204-b034cb29-a4ef-4d2e-bbc5-10ca03360e83.jpg)
+![duo-review_netgative](https://user-images.githubusercontent.com/78065948/219357088-df57f6d4-7471-44fe-aadc-562f31113618.jpg)
+![duo-review_complete](https://user-images.githubusercontent.com/78065948/219357079-f5935ebe-52bd-4744-8dfe-5bd43e9f2935.jpg)
+
+### 마이 페이지
+
+![duo-mypage](https://user-images.githubusercontent.com/78065948/219357746-e8023ae9-d3b9-4595-9846-d061b91d4e9b.jpg)
+
+### 회원 탈퇴
+
+![duo-withdrawl](https://user-images.githubusercontent.com/78065948/219358154-5486a575-0e3b-4b4f-bdb4-1587e28ee4cf.jpg)
+
+### 로그인
+
+![duo-login](https://user-images.githubusercontent.com/78065948/219358224-f78fd02e-eea9-41d2-b824-e62b004e568a.jpg)
+
+### 비로그인 화면
+
+![duo-home_blured](https://user-images.githubusercontent.com/78065948/219356714-fe0740ad-e473-4365-82fa-8a42033b8ecb.jpg)
+![duo-profile_blured](https://user-images.githubusercontent.com/78065948/219358384-ba758fc4-c933-47da-8c16-b81f21d49607.jpg)
+![image](https://user-images.githubusercontent.com/78065948/219359026-8b99cc03-34df-4597-872b-b6b2dcf0bd4d.png)
+
+### 404
+
+![duo-404](https://user-images.githubusercontent.com/78065948/219358353-2bd1ffcb-6c49-458e-87bf-b5dcfdd026ef.jpg)
 
 ## 3️⃣ **Service Architecture**
 
